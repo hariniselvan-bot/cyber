@@ -121,8 +121,10 @@
       <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
       <a href="Dashboard.html" class="hover:text-cyan-300">dashboard</a>
       <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+
       <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
-       Login
+        Login
       </a>
     </nav>
 
@@ -139,14 +141,18 @@
   <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
     <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
 
-      <button onclick="toggleMobileDrop()" class="flex items-center justify-between w-full">
-        <span>Home </span>
-        <i class="fa-solid fa-chevron-down text-sm"></i>
-      </button>
+      <!-- DROPDOWN BUTTON -->
+    <button onclick="toggleMobileDrop()" 
+            class="flex items-center justify-between w-full">
+            <a href="index.html" class="hover:text-cyan-300">Home</a>
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </button>
 
-      <div id="mobileHomeDrop" class="hidden pl-4">
-        <a href="home2.html" class="block py-2 hover:text-cyan-300">Home 2</a>
-      </div>
+    <!-- DROPDOWN CONTENT -->
+    <div id="mobileHomeDrop" class="hidden pl-4">
+      <a href="home2.html" class="block py-2 hover:text-cyan-300">Home 2</a>
+    </div>
+
        <a href="Soluation.html" class="nav-link hover:text-cyan-400">soulation</a>
       <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
       <a href="Dashboard.html" class="hover:text-cyan-300">dashboard</a>
@@ -155,6 +161,7 @@
       <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
     </div>
   </nav>
+<main class="pt-32">
 
 <script>
   const hamburgerBtn = document.getElementById("hamburgerBtn");
@@ -167,14 +174,13 @@
   const drop = document.getElementById("mobileHomeDrop");
   drop.classList.toggle("hidden");
 }
-<main class="pt-32">
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Account</title>
+<title>Modern Glass Login</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -193,7 +199,7 @@
         font-family: Poppins, sans-serif;
     }
 
-    .signup-box {
+    .login-box {
         width: 95%;
         max-width: 450px;
         padding: 40px;
@@ -234,7 +240,7 @@
         align-items: center;
     }
 
-    .signup-btn {
+    .login-btn {
         margin-top: 25px;
         width: 100%;
         padding: 14px 0;
@@ -249,7 +255,7 @@
         transition: 0.3s;
     }
 
-    .signup-btn:hover {
+    .login-btn:hover {
         opacity: 0.85;
     }
 
@@ -270,157 +276,99 @@
     .extras a:hover {
         text-decoration: underline;
     }
-  .error-text {
-    color: #be0000; 
-    font-size: 14px;
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.error-text i {
-    font-size: 16px;
-}
-
-
 </style>
 </head>
 
 <body>
-<body>
+<div class="login-box">
+    <h1 class="text-3xl font-semibold mb-8 tracking-wide">LOGIN</h1>
 
-<div class="signup-box">
-    <h1 class="text-3xl font-semibold mb-8 tracking-wide">CREATE ACCOUNT</h1>
-
-    <!-- USERNAME -->
+    <!-- USERNAME INPUT -->
     <div class="input-group">
-        <input id="name" type="text" placeholder="FULL NAME">
+        <input id="username" type="text" placeholder="USERNAME">
         <span class="icon"><i class="fas fa-user"></i></span>
-        <p id="nameErr" class="error-text"></p>
+
+        <!-- Inline warning -->
+        <div id="warnUser" class="warning">
+            <i class="fas fa-exclamation-triangle"></i> Please enter your username
+        </div>
     </div>
 
-    <!-- EMAIL -->
-    <div class="input-group">
-        <input id="email" type="email" placeholder="EMAIL">
-        <span class="icon"><i class="fas fa-envelope"></i></span>
-        <p id="emailErr" class="error-text"></p>
-    </div>
-
-    <!-- PASSWORD -->
+    <!-- PASSWORD INPUT -->
     <div class="input-group">
         <input id="password" type="password" placeholder="PASSWORD">
-        <span class="icon"><i class="fas fa-lock"></i></span>
-        <p id="passErr" class="error-text"></p>
+        <span class="icon"><i class="fas fa-key"></i></span>
+
+        <!-- Inline warning -->
+        <div id="warnPass" class="warning">
+            <i class="fas fa-exclamation-triangle"></i> Please enter your password
+        </div>
+                <a href="404.html">Forgot password?</a>
+
     </div>
 
-    <button class="signup-btn" onclick="submitSignup()">SIGN UP</button>
+    <button type="button" class="login-btn" onclick="validateLogin()">LOGIN</button>
 
     <div class="extras">
-        <a href="login.html">Already have an account? Login</a>
+        <a href="signup.html">New here? Sign up</a>
     </div>
 </div>
 
+<style>
+/* Inline warning style (same as your signup page) */
+.warning {
+    color: #ffcc00;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+</style>
 
 <script>
-function submitSignup() {
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
+function validateLogin() {
+    let user = document.getElementById("username").value.trim();
     let pass = document.getElementById("password").value.trim();
 
-    let nameErr  = document.getElementById("nameErr");
-    let emailErr = document.getElementById("emailErr");
-    let passErr  = document.getElementById("passErr");
+    let warnUser = document.getElementById("warnUser");
+    let warnPass = document.getElementById("warnPass");
 
-    // Clear previous errors
-    nameErr.innerHTML = "";
-    emailErr.innerHTML = "";
-    passErr.innerHTML = "";
+    let valid = true;
 
-    let error = false;
-
-    if (name === "") {
-        nameErr.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Please enter your name`;
-        error = true;
-    }
-
-    if (email === "") {
-        emailErr.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Please enter your email`;
-        error = true;
+    // USERNAME VALIDATION
+    if (user === "") {
+        warnUser.style.display = "block";
+        valid = false;
     } else {
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-        if (!emailPattern.test(email)) {
-            emailErr.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Enter a valid Gmail`;
-            error = true;
-        }
+        warnUser.style.display = "none";
     }
 
+    // PASSWORD VALIDATION
     if (pass === "") {
-        passErr.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Please enter a password`;
-        error = true;
+        warnPass.style.display = "block";
+        valid = false;
+    } else {
+        warnPass.style.display = "none";
     }
 
-    // ❌ Stop if error
-    if (error) return;
-
-    // ✅ Success → redirect
-    window.location.href = "404.html";
+    // If all fields good → redirect
+    if (valid) {
+        window.location.href = "404.html";
+    }
 }
 </script>
 
-</body>
-
-
-</body>
-</html>
-
-<!-- CLEAN JS (ONLY ONE SCRIPT) -->
-  <script>
-    const btn = document.getElementById("hamburgerBtn");
-    const menu = document.getElementById("mobileMenu");
-
-    btn.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
-      document.body.style.overflow = menu.classList.contains("hidden") ? "auto" : "hidden";
-    });
-
-    const elements = document.querySelectorAll("[data-animate]");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    }, { threshold: 0.2 });
-
-    elements.forEach((el) => observer.observe(el));
-  </script>
-
-
-</body>
 <script>
-/* ================= DESKTOP DROPDOWN ================= */
-const desktopHomeBtn   = document.getElementById("desktopHomeBtn");
-const desktopHomePanel = document.getElementById("desktopHomePanel");
-const desktopWrap      = document.getElementById("desktopHomeWrap");
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-desktopHomeBtn.addEventListener("click", () => {
-  const open = desktopHomePanel.classList.contains("hidden");
-  desktopHomePanel.classList.toggle("hidden", !open);
-  desktopHomeBtn.setAttribute("aria-expanded", open);
-});
-
-/* Close dropdown when clicking outside */
-document.addEventListener("click", function (e) {
-  if (!desktopWrap.contains(e.target)) {
-    desktopHomePanel.classList.add("hidden");
-    desktopHomeBtn.setAttribute("aria-expanded", "false");
-  }
-});
-
-/* ================= MOBILE DROPDOWN ================= */
-function toggleMobileDrop() {
-  document.getElementById("mobileHomeDrop").classList.toggle("hidden");
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  function toggleMobileDrop() {
+  const drop = document.getElementById("mobileHomeDrop");
+  drop.classList.toggle("hidden");
 }
+
 </script>
-
-
+</body>
 </html>
