@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stackly home</title>
+  
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    /* ---------- Global custom styles ---------- */
+    :root {
+      --accent: #06b6d4; /* cyan-400 */
+      --muted: #9ca3af;
+      --card: #0f1724; /* dark card */
+    }
+
+    /* Smooth entrance animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: translateY(24px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .fade-scale { animation: fadeScale 1s ease both; }
+
+    /* Subtle float on cards */
+    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
+
+    /* Desktop dropdown style */
+    .dropdown-panel { min-width: 11rem; }
+
+    /* Hero overlay & text shadow */
+    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
+    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
+
+    /* Responsive tweaks */
+    @media (min-width:768px) {
+      .nav-center { left: 50%; transform: translateX(-50%); }
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
+
+    /* small utils */
+    .muted { color: var(--muted); }
+
+    .what-we-do {
+    padding: 60px 20px;
+    text-align: center;
+    background: #050505; /* or remove if you want full black page */
+}
+
+.what-we-do h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #d8d8e1;
+    margin-bottom: 15px;
+}
+
+.what-we-do p {
+    color: #9eb5c7;
+    font-size: 18px;
+}
+/* Custom breakpoint: show desktop menu only at ≥1117px */
+@media (min-width: 1117px) {
+  .xl2\:flex {
+    display: flex !important;
+  }
+  .xl2\:hidden {
+    display: none !important;
+  }
+}
+.nav-active {
+  color: cyan !important;
+}
+
+
+
+  </style>
+</head>
+<body class="font-inter antialiased bg-black text-white">
+
+ 
+<!-- HEADER -->
+<header class="header fixed top-0 left-0 w-full z-50 bg-black shadow h-20 flex items-center">
+  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
+</a>
+
+     <!-- DESKTOP MENU -->
+    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
+
+      <div class="relative group">
+        <a href="index.html" class="hover:text-cyan-400 flex items-center gap-1 nav-link">
+          Home
+          <i class="fa-solid fa-chevron-down text-xs"></i>
+        </a>
+
+        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
+             w-36 top-full pt-3 z-50">
+          <a href="home2.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home 2</a>
+        </div>
+      </div>
+
+      <a href="Soluation.html"  class="nav-link hover:text-cyan-400">Soluation</a>
+      <a href="services.html"class="hover:text-cyan-300" >Services</a>
+      <a href="Dashboard.html"class="nav-link"style="color: #22d3ee !important; font-weight: 700 !important;">dashboard📊</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
+       Login
+      </a>
+    </nav>
+
+    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
+    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
+      <i class="fa-solid fa-bars text-2xl text-white"></i>
+    </button>
+
+  </div>
+</header>
+
+  
+  <!-- ================= MOBILE MENU ================= -->
+  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
+    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
+
+      <!-- DROPDOWN BUTTON -->
+    <button onclick="toggleMobileDrop()" 
+            class="flex items-center justify-between w-full">
+            <a href="index.html" class="hover:text-cyan-300">Home</a>
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </button>
+
+    <!-- DROPDOWN CONTENT -->
+    <div id="mobileHomeDrop" class="hidden pl-4">
+      <a href="home2.html" class="block py-2 hover:text-cyan-300">Home 2</a>
+    </div>
+
+
+      <a href="Soluation.html" class="nav-link hover:text-cyan-400">Soluation</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="Dashboard.html" class="hover:text-cyan-300">dashboard📊</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
+    </div>
+  </nav>
+<main class="pt-20">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stackly Cyber Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ---------------- GLOBAL ---------------- */
+:root{
+    --bg:#020b15;
+    --card:#0c1624;
+    --accent:#00eaff;
+    --accent-glow:#00eaff90;
+    --text:#d7e7ff;
+    --muted:#8da6c4;
+}
+
+body{
+    margin:0;
+    font-family:Poppins, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+/* ---------------- NAV ---------------- */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 40px;
+    background:#00000060;
+    backdrop-filter:blur(12px);
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:1px solid #ffffff10;
+}
+.navbar .logo{
+    font-size:26px;
+    font-weight:700;
+    color:var(--accent);
+    text-shadow:0 0 12px var(--accent);
+}
+.navbar ul{
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+.navbar a{
+    color:var(--text);
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+}
+.navbar a:hover{
+    color:var(--accent);
+}
+
+/* ---------------- PAGE WRAPPER ---------------- */
+.wrapper{
+    padding:40px;
+    max-width:1300px;
+    margin:auto;
+}
+
+/* ---------------- TOP CARDS ---------------- */
+.top-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-bottom:40px;
+}
+
+.card{
+    background:var(--card);
+    padding:25px;
+    border-radius:18px;
+    border:1px solid #ffffff14;
+    box-shadow:0 0 20px #00eaff10;
+    transition:0.4s ease;
+    position:relative;
+}
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 25px var(--accent-glow);
+}
+.card h3{
+    margin:0 0 8px;
+    font-size:20px;
+    font-weight:600;
+    color:var(--accent);
+}
+.card p{
+    margin:0;
+    color:var(--muted);
+    font-size:14px;
+}
+.card .num{
+    font-size:32px;
+    font-weight:700;
+    margin-top:10px;
+}
+
+/* ---------------- CHARTS GRID ---------------- */
+.charts{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
+    margin-bottom:40px;
+}
+canvas{
+    width:100% !important;
+    max-height:350px;
+    background:#0b1422;
+    padding:20px;
+    border-radius:18px;
+    border:1px solid #00eaff30;
+    box-shadow:0 0 20px #00eaff20;
+}
+
+/* ---------------- TABLE ---------------- */
+.table-card{
+    background:var(--card);
+    padding:25px;
+    border-radius:18px;
+    border:1px solid #ffffff14;
+}
+.table-card h3{
+    margin-bottom:15px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    color:var(--text);
+}
+table th, table td{
+    padding:12px 10px;
+    border-bottom:1px solid #ffffff10;
+}
+table th{
+    background:#06101c;
+    color:var(--accent);
+    text-align:left;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+
+
+<!-- ================= WRAPPER ================= -->
+<div class="wrapper">
+
+    <!-- ------------ TOP CARDS ------------ -->
+    <div class="top-cards">
+        <div class="card">
+            <h3>Active Threats</h3>
+            <p>Real-time flagged anomalies</p>
+            <div class="num" id="threatCount">27</div>
+        </div>
+
+        <div class="card">
+            <h3>Blocked Attacks</h3>
+            <p>24-hour protection log</p>
+            <div class="num" id="blockedCount">412</div>
+        </div>
+
+        <div class="card">
+            <h3>System Uptime</h3>
+            <p>Monitoring health</p>
+            <div class="num">99.98%</div>
+        </div>
+
+        <div class="card">
+            <h3>Online Devices</h3>
+            <p>Connected infrastructure</p>
+            <div class="num" id="deviceCount">89</div>
+        </div>
+    </div>
+
+    <!-- ------------ CHARTS ------------ -->
+    <div class="charts">
+        <canvas id="liveThreat"></canvas>
+        <canvas id="trafficChart"></canvas>
+    </div>
+
+    <!-- ------------ TABLE ------------ -->
+    <div class="table-card">
+        <h3>Recent Security Events</h3>
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Event</th>
+                <th>Severity</th>
+            </tr>
+            <tr><td>12:32 PM</td><td>Unauthorized Login Attempt</td><td style="color:red;">High</td></tr>
+            <tr><td>11:58 AM</td><td>Malware Signature Detected</td><td style="color:orange;">Medium</td></tr>
+            <tr><td>10:20 AM</td><td>Suspicious IP Blocked</td><td style="color:yellow;">Low</td></tr>
+            <tr><td>09:45 AM</td><td>Firewall Policy Update</td><td style="color:lightgreen;">Info</td></tr>
+        </table>
+    </div>
+
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+/* ----------- LIVE THREAT GRAPH ----------- */
+const liveCtx = document.getElementById("liveThreat");
+
+const liveData = {
+    labels:["0s"],
+    datasets:[{
+        label:"Threat Activity",
+        data:[0],
+        borderColor:"cyan",
+        backgroundColor:"rgba(0,255,255,0.2)",
+        borderWidth:2,
+        tension:0.3
+    }]
+};
+const liveChart = new Chart(liveCtx,{
+    type:"line",
+    data:liveData,
+    options:{scales:{y:{beginAtZero:true}}}
+});
+
+let time = 1;
+setInterval(()=>{
+    const val = Math.floor(Math.random()*80)+10;
+    liveData.labels.push(time+"s");
+    liveData.datasets[0].data.push(val);
+
+    if(liveData.labels.length>15){
+        liveData.labels.shift();
+        liveData.datasets[0].data.shift();
+    }
+
+    liveChart.update();
+    time++;
+},1500);
+
+/* ----------- TRAFFIC GRAPH ----------- */
+const trafficCtx = document.getElementById("trafficChart");
+
+new Chart(trafficCtx,{
+    type:"bar",
+    data:{
+        labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+        datasets:[{
+            label:"Traffic (MB)",
+            data:[500,620,710,680,790,900,850],
+            backgroundColor:"rgba(0,200,255,0.5)",
+            borderColor:"cyan",
+            borderWidth:1
+        }]
+    },
+    options:{scales:{y:{beginAtZero:true}}}
+});
+
+/* ----------- COUNTERS ANIMATION ----------- */
+function countUp(id,target){
+    let num=0;
+    const el=document.getElementById(id);
+    const interval=setInterval(()=>{
+        num++;
+        el.textContent=num;
+        if(num>=target) clearInterval(interval);
+    },20);
+}
+
+countUp("threatCount",27);
+countUp("blockedCount",412);
+countUp("deviceCount",89);
+</script>
+
+</body>
+</html>
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const mobileHomeDrop = document.getElementById("mobileHomeDrop");
+
+  // Open/close hamburger menu
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  // Dropdown inside mobile menu
+  function toggleMobileDrop() {
+    mobileHomeDrop.classList.toggle("hidden");
+  }
+</script>
+
+
+<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
+
+      <!-- LEFT -->
+      <div>
+        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
+          Get your business engaged
+        </p>
+      </div>
+
+      <!-- CENTER -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><a href="index.html" class="hover:text-white">Home </a></li>
+          <li><a href="Soluation.html" class="hover:text-white">Soluation</a></li>
+          <li><a href="services.html" class="hover:text-white">Service</a></li>
+          <li><a href="Dashboard.html" class="hover:text-white">dashboard📊</a></li>
+          <li><a href="contact.html" class="hover:text-white">Contact📞</a></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
+          <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
+          <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
+          <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
+      © Stackly – 2025. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+function reveal() {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.style.opacity = "1";
+      sec.style.transform = "translateY(0)";
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+
+</body>
+</html>
