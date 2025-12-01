@@ -249,6 +249,29 @@
     @media(max-width:768px){
       .team-grid { grid-template-columns:1fr; }
     }
+    .team-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.team-member {
+  text-align: center;
+  width: 220px; /* card size */
+}
+
+.team-member img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover; /* keeps faces looking perfect */
+  border-radius: 50%; /* makes image circular */
+  display: block;
+  margin: 0 auto 15px auto;
+  border: 3px solid #0ef; /* optional glow border */
+}
+
   </style>
 </head>
 <body>
@@ -274,27 +297,28 @@
       </p>
     </div>
 
-    <!-- Our Team -->
-    <div class="section">
-      <h2>Meet Our Team</h2>
-      <div class="team-grid">
-        <div class="team-member">
-          <img src="h2-1.webp" alt="Team Member">
-          <h3> Selvan</h3>
-          <p>Founder & Cybersecurity Expert</p>
-        </div>
-        <div class="team-member">
-          <img src="h2-2.webp" alt="Team Member">
-          <h3>John Doe</h3>
-          <p>Lead Ethical Hacker</p>
-        </div>
-        <div class="team-member">
-          <img src="h2-3.webp" alt="Team Member">
-          <h3>Jane Smith</h3>
-          <p>Security Analyst</p>
-        </div>
-      </div>
+  <!-- Our Team -->
+<div class="section">
+  <h2>Meet Our Team</h2>
+  <div class="team-grid">
+    <div class="team-member">
+      <img src="h2-1.webp" alt="Team Member">
+      <h3> Selvan</h3>
+      <p>Founder & Cybersecurity Expert</p>
     </div>
+    <div class="team-member">
+      <img src="h2-2.webp" alt="Team Member">
+      <h3>John Doe</h3>
+      <p>Lead Ethical Hacker</p>
+    </div>
+    <div class="team-member">
+      <img src="h2-3.webp" alt="Team Member">
+      <h3>Jane Smith</h3>
+      <p>Security Analyst</p>
+    </div>
+  </div>
+</div>
+
 
     <!-- About Short Description -->
     <div class="section">
