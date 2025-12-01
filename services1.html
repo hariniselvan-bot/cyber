@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stackly home</title>
+  
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    /* ---------- Global custom styles ---------- */
+    :root {
+      --accent: #06b6d4; /* cyan-400 */
+      --muted: #9ca3af;
+      --card: #0f1724; /* dark card */
+    }
+
+    /* Smooth entrance animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: translateY(24px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .fade-scale { animation: fadeScale 1s ease both; }
+
+    /* Subtle float on cards */
+    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
+
+    /* Desktop dropdown style */
+    .dropdown-panel { min-width: 11rem; }
+
+    /* Hero overlay & text shadow */
+    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
+    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
+
+    /* Responsive tweaks */
+    @media (min-width:768px) {
+      .nav-center { left: 50%; transform: translateX(-50%); }
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
+
+    /* small utils */
+    .muted { color: var(--muted); }
+
+    .what-we-do {
+    padding: 60px 20px;
+    text-align: center;
+    background: #050505; /* or remove if you want full black page */
+}
+
+.what-we-do h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #d8d8e1;
+    margin-bottom: 15px;
+}
+
+.what-we-do p {
+    color: #9eb5c7;
+    font-size: 18px;
+}
+/* Custom breakpoint: show desktop menu only at ≥1117px */
+@media (min-width: 1117px) {
+  .xl2\:flex {
+    display: flex !important;
+  }
+  .xl2\:hidden {
+    display: none !important;
+  }
+}
+.nav-active {
+  color: cyan !important;
+}
+
+
+
+  </style>
+</head>
+<body class="font-inter antialiased bg-black text-white">
+
+ 
+<!-- HEADER -->
+<header class="header fixed top-0 left-0 w-full z-50 bg-black shadow h-20 flex items-center">
+  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
+</a>
+
+    <!-- DESKTOP MENU -->
+    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
+
+      <div class="relative group">
+        <a href="index.html" class="hover:text-cyan-400 flex items-center gap-1 nav-link">
+          Home
+          <i class="fa-solid fa-chevron-down text-xs"></i>
+        </a>
+
+        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
+             w-36 top-full pt-3 z-50">
+          <a href="home2.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home 2</a>
+        </div>
+      </div>
+
+      <a href="About.html"  class="hover:text-cyan-300">About</a>
+      <a href="services1.html"  class="nav-link"style="color: #22d3ee !important; font-weight: 700 !important;">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
+       Login
+      </a>
+    </nav>
+
+    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
+    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
+      <i class="fa-solid fa-bars text-2xl text-white"></i>
+    </button>
+
+  </div>
+</header>
+
+  
+  <!-- ================= MOBILE MENU ================= -->
+  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
+    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
+
+     <!-- DROPDOWN BUTTON -->
+    <button onclick="toggleMobileDrop()" 
+            class="flex items-center justify-between w-full">
+            <a href="home2.html" class="hover:text-cyan-300">Home 2</a>
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </button>
+
+    <!-- DROPDOWN CONTENT -->
+    <div id="mobileHomeDrop" class="hidden pl-4">
+      <a href="index.html" class="block py-2 hover:text-cyan-300">Home </a>
+    </div>
+
+      <a href="About.html" class="nav-link hover:text-cyan-400">About</a>
+      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
+    </div>
+  </nav>
+<main class="pt-32">
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  function toggleMobileDrop() {
+  const drop = document.getElementById("mobileHomeDrop");
+  drop.classList.toggle("hidden");
+}
+
+</script>
+  <!-- ================= HERO ================= -->
+  <section
+  class="relative min-h-[72vh] flex items-center bg-cover bg-center"
+  style="background-image: url('css.webp');">
+
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="relative z-10 max-w-6xl w-full mx-auto px-6 text-center">
+
+    <!-- White Box -->
+    <div class="inline-block border border-white px-10 py-10 rounded-md fade-scale"
+         style="animation-delay:.15s">
+
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white">
+         Our Cybersecurity Services
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-gray-200 text-lg fade-up" style="animation-delay:.3s">
+   Protecting your digital world with expert solutions.  </p>
+
+
+    </div>
+</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services - CyberSecure</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: #0d1117;
+      color: #fff;
+    }
+
+    .header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .header nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    .header nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .header nav ul li a:hover,
+    .header nav ul li a.active {
+      color: #00ffd1;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(90deg, #0d1117, #1f1f1f);
+      color: #00ffd1;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 80px 50px;
+      background: #0d1117;
+      color: #fff;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 36px;
+      margin-bottom: 50px;
+      color: #00ffd1;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .service-card {
+      background: #1f1f1f;
+      border-radius: 20px;
+      padding: 40px 30px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .service-card img {
+  width: 100px;       /* fixed width */
+  height: 100px;      /* fixed height */
+  margin-bottom: 25px;
+  object-fit: cover;  /* makes sure the image fills the box without stretching */
+  border-radius: 10px; /* optional: rounded corners for uniform look */
+}
+
+
+    .service-card h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #00ffd1;
+    }
+
+    .service-card p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .service-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(0, 255, 209, 0.3);
+    }
+
+    .service-card.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #0d1117;
+      color: #888;
+    }
+
+    /* Responsive font scaling */
+    @media(max-width:768px){
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 18px; }
+      .services h2 { font-size: 28px; }
+      .service-card h3 { font-size: 20px; }
+      .service-card p { font-size: 15px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Services Section -->
+  <section class="services">
+    <h2>What We Offer</h2>
+    <div class="services-grid">
+
+      <!-- Original 4 Services -->
+      <div class="service-card">
+        <img src="s1.webp" alt="Penetration Testing">
+        <h3>Penetration Testing</h3>
+        <p>We simulate attacks to find vulnerabilities before hackers do.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="sol5.webp" alt="Security Audit">
+        <h3>Security Audit</h3>
+        <p>Comprehensive audit of your systems to ensure robust protection.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="s8.webp" alt="Threat Monitoring">
+        <h3>Threat Monitoring</h3>
+        <p>Continuous monitoring to detect and prevent cyber threats in real-time.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="sol9.webp" alt="Consulting">
+        <h3>Consulting</h3>
+        <p>Expert advice on securing your IT infrastructure and data.</p>
+      </div>
+
+      <!-- 4 New Services -->
+      <div class="service-card">
+        <img src="s4.webp" alt="Data Encryption">
+        <h3>Data Encryption</h3>
+        <p>Protect sensitive data with advanced encryption techniques.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="sol7.webp" alt="Firewall Management">
+        <h3>Firewall Management</h3>
+        <p>Setup and manage firewalls to prevent unauthorized access.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="sol2.webp" alt="Incident Response">
+        <h3>Incident Response</h3>
+        <p>Quickly respond to and mitigate security breaches effectively.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="s6.webp" alt="Vulnerability Assessment">
+        <h3>Vulnerability Assessment</h3>
+        <p>Identify and fix system weaknesses before they are exploited.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 CyberSecure. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Fade-in animation on scroll
+    const cards = document.querySelectorAll('.service-card');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
+
+</body>
+</html>
+
+<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
+
+      <!-- LEFT -->
+      <div>
+        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
+          Get your business engaged
+        </p>
+      </div>
+
+      <!-- CENTER -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><a href="home2.html" class="hover:text-white">Home </a></li>
+          <li><a href="About.html" class="nav-link hover:text-cyan-400">About</a></li>
+      <li><a href="services1.html" class="nav-link hover:text-cyan-400">Services</a></li>
+     <li> <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a></li>
+     <li> <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
+          <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
+          <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
+          <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
+      © Stackly – 2025. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+function reveal() {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.style.opacity = "1";
+      sec.style.transform = "translateY(0)";
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+
+</body>
+</html>

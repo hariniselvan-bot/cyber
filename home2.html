@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stackly home</title>
+  
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    /* ---------- Global custom styles ---------- */
+    :root {
+      --accent: #06b6d4; /* cyan-400 */
+      --muted: #9ca3af;
+      --card: #0f1724; /* dark card */
+    }
+
+    /* Smooth entrance animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: translateY(24px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .fade-scale { animation: fadeScale 1s ease both; }
+
+    /* Subtle float on cards */
+    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
+
+    /* Desktop dropdown style */
+    .dropdown-panel { min-width: 11rem; }
+
+    /* Hero overlay & text shadow */
+    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
+    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
+
+    /* Responsive tweaks */
+    @media (min-width:768px) {
+      .nav-center { left: 50%; transform: translateX(-50%); }
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
+
+    /* small utils */
+    .muted { color: var(--muted); }
+
+    .what-we-do {
+    padding: 60px 20px;
+    text-align: center;
+    background: #050505; /* or remove if you want full black page */
+}
+
+.what-we-do h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #d8d8e1;
+    margin-bottom: 15px;
+}
+
+.what-we-do p {
+    color: #9eb5c7;
+    font-size: 18px;
+}
+/* Custom breakpoint: show desktop menu only at ≥1117px */
+@media (min-width: 1117px) {
+  .xl2\:flex {
+    display: flex !important;
+  }
+  .xl2\:hidden {
+    display: none !important;
+  }
+}
+.nav-active {
+  color: cyan !important;
+}
+
+
+
+  </style>
+</head>
+<body class="font-inter antialiased bg-black text-white">
+
+ 
+<!-- HEADER -->
+<header class="header fixed top-0 left-0 w-full z-50 bg-black shadow h-20 flex items-center">
+  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
+</a>
+
+    <!-- DESKTOP MENU (only visible above 1117px) -->
+    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
+      <div class="relative group">
+       <button onclick="toggleMobileDrop()" class="flex items-center justify-between w-full py-2 nav-active">
+    <span>Home 2</span>
+    <i class="fa-solid fa-chevron-down text-sm"></i>
+</button>
+
+
+        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
+             w-36 top-full pt-3 z-50">
+          <a href="index.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home </a>
+        </div>
+      </div>
+
+      <a href="About.html" class="nav-link hover:text-cyan-400">About</a>
+      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
+        LOGIN
+      </a>
+    </nav>
+
+    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
+    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
+      <i class="fa-solid fa-bars text-2xl text-white"></i>
+    </button>
+
+  </div>
+</header>
+
+  
+  <!-- ================= MOBILE MENU ================= -->
+  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
+    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
+
+     <!-- DROPDOWN BUTTON -->
+    <button onclick="toggleMobileDrop()" 
+            class="flex items-center justify-between w-full">
+            <a href="home2.html" class="hover:text-cyan-300">Home 2</a>
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </button>
+
+    <!-- DROPDOWN CONTENT -->
+    <div id="mobileHomeDrop" class="hidden pl-4">
+      <a href="index.html" class="block py-2 hover:text-cyan-300">Home </a>
+    </div>
+
+      <a href="About.html" class="nav-link hover:text-cyan-400">About</a>
+      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
+    </div>
+  </nav>
+<main class="pt-32">
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  function toggleMobileDrop() {
+  const drop = document.getElementById("mobileHomeDrop");
+  drop.classList.toggle("hidden");
+}
+
+</script>
+  <!-- ================= HERO ================= -->
+  <section
+  class="relative min-h-[72vh] flex items-center bg-cover bg-center"
+  style="background-image: url('hp1\ \(1\).webp');">
+
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="relative z-10 max-w-6xl w-full mx-auto px-6 text-center">
+
+    <!-- White Box -->
+    <div class="inline-block border border-white px-10 py-10 rounded-md fade-scale"
+         style="animation-delay:.15s">
+
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white">
+         Protect Your Digital World
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-gray-200 text-lg fade-up" style="animation-delay:.3s">
+    CyberSecure provides advanced cybersecurity solutions for individuals and businesses.      </p>
+
+
+    </div>
+</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Cyber Security</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif; }
+    body { background:#0f111a; color:#fff; }
+    a { color:inherit; text-decoration:none; }
+
+    /* Hero Section */
+    .hero {
+      height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
+      text-align:center; background:#0f111a; position:relative; overflow:hidden;
+    }
+    .hero h1 {
+      font-size:3.5rem; color:#00ffe7; text-shadow:0 0 10px #00ffe7,0 0 20px #00ffe7;
+      margin-bottom:20px;
+    }
+    .hero p {
+      font-size:1.2rem; color:#ccc; margin-bottom:30px;
+    }
+    .hero button {
+      background:#00ffe7; color:#0f111a; padding:15px 30px; border:none; border-radius:10px;
+      font-size:1rem; font-weight:500; cursor:pointer; transition:0.3s ease;
+    }
+    .hero button:hover { background:#00b3a3; }
+
+    /* Services Section */
+    .services {
+      padding:80px 20px; max-width:1200px; margin:0 auto;
+    }
+    .services h2 { text-align:center; margin-bottom:50px; font-size:2.5rem; color:#00ffe7; text-shadow:0 0 10px #00ffe7; }
+    .service-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:40px; }
+
+    .service-card {
+      background:#1b1d2a; padding:30px; border-radius:15px; box-shadow:0 0 20px rgba(0,255,231,0.2);
+      text-align:center; transition:transform 0.3s ease;
+    }
+    .service-card:hover { transform:translateY(-10px); }
+    .service-card h3 { margin-bottom:15px; color:#00ffe7; text-shadow:0 0 5px #00ffe7; }
+    .service-card p { color:#ccc; line-height:1.6; }
+
+    /* Call to Action */
+    .cta {
+      background:#1b1d2a; margin:50px 0; padding:50px 20px; border-radius:15px;
+      text-align:center; box-shadow:0 0 20px rgba(0,255,231,0.2);
+    }
+    .cta h2 { margin-bottom:20px; color:#00ffe7; text-shadow:0 0 5px #00ffe7; }
+    .cta p { margin-bottom:30px; color:#ccc; font-size:1.1rem; line-height:1.6; }
+    .cta button { background:#00ffe7; color:#0f111a; padding:15px 30px; border:none; border-radius:10px; font-size:1rem; font-weight:500; cursor:pointer; transition:0.3s ease; }
+    .cta button:hover { background:#00b3a3; }
+
+    @media(max-width:768px){
+      .hero h1 { font-size:2.5rem; }
+      .hero p { font-size:1rem; }
+      .services h2 { font-size:2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+<!-- Services Section -->
+<section class="services">
+  <h2>Our Services</h2>
+  <div class="service-grid">
+    <div class="service-card">
+      <h3>Network Security</h3>
+      <p>Protect your network from unauthorized access and cyber threats using our advanced security measures.</p>
+    </div>
+    <div class="service-card">
+      <h3>Penetration Testing</h3>
+      <p>Identify vulnerabilities in your systems with expert ethical hacking and penetration testing services.</p>
+    </div>
+    <div class="service-card">
+      <h3>Threat Analysis</h3>
+      <p>Stay ahead of cyber threats with proactive monitoring and real-time threat intelligence.</p>
+    </div>
+    <div class="service-card">
+      <h3>Data Protection</h3>
+      <p>Safeguard sensitive data with encryption, secure storage, and advanced access controls.</p>
+    </div>
+    <div class="service-card">
+      <h3>Cloud Security</h3>
+      <p>Secure your cloud infrastructure and prevent data breaches with our cloud security solutions.</p>
+    </div>
+    <div class="service-card">
+      <h3>Endpoint Security</h3>
+      <p>Protect devices connected to your network with advanced endpoint protection and monitoring.</p>
+    </div>
+    <div class="service-card">
+      <h3>Cybersecurity Consulting</h3>
+      <p>Get expert guidance on cybersecurity strategies, risk management, and compliance.</p>
+    </div>
+    <div class="service-card">
+      <h3>Incident Response</h3>
+      <p>Rapidly respond to cyber attacks and minimize damage with our incident response team.</p>
+    </div>
+    <div class="service-card">
+      <h3>Application Security</h3>
+      <p>Protect your applications from vulnerabilities with secure coding and testing practices.</p>
+    </div>
+    <div class="service-card">
+      <h3>Identity & Access Management</h3>
+      <p>Control user access, authentication, and authorization to protect sensitive information.</p>
+    </div>
+    <div class="service-card">
+      <h3>Security Awareness Training</h3>
+      <p>Educate your employees to recognize cyber threats and avoid common security mistakes.</p>
+    </div>
+    <div class="service-card">
+      <h3>Firewall & VPN Solutions</h3>
+      <p>Implement robust firewall and VPN solutions to secure your network traffic and remote access.</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Call To Action -->
+  <section class="cta">
+    <h2>Secure Your Business Today</h2>
+    <p>Don't wait for cyber attacks to strike. Take action now and protect your digital assets with CyberSecure.</p>
+    <button onclick="location.href='contact.html'">Contact Us</button>
+  </section>
+
+</body>
+</html>
+
+<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
+
+      <!-- LEFT -->
+      <div>
+        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
+          Get your business engaged
+        </p>
+      </div>
+
+      <!-- CENTER -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><a href="home2.html" class="hover:text-white">Home </a></li>
+          <li><a href="About.html" class="nav-link hover:text-cyan-400">About</a></li>
+      <li><a href="services1.html" class="nav-link hover:text-cyan-400">Services</a></li>
+     <li> <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a></li>
+     <li> <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
+          <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
+          <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
+          <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
+      © Stackly – 2025. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+function reveal() {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.style.opacity = "1";
+      sec.style.transform = "translateY(0)";
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+
+</body>
+</html>

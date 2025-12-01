@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stackly home</title>
+  
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    /* ---------- Global custom styles ---------- */
+    :root {
+      --accent: #06b6d4; /* cyan-400 */
+      --muted: #9ca3af;
+      --card: #0f1724; /* dark card */
+    }
+
+    /* Smooth entrance animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: translateY(24px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .fade-scale { animation: fadeScale 1s ease both; }
+
+    /* Subtle float on cards */
+    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
+
+    /* Desktop dropdown style */
+    .dropdown-panel { min-width: 11rem; }
+
+    /* Hero overlay & text shadow */
+    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
+    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
+
+    /* Responsive tweaks */
+    @media (min-width:768px) {
+      .nav-center { left: 50%; transform: translateX(-50%); }
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
+
+    /* small utils */
+    .muted { color: var(--muted); }
+
+    .what-we-do {
+    padding: 60px 20px;
+    text-align: center;
+    background: #050505; /* or remove if you want full black page */
+}
+
+.what-we-do h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #d8d8e1;
+    margin-bottom: 15px;
+}
+
+.what-we-do p {
+    color: #9eb5c7;
+    font-size: 18px;
+}
+/* Custom breakpoint: show desktop menu only at ≥1117px */
+@media (min-width: 1117px) {
+  .xl2\:flex {
+    display: flex !important;
+  }
+  .xl2\:hidden {
+    display: none !important;
+  }
+}
+.nav-active {
+  color: cyan !important;
+}
+
+
+
+  </style>
+</head>
+<body class="font-inter antialiased bg-black text-white">
+
+ 
+<!-- HEADER -->
+<header class="header fixed top-0 left-0 w-full z-50 bg-black shadow h-20 flex items-center">
+  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
+</a>
+
+    <!-- DESKTOP MENU -->
+    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
+
+      <div class="relative group">
+        <a href="index.html" class="hover:text-cyan-400 flex items-center gap-1 nav-link">
+          Home
+          <i class="fa-solid fa-chevron-down text-xs"></i>
+        </a>
+
+        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
+             w-36 top-full pt-3 z-50">
+          <a href="home2.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home 2</a>
+        </div>
+      </div>
+
+      <a href="About.html"  class="nav-link"style="color: #22d3ee !important; font-weight: 700 !important;">About</a>
+      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
+       Login
+      </a>
+    </nav>
+
+    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
+    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
+      <i class="fa-solid fa-bars text-2xl text-white"></i>
+    </button>
+
+  </div>
+</header>
+
+  
+  <!-- ================= MOBILE MENU ================= -->
+  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
+    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
+
+     <!-- DROPDOWN BUTTON -->
+    <button onclick="toggleMobileDrop()" 
+            class="flex items-center justify-between w-full">
+            <a href="home2.html" class="hover:text-cyan-300">Home 2</a>
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </button>
+
+    <!-- DROPDOWN CONTENT -->
+    <div id="mobileHomeDrop" class="hidden pl-4">
+      <a href="index.html" class="block py-2 hover:text-cyan-300">Home </a>
+    </div>
+
+      <a href="About.html" class="nav-link hover:text-cyan-400">About</a>
+      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
+    </div>
+  </nav>
+<main class="pt-32">
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  function toggleMobileDrop() {
+  const drop = document.getElementById("mobileHomeDrop");
+  drop.classList.toggle("hidden");
+}
+
+</script>
+  <!-- ================= HERO ================= -->
+  <section
+  class="relative min-h-[72vh] flex items-center bg-cover bg-center"
+  style="background-image: url('h2bg.webp');">
+
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="relative z-10 max-w-6xl w-full mx-auto px-6 text-center">
+
+    <!-- White Box -->
+    <div class="inline-block border border-white px-10 py-10 rounded-md fade-scale"
+         style="animation-delay:.15s">
+
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white">
+         About Our prototype 
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-gray-200 text-lg fade-up" style="animation-delay:.3s">
+    We are here to help you with our cyberspace      </p>
+
+
+    </div>
+</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Cyber Security</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif; }
+    body { background:#0f111a; color:#fff; min-height:100vh; }
+    a { color:inherit; text-decoration:none; }
+
+    .container { width:90%; max-width:1200px; margin:0 auto; padding:50px 0; }
+
+    h1 {
+      text-align:center; font-size:3rem; color:#00ffe7;
+      text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+      margin-bottom:50px;
+    }
+
+    .section {
+      background:#1b1d2a; padding:30px; border-radius:15px; margin-bottom:40px;
+      box-shadow:0 0 20px rgba(0,255,231,0.2); transition: transform 0.3s ease;
+    }
+    .section:hover { transform:translateY(-5px); }
+
+    .section h2 {
+      color:#00ffe7; text-shadow:0 0 5px #00ffe7; margin-bottom:20px;
+    }
+
+    .section p { line-height:1.8; color:#ccc; font-size:1rem; }
+
+    /* Team Section */
+    .team-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; margin-top:20px;
+    }
+
+    .team-member {
+      background:#0f111a; padding:20px; border-radius:15px; text-align:center;
+      box-shadow:0 0 15px rgba(0,255,231,0.2); transition: transform 0.3s ease;
+    }
+    .team-member:hover { transform:translateY(-5px); }
+    .team-member img {
+      width:120px; height:120px; border-radius:50%; margin-bottom:15px; object-fit:cover;
+      border: 3px solid #00ffe7;
+    }
+    .team-member h3 { color:#00ffe7; margin-bottom:5px; }
+    .team-member p { color:#ccc; font-size:0.9rem; }
+
+    @media(max-width:768px){
+      .team-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>About Us</h1>
+
+    <!-- Our Mission -->
+    <div class="section">
+      <h2>Our Mission</h2>
+      <p>
+        At CyberSecure, our mission is to protect organizations and individuals from the ever-evolving threats in the digital world. 
+        We leverage advanced cybersecurity solutions, ethical hacking expertise, and proactive monitoring to safeguard your digital assets.
+      </p>
+    </div>
+
+    <!-- Our Vision -->
+    <div class="section">
+      <h2>Our Vision</h2>
+      <p>
+        We envision a world where every individual and business can operate safely online without fear of cyber threats. 
+        By promoting awareness, innovation, and resilience, we aim to make cyberspace a safer place for all.
+      </p>
+    </div>
+
+    <!-- Our Team -->
+    <div class="section">
+      <h2>Meet Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="h2-1.webp" alt="Team Member">
+          <h3> Selvan</h3>
+          <p>Founder & Cybersecurity Expert</p>
+        </div>
+        <div class="team-member">
+          <img src="h2-2.webp" alt="Team Member">
+          <h3>John Doe</h3>
+          <p>Lead Ethical Hacker</p>
+        </div>
+        <div class="team-member">
+          <img src="h2-3.webp" alt="Team Member">
+          <h3>Jane Smith</h3>
+          <p>Security Analyst</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Short Description -->
+    <div class="section">
+      <h2>Who We Are</h2>
+      <p>
+        CyberSecure is a team of passionate cybersecurity professionals dedicated to defending digital infrastructures. 
+        We combine experience, cutting-edge tools, and innovative strategies to offer comprehensive security solutions tailored to your needs.
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
+
+      <!-- LEFT -->
+      <div>
+        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
+          Get your business engaged
+        </p>
+      </div>
+
+      <!-- CENTER -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><a href="home2.html" class="hover:text-white">Home </a></li>
+          <li><a href="About.html" class="nav-link hover:text-cyan-400">About</a></li>
+      <li><a href="services1.html" class="nav-link hover:text-cyan-400">Services</a></li>
+     <li> <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a></li>
+     <li> <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
+          <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
+          <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
+          <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
+      © Stackly – 2025. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+function reveal() {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.style.opacity = "1";
+      sec.style.transform = "translateY(0)";
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+
+</body>
+</html>
