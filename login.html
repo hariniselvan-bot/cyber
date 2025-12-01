@@ -101,6 +101,7 @@
   <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
 </a>
 
+    
      <!-- DESKTOP MENU -->
     <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
 
@@ -116,13 +117,12 @@
         </div>
       </div>
 
-      <a href="Soluation.html"class="hover:text-cyan-300" >Soluation</a>
-      <a href="services.html" class="hover:text-cyan-300">Services</a>
+      <a href="Soluation.html" class="nav-link hover:text-cyan-400">Soluations</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
       <a href="Dashboard.html" class="hover:text-cyan-300">dashboard📊</a>
-      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
-
+      <a href="contact.html" class="hover:text-cyan-300">Contact📞</a>
       <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
-       Login
+        Login
       </a>
     </nav>
 
@@ -150,227 +150,208 @@
     <div id="mobileHomeDrop" class="hidden pl-4">
       <a href="home2.html" class="block py-2 hover:text-cyan-300">Home 2</a>
     </div>
-
-
-      <a href="Soluation.html" class="nav-link hover:text-cyan-400">Soluation</a>
-      <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
-      <a href="Dashboard.html" class="hover:text-cyan-300">dashboard📊</a>
-      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+       <li><a href="index.html" class="hover:text-white">Home </a></li>
+          <li><a href="Soluation.html" class="hover:text-white">Soluation</a></li>
+          <li><a href="services.html" class="hover:text-white">Service</a></li>
+          <li><a href="Dashboard.html" class="hover:text-white">dashboard📊</a></li>
+          <li><a href="contact.html" class="hover:text-white">Contact📞</a></li>
       <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
     </div>
   </nav>
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  function toggleMobileDrop() {
+  const drop = document.getElementById("mobileHomeDrop");
+  drop.classList.toggle("hidden");
+}
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login & Sign Up - CyberSecure</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Glass Login</title>
 
-    body{
-      background:#0d1117;
-      color:#fff;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+        background: url('home bg.webp') center/cover no-repeat;
+        backdrop-filter: blur(3px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Poppins, sans-serif;
     }
 
-    .container{
-      background:#1f1f1f;
-      border-radius:20px;
-      box-shadow:0 0 20px rgba(0,255,209,0.4);
-      overflow:hidden;
-      width:800px;
-      max-width:95%;
-      display:flex;
-      transition:0.5s;
+    .login-box {
+        width: 95%;
+        max-width: 450px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255,255,255,0.3);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 0 50px rgba(0,0,0,0.4);
     }
 
-    .form-panel{
-      flex:1;
-      padding:60px 40px;
-      background:#1f1f1f;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+    .input-group {
+        position: relative;
+        width: 100%;
+        margin: 15px 0;
     }
 
-    .form-panel h2{
-      color:#00ffd1;
-      margin-bottom:30px;
-      text-align:center;
+    .input-group input {
+        width: 100%;
+        padding: 14px 50px 14px 15px;
+        font-size: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: transparent;
+        color: white;
+        border-radius: 6px;
+        outline: none;
     }
 
-    .form-panel form{
-      display:flex;
-      flex-direction:column;
+    .input-group .icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
     }
 
-    .form-panel input{
-      padding:15px 20px;
-      margin-bottom:20px;
-      border:none;
-      border-radius:10px;
-      background:#0d1117;
-      color:#fff;
-      font-size:16px;
+    .login-btn {
+        margin-top: 25px;
+        width: 100%;
+        padding: 14px 0;
+        background: white;
+        border: none;
+        font-size: 18px;
+        color: black;
+        cursor: pointer;
+        letter-spacing: 2px;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: 0.3s;
     }
 
-    .form-panel input::placeholder{color:#888;}
-
-    .form-panel button{
-      padding:15px 20px;
-      background:#00ffd1;
-      color:#0d1117;
-      font-weight:bold;
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
-      transition:0.3s;
-      margin-bottom:10px;
+    .login-btn:hover {
+        opacity: 0.85;
     }
 
-    .form-panel button:hover{background:#00c1a0;}
-
-    .toggle-link{
-      text-align:center;
-      margin-top:10px;
-      color:#888;
-      cursor:pointer;
+    .extras {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        color: #fff;
+        font-size: 14px;
     }
 
-    .toggle-link span{
-      color:#00ffd1;
-      font-weight:bold;
-      text-decoration:underline;
+    .extras a {
+        color: #fff;
+        text-decoration: none;
     }
 
-    .forgot-password{
-      text-align:right;
-      font-size:14px;
-      margin-top:-10px;
-      margin-bottom:15px;
+    .extras a:hover {
+        text-decoration: underline;
     }
-
-    .forgot-password a{
-      color:#00ffd1;
-      text-decoration:none;
-      transition:0.3s;
-    }
-
-    .forgot-password a:hover{
-      color:#00c1a0;
-      text-shadow:0 0 10px #00ffd1;
-    }
-
-    .overlay-panel{
-      flex:1;
-      background:linear-gradient(135deg,#465350,#0d1117);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-
-    .overlay-panel img{
-      width:300px;
-      max-width:80%;
-      opacity:0.2;
-    }
-
-    .sign-up-form{display:none;}
-
-    .container.sign-up-active .login-form{display:none;}
-    .container.sign-up-active .sign-up-form{
-      display:flex;
-      flex-direction:column;
-    }
-
-    @media(max-width:768px){
-      .container{flex-direction:column;}
-      .overlay-panel{display:none;}
-    }
-  </style>
+</style>
 </head>
+
 <body>
+<div class="login-box">
+    <h1 class="text-3xl font-semibold mb-8 tracking-wide">LOGIN</h1>
 
-  <div class="container" id="container">
+    <!-- USERNAME INPUT -->
+    <div class="input-group">
+        <input id="username" type="text" placeholder="USERNAME">
+        <span class="icon"><i class="fas fa-user"></i></span>
 
-    <!-- LEFT FORM PANEL -->
-    <div class="form-panel">
-
-      <!-- LOGIN FORM -->
-      <div class="login-form">
-        <h2>Login</h2>
-
-        <form id="loginForm">
-          <input type="email" placeholder="Email" required>
-          <input type="password" placeholder="Password" required>
-
-          <div class="forgot-password">
-            <a href="404.html">Forgot Password?</a>
-          </div>
-
-          <button type="submit">Login</button>
-        </form>
-
-        <div class="toggle-link">
-          Don't have an account? <span id="showSignUp">Sign Up</span>
+        <!-- Inline warning -->
+        <div id="warnUser" class="warning">
+            <i class="fas fa-exclamation-triangle"></i> Please enter your username
         </div>
-      </div>
+    </div>
 
-      <!-- SIGN UP FORM -->
-      <div class="sign-up-form">
-        <h2>Sign Up</h2>
+    <!-- PASSWORD INPUT -->
+    <div class="input-group">
+        <input id="password" type="password" placeholder="PASSWORD">
+        <span class="icon"><i class="fas fa-key"></i></span>
 
-        <form id="signUpForm">
-          <input type="text" placeholder="Full Name" required>
-          <input type="email" placeholder="Email" required>
-          <input type="password" placeholder="Password" required>
-          <button type="submit">Sign Up</button>
-        </form>
-
-        <div class="toggle-link">
-          Already have an account? <span id="showLogin">Login</span>
+        <!-- Inline warning -->
+        <div id="warnPass" class="warning">
+            <i class="fas fa-exclamation-triangle"></i> Please enter your password
         </div>
-      </div>
+                <a href="404.html">Forgot password?</a>
 
     </div>
 
-    <!-- RIGHT SIDE IMAGE PANEL -->
-    <div class="overlay-panel">
-      <img src="sol1.webp" alt="Cybersecurity Image">
+    <button type="button" class="login-btn" onclick="validateLogin()">LOGIN</button>
+
+    <div class="extras">
+        <a href="signup.html">New here? Sign up</a>
     </div>
+</div>
 
-  </div>
+<style>
+/* Inline warning style (same as your signup page) */
+.warning {
+    color: #ffcc00;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+</style>
 
-  <script>
-    const container = document.getElementById('container');
+<script>
+function validateLogin() {
+    let user = document.getElementById("username").value.trim();
+    let pass = document.getElementById("password").value.trim();
 
-    document.getElementById('showSignUp').onclick = () => {
-      container.classList.add('sign-up-active');
-    };
+    let warnUser = document.getElementById("warnUser");
+    let warnPass = document.getElementById("warnPass");
 
-    document.getElementById('showLogin').onclick = () => {
-      container.classList.remove('sign-up-active');
-    };
+    let valid = true;
 
-    // Redirect both forms to 404.html
-    document.getElementById("loginForm").onsubmit = function(e){
-      e.preventDefault();
-      window.location.href = "404.html";
-    };
+    // USERNAME VALIDATION
+    if (user === "") {
+        warnUser.style.display = "block";
+        valid = false;
+    } else {
+        warnUser.style.display = "none";
+    }
 
-    document.getElementById("signUpForm").onsubmit = function(e){
-      e.preventDefault();
-      window.location.href = "404.html";
-    };
-  </script>
+    // PASSWORD VALIDATION
+    if (pass === "") {
+        warnPass.style.display = "block";
+        valid = false;
+    } else {
+        warnPass.style.display = "none";
+    }
 
-</body>
-</html>
+    // If all fields good → redirect
+    if (valid) {
+        window.location.href = "404.html";
+    }
+}
+</script>
 
 <script>
   const hamburgerBtn = document.getElementById("hamburgerBtn");
@@ -385,3 +366,5 @@
 }
 
 </script>
+</body>
+</html>
