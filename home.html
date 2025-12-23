@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stackly home</title>
+  
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    /* ---------- Global custom styles ---------- */
+    :root {
+      --accent: #06b6d4; /* cyan-400 */
+      --muted: #9ca3af;
+      --card: #0f1724; /* dark card */
+    }
+
+    /* Smooth entrance animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: translateY(24px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .fade-scale { animation: fadeScale 1s ease both; }
+
+    /* Subtle float on cards */
+    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
+
+    /* Desktop dropdown style */
+    .dropdown-panel { min-width: 11rem; }
+
+    /* Hero overlay & text shadow */
+    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
+    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
+
+    /* Responsive tweaks */
+    @media (min-width:768px) {
+      .nav-center { left: 50%; transform: translateX(-50%); }
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
+
+    /* small utils */
+    .muted { color: var(--muted); }
+
+    .what-we-do {
+    padding: 60px 20px;
+    text-align: center;
+    background: #050505; /* or remove if you want full black page */
+}
+
+.what-we-do h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #d8d8e1;
+    margin-bottom: 15px;
+}
+
+.what-we-do p {
+    color: #9eb5c7;
+    font-size: 18px;
+}
+/* Custom breakpoint: show desktop menu only at ≥1117px */
+@media (min-width: 1117px) {
+  .xl2\:flex {
+    display: flex !important;
+  }
+  .xl2\:hidden {
+    display: none !important;
+  }
+}
+.nav-active {
+  color: cyan !important;
+}
+.logo {
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    rgba(34,211,238,0.12),
+    rgba(16,185,129,0.08)
+  );
+}
+
+/* ===== MOBILE HERO FIX ===== */
+@media (max-width: 768px) {
+
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Hero wrapper spacing */
+  .hero-wrapper {
+    padding: 110px 12px 40px;
+  }
+
+  /* Make hero look like a card */
+  .hero-container {
+    grid-template-columns: 1fr;
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.18),
+      rgba(0, 0, 0, 0.95)
+    );
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+  }
+
+  /* Left content padding */
+  .hero-left {
+    padding: 40px 24px 30px;
+  }
+
+  /* Headline scale */
+  .hero-title {
+    font-size: 34px;
+    line-height: 1.15;
+  }
+
+  /* Paragraph spacing */
+  .hero-text {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* CTA button spacing */
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* Image section */
+  .hero-right {
+    height: 260px;
+  }
+
+  .hero-right img {
+    object-position: center;
+  }
+
+  /* Play button resize */
+  .play-btn {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+
+  </style>
+</head>
+<body class="font-inter antialiased bg-black text-white">
+
+ 
+<!-- HEADER -->
+<header class="header glass-header fixed top-6 inset-x-0 mx-auto z-50 h-24 flex items-center">
+  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
+</a>
+
+    <!-- DESKTOP MENU (only visible above 1117px) -->
+    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
+      <div class="relative group">
+       <button onclick="toggleMobileDrop()" class="flex items-center justify-between w-full py-2 nav-active">
+    <span>Home</span>
+    <i class="fa-solid fa-chevron-down text-sm"></i>
+</button>
+
+
+        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
+             w-36 top-full pt-3 z-50">
+          <a href="home2.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home 2</a>
+        </div>
+      </div>
+
+      <a href="Soluation.html" class="nav-link hover:text-cyan-400">Soluation</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="Dashboard.html" class="hover:text-cyan-300">dashboard📊</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
+        LOGIN
+      </a>
+    </nav>
+
+    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
+    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
+      <i class="fa-solid fa-bars text-2xl text-white"></i>
+    </button>
+
+  </div>
+</header>
+
+  
+  <!-- ================= MOBILE MENU ================= -->
+  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
+    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
+
+     <!-- DROPDOWN BUTTON -->
+    <button onclick="toggleMobileDrop()" 
+            class="flex items-center justify-between w-full">
+            <a href="index.html" class="hover:text-cyan-300">Home</a>
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </button>
+
+    <!-- DROPDOWN CONTENT -->
+    <div id="mobileHomeDrop" class="hidden pl-4">
+      <a href="home2.html" class="block py-2 hover:text-cyan-300">Home 2</a>
+    </div>
+
+      <a href="Soluation.html" class="nav-link hover:text-cyan-400">Soluation</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="Dashboard.html" class="hover:text-cyan-300">dashboard📊</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
+    </div>
+  </nav>
+
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  function toggleMobileDrop() {
+  const drop = document.getElementById("mobileHomeDrop");
+  drop.classList.toggle("hidden");
+}
+
+</script>
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SentinelSec — Cybersecurity Solutions</title>
+  <meta name="description" content="SentinelSec — Modern cybersecurity services: Penetration testing, SOC-as-a-Service, Cloud security, Incident response.">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== GLASS HEADER UPGRADE ===== */
+.glass-header {
+  width: calc(100% - 60px);
+  max-width: 1400px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 20px 40px rgba(0,0,0,.45);
+}
+
+/* logo resize balance */
+.glass-header img {
+  height: 36px;
+  width: auto;
+}
+.glass-header {
+  max-width: 1400px;
+  width: calc(100% - 32px); /* safer on small screens */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* nav spacing refinement */
+.glass-header nav a,
+.glass-header button {
+  transition: 0.3s ease;
+}
+
+/* hover highlight */
+.glass-header nav a:hover,
+.glass-header button:hover {
+  color: #22d3ee;
+}
+
+/* dropdown polish */
+.glass-header .group > div {
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 20px 40px rgba(0,0,0,.4);
+}
+
+/* dropdown item hover */
+.glass-header .group a:hover {
+  background: rgba(255,255,255,.08);
+}
+
+/* login button upgrade */
+.glass-header a.bg-cyan-500 {
+  box-shadow: 0 8px 24px rgba(34,211,238,.35);
+}
+
+/* hamburger polish */
+#hamburgerBtn {
+  background: rgba(255,255,255,.08);
+  border-radius: 10px;
+}
+
+/* mobile menu glass */
+#mobileMenu {
+  backdrop-filter: blur(18px);
+  background: rgba(0,0,0,.85);
+}
+
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1720;
+      --muted:#94a3b8;
+      --accent:#06b6d4;
+      --accent-2:#7c3aed;
+      --glass: rgba(255,255,255,0.04);
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(7,16,23,0.6), transparent),
+                  linear-gradient(180deg, rgba(6,11,17,1) 0%, rgba(8,12,16,1) 100%),
+                  var(--bg);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* ---------- Header ---------- */
+    .header{
+      width:100%;
+      position:fixed;
+      top:0;left:0;right:0;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(2,6,9,0.6), rgba(2,6,9,0.25));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      z-index:120;
+    }
+    .container{max-width:1180px;margin:0 auto;padding:0 20px}
+    .nav-row{
+      display:flex;align-items:center;justify-content:space-between;padding:14px 0;
+    }
+    .logo{
+      display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit
+    }
+    .logo .mark{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;font-weight:800;color:#021;box-shadow:0 6px 18px rgba(12,32,50,0.5);
+    }
+    .logo span{font-weight:700;font-size:18px;letter-spacing:0.2px}
+
+    nav.desktop{display:flex;gap:18px;align-items:center}
+    nav.desktop a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    nav.desktop a:hover{color:#fff;background:rgba(255,255,255,0.02)}
+
+    .cta{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);font-weight:700}
+
+    /* Mobile menu */
+    .menu-toggle{display:none;border:0;background:transparent;color:var(--muted);font-size:20px}
+    .mobile-nav{display:none}
+
+    /* ---------- Hero ---------- */
+    .hero{padding:120px 0 48px}
+    .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
+    .eyebrow{color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:12px}
+    h1{font-size:44px;margin:12px 0 12px;line-height:1.05}
+    p.lead{color:var(--muted);max-width:60ch}
+
+    .features{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+    .feature{display:flex;gap:12px;align-items:flex-start;background:var(--glass);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .feature .icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;font-weight:700}
+    .feature h4{margin:0;font-size:15px}
+    .feature p{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* Code-like visual */
+    .code-panel{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;font-size:13px;background:linear-gradient(180deg, rgba(2,6,9,0.6), rgba(3,8,12,0.6));padding:18px;border-radius:12px;color:#a7f3d0;min-height:160px}
+    .code-line{opacity:0.9}
+
+    /* ---------- Footer ---------- */
+    footer{margin-top:64px;padding:36px 0;border-top:1px solid rgba(255,255,255,0.03)}
+    .footer-grid{display:grid;grid-template-columns:1fr 220px;gap:24px;align-items:start}
+    .brand{display:flex;gap:12px;align-items:center}
+    .socials{display:flex;gap:10px;margin-top:10px}
+    .socials a{width:38px;height:38px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--muted)}
+    .small{color:var(--muted);font-size:13px}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero-grid{grid-template-columns:1fr;}
+      nav.desktop{display:none}
+      .menu-toggle{display:inline-block}
+      .mobile-nav{display:block}
+      .mobile-nav .mobile-links{display:none;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);margin-top:8px;padding:12px;border-radius:10px}
+      .mobile-nav .mobile-links a{display:block;padding:10px 8px;color:var(--muted);text-decoration:none}
+      .card{padding:14px}
+      h1{font-size:32px}
+    }
+
+    /* small tweaks */
+    a:focus{outline:2px solid rgba(6,182,212,0.15);outline-offset:2px}
+    /* Center all sections */
+.methodology, .tools {
+    text-align: center;
+}
+
+/* Center headings and paragraphs */
+.methodology h2,
+.methodology p,
+.tools h2,
+.tools p {
+    text-align: center;
+}
+
+/* Make UL centered but keep bullets aligned */
+.methodology ul,
+.tools ul {
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+}
+/* Center first intro sections */
+.intro-section {
+    text-align: center;
+}
+
+.intro-section ul {
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+}
+/* ===== RIGHT → CENTER SLIDE ANIMATION ===== */
+.slide-right {
+  opacity: 0;
+  transform: translateX(120px);
+  transition: 
+    transform 0.9s cubic-bezier(.22,.61,.36,1),
+    opacity 0.9s ease;
+  will-change: transform, opacity;
+}
+
+.slide-right.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slight stagger feel */
+.slide-delay-1 { transition-delay: .1s; }
+.slide-delay-2 { transition-delay: .2s; }
+.slide-delay-3 { transition-delay: .3s; }
+
+/* Respect accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .slide-right {
+    transform: none;
+    opacity: 1;
+  }
+}
+/* ===== FORCE MOBILE HERO CARD LAYOUT ===== */
+@media (max-width: 768px) {
+
+  /* stop horizontal overflow */
+  html, body {
+    overflow-x: hidden !important;
+  }
+
+  /* HERO SECTION */
+  section.hero-wrapper,
+  section.min-h-screen {
+    padding: 110px 12px 40px !important;
+  }
+
+  /* HERO CONTAINER */
+  .hero-container,
+  .max-w-6xl.mx-auto.px-6.grid {
+    display: block !important;
+    max-width: 100% !important;
+    background: linear-gradient(
+      135deg,
+      rgba(16,185,129,0.18),
+      rgba(2,6,23,0.98)
+    ) !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,.75) !important;
+  }
+
+  /* LEFT CONTENT */
+  .hero-left,
+  .glass {
+    padding: 36px 22px !important;
+    background: transparent !important;
+  }
+
+  /* HEADLINE */
+  h1 {
+    font-size: 34px !important;
+    line-height: 1.15 !important;
+  }
+
+  /* PARAGRAPH */
+  p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* IMAGE SECTION */
+  .hero-right,
+  .card {
+    height: 260px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .hero-right img,
+  .card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* PLAY BUTTON */
+  .play-btn {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+
+/* ===== TEXT SLIDE ANIMATIONS ===== */
+.text-right {
+  opacity: 0;
+  transform: translateX(120px);
+  transition: all 0.9s cubic-bezier(.22,.61,.36,1);
+}
+
+.text-left {
+  opacity: 0;
+  transform: translateX(-120px);
+  transition: all 0.9s cubic-bezier(.22,.61,.36,1);
+}
+
+.text-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* ===== LOGO UPGRADE ===== */
+.glass-header img {
+  height: 48px;           /* BIGGER logo */
+  width: auto;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 0 12px rgba(34,211,238,0.35));
+}
+
+/* Logo hover effect (premium, not flashy) */
+.glass-header img:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 22px rgba(34,211,238,0.6));
+}
+
+
+  </style>
+</head>
+<body>
+    <main class="pt-32">
+
+  <!-- HERO -->
+   <!-- HERO -->
+<section class="hero-wrapper">
+  <div class="hero-container">
+
+    <!-- LEFT CONTENT -->
+    <div class="hero-left">
+      <span class="hero-tag">STANDOUT APP</span>
+
+      <h1 class="hero-title">
+        An Amazing App<br>
+        <span>That Does It All.</span>
+      </h1>
+
+      <p class="hero-text">
+        Voluptatem ipsa quae ab illo inventore veritatis et quasi
+        architecto beatae vitae dicta sunt explicabo.
+      </p>
+
+      <div class="hero-actions">
+        <a href="contact.html" class="hero-btn">GET THE APP</a>
+        <span class="hero-note">Free demo available</span>
+      </div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="hero-right">
+      <img
+        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+        alt="App Preview"
+      />
+      <div class="play-btn">
+        <i class="fa-solid fa-play"></i>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<body class="bg-black text-white font-sans overflow-x-hidden">
+
+<!-- MATRIX BACKGROUND -->
+<canvas id="matrix-bg" class="fixed inset-0 -z-30"></canvas>
+<div class="fixed inset-0 -z-20 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
+
+<!-- FLOATING ORBS -->
+<div class="orb orb-cyan"></div>
+<div class="orb orb-purple"></div>
+
+<!-- ================= HERO ================= -->
+<section class="min-h-screen flex items-center pt-28 relative parallax">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+
+    <div class="glass reveal glow-border">
+      <p class="uppercase text-cyan-400 text-sm tracking-widest">
+        AI-Driven Cyber Defense
+      </p>
+
+      <h1 class="text-4xl md:text-5xl font-extrabold mt-4 glow-text">
+        Predict • Detect • Neutralize threats
+      </h1>
+
+      <h2 class="text-xl md:text-2xl text-cyan-300 mt-3 typing">
+        SOC • Threat Graph • Zero-Trust
+      </h2>
+
+      <p class="text-gray-300 mt-5 leading-relaxed">
+        Autonomous threat detection powered by behavioral intelligence
+        and zero-trust enforcement across your infrastructure.
+      </p>
+    </div>
+
+    <!-- AI THREAT GRAPH -->
+    <div class="card reveal neon-hover">
+      <canvas id="aiGraph" height="260"></canvas>
+      <p class="text-xs text-gray-400 mt-2 text-center">
+        AI Threat Correlation Graph
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= SOC METRICS ================= -->
+<section class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-4 gap-10 text-center">
+  <div class="metric reveal">
+    <h3 class="counter" data-target="9842">0</h3>
+    <p class="text-gray-400 mt-2">Threats Blocked</p>
+  </div>
+  <div class="metric reveal">
+    <h3 class="counter" data-target="24">0</h3>
+    <p class="text-gray-400 mt-2">SOC Monitoring (hrs)</p>
+  </div>
+  <div class="metric reveal">
+    <h3 class="counter" data-target="312">0</h3>
+    <p class="text-gray-400 mt-2">Incidents Investigated</p>
+  </div>
+  <div class="metric reveal">
+    <h3 class="counter" data-target="99">0</h3>
+    <p class="text-gray-400 mt-2">Detection Accuracy %</p>
+  </div>
+</section>
+
+<!-- ================= ZERO TRUST ================= -->
+<section class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-3 gap-10">
+  <div class="card reveal neon-hover">
+    <h3 class="font-bold text-lg">Verify Explicitly</h3>
+    <p class="text-gray-400 mt-3">
+      Continuous authentication and device posture checks.
+    </p>
+  </div>
+
+  <div class="card reveal neon-hover">
+    <h3 class="font-bold text-lg">Least Privilege</h3>
+    <p class="text-gray-400 mt-3">
+      Just-in-time access with dynamic risk scoring.
+    </p>
+  </div>
+
+  <div class="card reveal neon-hover">
+    <h3 class="font-bold text-lg">Assume Breach</h3>
+    <p class="text-gray-400 mt-3">
+      Micro-segmentation limits lateral movement.
+    </p>
+  </div>
+</section>
+<!-- ================= AI SOC ANALYST PANEL ================= -->
+<section class="max-w-6xl mx-auto px-6 py-24">
+  <div class="grid md:grid-cols-2 gap-14 items-center">
+
+    <!-- LEFT INFO -->
+    <div class="reveal">
+      <p class="uppercase text-cyan-400 text-sm tracking-widest">
+        AI SOC Analyst
+      </p>
+
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-4 glow-text">
+        Autonomous Security Intelligence
+      </h2>
+
+      <p class="text-gray-300 mt-5 leading-relaxed">
+        Our AI SOC Analyst continuously investigates alerts, correlates
+        telemetry, and delivers human-readable incident insights —
+        reducing analyst fatigue and response time.
+      </p>
+
+      <ul class="mt-6 space-y-3 text-gray-400 text-sm">
+        <li>✔ Real-time alert triage</li>
+        <li>✔ MITRE ATT&CK mapping</li>
+        <li>✔ Natural-language investigation summaries</li>
+        <li>✔ Analyst-ready remediation steps</li>
+      </ul>
+    </div>
+
+    <!-- CHAT PANEL -->
+    <div class="card reveal soc-chat">
+
+      <!-- HEADER -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          <strong class="text-sm">AI SOC Analyst</strong>
+        </div>
+        <span class="text-xs text-gray-400">Live</span>
+      </div>
+
+      <!-- CHAT MESSAGES -->
+      <div class="space-y-4 text-sm font-mono leading-relaxed">
+
+        <div class="chat ai">
+          <span class="label">AI</span>
+          <p>
+            Detected anomalous lateral movement originating from
+            <span class="text-cyan-400">FIN-SRV-02</span>.
+            Confidence score: <span class="text-green-400">94%</span>.
+          </p>
+        </div>
+
+        <div class="chat user">
+          <span class="label">ANALYST</span>
+          <p>
+            Correlate with recent authentication events.
+          </p>
+        </div>
+
+        <div class="chat ai">
+          <span class="label">AI</span>
+          <p>
+            Correlation complete. Pattern aligns with
+            <span class="text-purple-400">MITRE T1021</span>.
+            Recommend immediate credential isolation.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- INPUT (VISUAL ONLY) -->
+      <div class="mt-6 border-t border-white/10 pt-3 text-xs text-gray-500">
+        AI responds autonomously — no manual prompt required
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="max-w-6xl mx-auto px-6 py-24">
+  
+</section>
+<section class="max-w-6xl mx-auto px-6 py-24">
+  <h2 class="section-title">Live SOC Log Stream</h2>
+
+  <div class="terminal reveal" id="logTerminal"></div>
+</section>
+<section class="max-w-6xl mx-auto px-6 py-24 text-center">
+  <h2 class="section-title">Breach Risk Score</h2>
+
+  <div class="risk-ring reveal">
+    <svg viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="50" />
+      <circle cx="60" cy="60" r="50" id="riskCircle"/>
+    </svg>
+    <div class="risk-value" id="riskValue">0%</div>
+  </div>
+
+  <p class="text-gray-400 mt-4">
+    Calculated using behavioral AI & threat telemetry
+  </p>
+</section>
+<section class="max-w-6xl mx-auto px-6 py-24">
+  <h2 class="section-title">AI Threat Prediction Timeline</h2>
+
+  <div class="timeline">
+    <div class="event high">Credential Abuse Detected</div>
+    <div class="event medium">Lateral Movement Predicted</div>
+    <div class="event critical">Potential Data Exfiltration</div>
+  </div>
+</section>
+<section class="max-w-6xl mx-auto px-6 py-24">
+  <h2 class="section-title">Malware Sandbox Analysis</h2>
+
+  <div class="sandbox reveal">
+    <p><span class="tag">Sample:</span> invoice_4821.exe</p>
+    <p><span class="tag">Behavior:</span> Suspicious memory injection</p>
+    <p><span class="tag">Network:</span> C2 beacon detected</p>
+    <p><span class="tag">Verdict:</span> <span class="text-red-400">Malicious</span></p>
+  </div>
+</section>
+
+
+
+<!-- ================= STYLES ================= -->
+<style>
+    .section-title{
+  font-size:28px;
+  font-weight:800;
+  color:#06b6d4;
+  margin-bottom:30px;
+}
+
+.mitre-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+}
+.mitre{
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  background:rgba(255,255,255,.04);
+}
+.high{background:rgba(239,68,68,.25)}
+.medium{background:rgba(245,158,11,.25)}
+.low{background:rgba(34,197,94,.25)}
+.critical{background:rgba(220,38,38,.45)}
+
+.terminal{
+  background:black;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:20px;
+  font-family:monospace;
+  color:#22c55e;
+  height:220px;
+  overflow:hidden;
+}
+/* ===== HERO BASE ===== */
+.hero-wrapper {
+  background:
+    radial-gradient(600px 300px at 20% 20%, rgba(34,197,94,.15), transparent),
+    linear-gradient(135deg, #05070c, #0b0f14);
+  padding-top: 90px;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  min-height: 560px;
+}
+
+/* ===== LEFT SIDE ===== */
+.hero-left {
+  padding: 90px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeSlideLeft 1s ease forwards;
+}
+
+.hero-tag {
+  color: #22c55e;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.hero-tag::before {
+  content: "";
+  width: 30px;
+  height: 2px;
+  background: #22c55e;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.hero-title {
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+
+.hero-title span {
+  color: #22c55e;
+  text-shadow: 0 0 30px rgba(34,197,94,.25);
+}
+
+.hero-text {
+  color: #9ca3af;
+  max-width: 440px;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* ACTIONS */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-btn {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+  padding: 15px 38px;
+  font-weight: 800;
+  border-radius: 6px;
+  transition: .3s ease;
+  box-shadow: 0 10px 30px rgba(34,197,94,.35);
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(34,197,94,.55);
+}
+
+.hero-note {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* ===== RIGHT IMAGE ===== */
+.hero-right {
+  position: relative;
+  overflow: hidden;
+  animation: fadeSlideRight 1s ease forwards;
+}
+
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: 6s ease;
+}
+
+.hero-right:hover img {
+  transform: scale(1.12);
+}
+
+/* PLAY BUTTON */
+.play-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 76px;
+  height: 76px;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(6px);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(34,197,94,.6);
+  animation: pulse 2s infinite;
+}
+
+.play-btn i {
+  color: white;
+  font-size: 22px;
+  margin-left: 3px;
+}
+
+.play-btn:hover {
+  background: rgba(34,197,94,.9);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeSlideLeft {
+  from {opacity:0; transform:translateX(-60px)}
+  to {opacity:1; transform:none}
+}
+
+@keyframes fadeSlideRight {
+  from {opacity:0; transform:translateX(60px)}
+  to {opacity:1; transform:none}
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,.6); }
+  70% { box-shadow: 0 0 0 18px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero-container {
+    grid-template-columns: 1fr;
+  }
+  .hero-left {
+    padding: 60px 30px;
+  }
+  .hero-right {
+    height: 360px;
+  }
+  .hero-title {
+    font-size: 38px;
+  }
+}
+
+
+.risk-ring{
+  position:relative;
+  width:180px;
+  margin:auto;
+}
+.risk-ring svg{
+  transform:rotate(-90deg);
+}
+.risk-ring circle{
+  fill:none;
+  stroke-width:10;
+  stroke:#1f2937;
+}
+#riskCircle{
+  stroke:#06b6d4;
+  stroke-dasharray:314;
+  stroke-dashoffset:314;
+  transition:1.5s ease;
+}
+.risk-value{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  font-weight:800;
+}
+
+.timeline{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.event{
+  padding:18px;
+  border-left:4px solid;
+  background:rgba(255,255,255,.04);
+  border-radius:10px;
+}
+
+.sandbox{
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:24px;
+}
+.tag{color:#06b6d4;font-weight:600}
+
+.glass{
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:36px;
+  box-shadow:0 0 50px rgba(0,0,0,.85);
+}
+.glow-border{border:1px solid rgba(6,182,212,.25)}
+/* ===== SOC CHAT PANEL ===== */
+.soc-chat{
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);
+}
+
+.chat{
+  padding:12px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.chat.ai{
+  border-left:3px solid #06b6d4;
+}
+
+.chat.user{
+  border-left:3px solid #7c3aed;
+}
+
+.chat .label{
+  display:block;
+  font-size:11px;
+  letter-spacing:.1em;
+  color:#9ca3af;
+  margin-bottom:4px;
+}
+
+.card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;
+  padding:24px;
+  transition:.35s ease;
+}
+.neon-hover:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 22px rgba(6,182,212,.35);
+}
+
+.glow-text{text-shadow:0 0 18px rgba(6,182,212,.6)}
+
+.metric h3{
+  font-size:40px;
+  font-weight:800;
+  color:#06b6d4;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s ease;
+}
+.reveal.show{opacity:1;transform:none}
+
+.typing{
+  overflow:hidden;
+  white-space:nowrap;
+  border-right:2px solid #06b6d4;
+  animation:typing 3.5s steps(40,end), blink .8s infinite;
+}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+
+.orb{
+  position:fixed;
+  width:260px;height:260px;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.35;
+  animation:float 12s ease-in-out infinite;
+}
+.orb-cyan{background:#06b6d4;top:10%;left:5%}
+.orb-purple{background:#7c3aed;bottom:10%;right:5%;animation-delay:4s}
+@keyframes float{50%{transform:translateY(-40px)}}
+</style>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+/* MATRIX (ALWAYS RUNNING, SOFT) */
+const m=document.getElementById("matrix-bg"),mx=m.getContext("2d");
+function r(){m.width=innerWidth;m.height=innerHeight}
+r();addEventListener("resize",r);
+const chars="01STACKLYCYBER",fs=innerWidth<768?11:13;
+const cols=Math.floor(innerWidth/fs),drops=Array(cols).fill(1);
+setInterval(()=>{
+  mx.fillStyle="rgba(0,0,0,.1)";
+  mx.fillRect(0,0,m.width,m.height);
+  mx.fillStyle="rgba(6,182,212,.6)";
+  mx.font=fs+"px monospace";
+  drops.forEach((y,i)=>{
+    mx.fillText(chars[Math.random()*chars.length|0],i*fs,y*fs);
+    drops[i]=y*fs>m.height&&Math.random()>.985?0:y+1;
+  });
+},65);
+
+/* AI THREAT GRAPH */
+const g=document.getElementById("aiGraph"),gx=g.getContext("2d");
+g.width=g.offsetWidth;
+const nodes=[...Array(10)].map(()=>({
+  x:Math.random()*g.width,
+  y:Math.random()*g.height,
+  vx:(Math.random()-.5)*.6,
+  vy:(Math.random()-.5)*.6
+}));
+setInterval(()=>{
+  gx.clearRect(0,0,g.width,g.height);
+  nodes.forEach(n=>{
+    n.x+=n.vx;n.y+=n.vy;
+    if(n.x<0||n.x>g.width)n.vx*=-1;
+    if(n.y<0||n.y>g.height)n.vy*=-1;
+    gx.fillStyle="#06b6d4";
+    gx.beginPath();gx.arc(n.x,n.y,3,0,Math.PI*2);gx.fill();
+    nodes.forEach(o=>{
+      const d=Math.hypot(n.x-o.x,n.y-o.y);
+      if(d<100){
+        gx.strokeStyle="rgba(6,182,212,.2)";
+        gx.beginPath();gx.moveTo(n.x,n.y);gx.lineTo(o.x,o.y);gx.stroke();
+      }
+    });
+  });
+},40);
+
+/* COUNTERS */
+const counters=document.querySelectorAll(".counter");
+const cObs=new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      const el=x.target,target=+el.dataset.target;
+      let n=0;const i=setInterval(()=>{
+        n+=Math.ceil(target/60);
+        el.textContent=n>=target?target:n;
+        if(n>=target)clearInterval(i);
+      },30);
+      cObs.unobserve(el);
+    }
+  });
+},{threshold:.6});
+counters.forEach(c=>cObs.observe(c));
+
+/* REVEAL */
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"));
+},{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+</script>
+
+</body>
+
+
+</body>
+</html>
+
+>
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
+
+      <!-- LEFT -->
+      <div>
+        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
+          Get your business engaged
+        </p>
+      </div>
+
+      <!-- CENTER -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><a href="index.html" class="hover:text-white">Home </a></li>
+          <li><a href="Soluation.html" class="hover:text-white">Soluation</a></li>
+          <li><a href="services.html" class="hover:text-white">Service</a></li>
+          <li><a href="Dashboard.html" class="hover:text-white">dashboard📊</a></li>
+          <li><a href="contact.html" class="hover:text-white">Contact📞</a></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
+          <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
+          <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
+          <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
+      © Stackly – 2025. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+function reveal() {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.style.opacity = "1";
+      sec.style.transform = "translateY(0)";
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+<script>
+/* LIVE LOG STREAM */
+const logs=[
+  "AUTH_FAIL user=admin ip=45.33.12.7",
+  "C2_TRAFFIC detected to 185.220.x.x",
+  "MALWARE_EXECUTION hash=9f3a2c",
+  "PRIV_ESC attempt blocked",
+  "DATA_EXFIL anomaly detected"
+];
+const terminal=document.getElementById("logTerminal");
+let i=0;
+setInterval(()=>{
+  if(!terminal) return;
+  terminal.innerHTML += logs[i%logs.length]+"<br>";
+  terminal.scrollTop=terminal.scrollHeight;
+  i++;
+},900);
+
+/* RISK GAUGE */
+const risk=78;
+const circle=document.getElementById("riskCircle");
+const value=document.getElementById("riskValue");
+if(circle){
+  circle.style.strokeDashoffset=314-(314*risk/100);
+  let n=0;
+  const c=setInterval(()=>{
+    value.textContent=n+"%";
+    if(n++>=risk) clearInterval(c);
+  },20);
+}
+</script>
+
+</body>
+</html>
