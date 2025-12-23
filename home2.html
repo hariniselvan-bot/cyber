@@ -85,6 +85,156 @@
   color: cyan !important;
 }
 
+/* ===== GLASS HEADER (SAME AS BEFORE) ===== */
+.header {
+  background: rgba(255,255,255,0.12) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 15px 40px rgba(0,0,0,.45);
+}
+
+/* Bigger & attractive logo */
+.header img {
+  height: 48px;
+  width: auto;
+  filter: drop-shadow(0 0 12px rgba(6,182,212,.45));
+  transition: .4s ease;
+}
+
+.header img:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 22px rgba(6,182,212,.7));
+}
+
+/* Mobile hamburger fix */
+@media (max-width:1116px) {
+  #hamburgerBtn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+/* ===== HERO BOX ROTATE FROM RIGHT ===== */
+.hero-box {
+  opacity: 0;
+  transform: translateX(140px) rotateY(18deg);
+  animation: rotateIn 1.2s cubic-bezier(.22,.61,.36,1) forwards;
+  animation-delay: .2s;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+}
+
+/* KEYFRAMES */
+@keyframes rotateIn {
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+}
+/* Headline animation */
+.hero-box h1 {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUpSoft .9s ease forwards;
+  animation-delay: .6s;
+}
+
+.hero-box p {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpSoft .9s ease forwards;
+  animation-delay: .9s;
+}
+
+/* CTA hover polish */
+.hero-box button,
+.hero-box a {
+  transition: .35s ease;
+}
+
+.hero-box a:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 18px 40px rgba(6,182,212,.45);
+}
+
+/* FadeUp soft */
+@keyframes fadeUpSoft {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+section[style*="background-image"] {
+  animation: bgZoom 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgZoom {
+  from { background-size: 100%; }
+  to { background-size: 108%; }
+}
+/* ===== PREMIUM FLOATING HEADER ===== */
+.glass-header{
+  max-width: 1400px;
+  width: calc(100% - 40px);
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.85),
+    rgba(5,15,20,0.75)
+  );
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+}
+
+/* LOGO */
+.glass-header img{
+  height: 46px;
+  filter: drop-shadow(0 0 18px rgba(6,182,212,.5));
+}
+
+/* NAV LINKS */
+.glass-header nav a,
+.glass-header nav button{
+  color: #e5e7eb;
+  transition: .3s ease;
+}
+
+.glass-header nav a:hover,
+.glass-header nav button:hover{
+  color: #22d3ee;
+}
+
+/* ACTIVE HOME */
+.nav-active{
+  color:#22d3ee !important;
+}
+
+/* LOGIN BUTTON */
+.glass-header a.bg-cyan-500{
+  background: linear-gradient(135deg,#06b6d4,#22d3ee);
+  box-shadow: 0 0 20px rgba(34,211,238,.6);
+}
+
+/* MOBILE */
+@media(max-width:1116px){
+  .glass-header{
+    width: calc(100% - 20px);
+  }
+}
+/* ===== ROTATE FROM RIGHT ===== */
+.rotate-box{
+  opacity: 0;
+  transform: translateX(140px) rotateY(18deg);
+  transition: 1s cubic-bezier(.22,.61,.36,1);
+  will-change: transform, opacity;
+}
+
+.rotate-box.show{
+  opacity: 1;
+  transform: translateX(0) rotateY(0);
+}
 
 
   </style>
@@ -93,7 +243,7 @@
 
  
 <!-- HEADER -->
-<header class="header fixed top-0 left-0 w-full z-50 bg-black shadow h-20 flex items-center">
+<header class="header glass-header fixed top-4 inset-x-0 mx-auto z-50 h-20 flex items-center">
   <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
 
     <!-- LOGO -->
@@ -159,7 +309,7 @@
       <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
     </div>
   </nav>
-<main class="pt-32">
+
 
 <script>
   const hamburgerBtn = document.getElementById("hamburgerBtn");
@@ -174,150 +324,859 @@
 }
 
 </script>
-  <!-- ================= HERO ================= -->
-  <section
-  class="relative min-h-[72vh] flex items-center bg-cover bg-center"
-  style="background-image: url('home\ bg.webp');">
-
-  <!-- Dark overlay -->
-  <div class="absolute inset-0 bg-black/50"></div>
-
-  <div class="relative z-10 max-w-6xl w-full mx-auto px-6 text-center">
-
-    <!-- White Box -->
-    <div class="inline-block border border-white px-10 py-10 rounded-md fade-scale"
-         style="animation-delay:.15s">
-
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white">
-         Protect Your Digital World
-      </h1>
-
-      <p class="max-w-2xl mx-auto text-gray-200 text-lg fade-up" style="animation-delay:.3s">
-    CyberSecure provides advanced cybersecurity solutions for individuals and businesses.      </p>
-
-
-    </div>
-</section>
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Cyber Security</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif; }
-    body { background:#0f111a; color:#fff; }
-    a { color:inherit; text-decoration:none; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stackly Home</title>
 
-    /* Hero Section */
-    .hero {
-      height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
-      text-align:center; background:#0f111a; position:relative; overflow:hidden;
-    }
-    .hero h1 {
-      font-size:3.5rem; color:#00ffe7; text-shadow:0 0 10px #00ffe7,0 0 20px #00ffe7;
-      margin-bottom:20px;
-    }
-    .hero p {
-      font-size:1.2rem; color:#ccc; margin-bottom:30px;
-    }
-    .hero button {
-      background:#00ffe7; color:#0f111a; padding:15px 30px; border:none; border-radius:10px;
-      font-size:1rem; font-weight:500; cursor:pointer; transition:0.3s ease;
-    }
-    .hero button:hover { background:#00b3a3; }
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    /* Services Section */
-    .services {
-      padding:80px 20px; max-width:1200px; margin:0 auto;
-    }
-    .services h2 { text-align:center; margin-bottom:50px; font-size:2.5rem; color:#00ffe7; text-shadow:0 0 10px #00ffe7; }
-    .service-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:40px; }
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<main class="pt-2"></main>
+<style>
+/* ================= CYBER BACKGROUND ================= */
+#cyber-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:#020617;
+}
 
-    .service-card {
-      background:#1b1d2a; padding:30px; border-radius:15px; box-shadow:0 0 20px rgba(0,255,231,0.2);
-      text-align:center; transition:transform 0.3s ease;
-    }
-    .service-card:hover { transform:translateY(-10px); }
-    .service-card h3 { margin-bottom:15px; color:#00ffe7; text-shadow:0 0 5px #00ffe7; }
-    .service-card p { color:#ccc; line-height:1.6; }
+/* ================= HERO ================= */
+.hero-section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
 
-    /* Call to Action */
-    .cta {
-      background:#1b1d2a; margin:50px 0; padding:50px 20px; border-radius:15px;
-      text-align:center; box-shadow:0 0 20px rgba(0,255,231,0.2);
-    }
-    .cta h2 { margin-bottom:20px; color:#00ffe7; text-shadow:0 0 5px #00ffe7; }
-    .cta p { margin-bottom:30px; color:#ccc; font-size:1.1rem; line-height:1.6; }
-    .cta button { background:#00ffe7; color:#0f111a; padding:15px 30px; border:none; border-radius:10px; font-size:1rem; font-weight:500; cursor:pointer; transition:0.3s ease; }
-    .cta button:hover { background:#00b3a3; }
+.hero-box{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.2);
+  padding:60px 50px;
+  border-radius:18px;
+  max-width:900px;
+  text-align:center;
 
-    @media(max-width:768px){
-      .hero h1 { font-size:2.5rem; }
-      .hero p { font-size:1rem; }
-      .services h2 { font-size:2rem; }
-    }
-  </style>
+  opacity:0;
+  transform:translateX(140px) rotateY(18deg);
+  animation:heroRotate 1.3s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+@keyframes heroRotate{
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.hero-box h1{
+  font-size:3.2rem;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+.hero-box p{
+  color:#cbd5e1;
+  font-size:1.15rem;
+  max-width:650px;
+  margin:auto;
+}
+
+/* ================= ROTATE ON SCROLL ================= */
+.rotate-box{
+  opacity:0;
+  transform:translateX(120px) rotateY(16deg);
+  transition:1s cubic-bezier(.22,.61,.36,1);
+}
+
+.rotate-box.show{
+  opacity:1;
+  transform:none;
+}
+
+/* ================= SERVICES ================= */
+.services{
+  padding:100px 20px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.services h2{
+  text-align:center;
+  font-size:2.5rem;
+  color:#22d3ee;
+  margin-bottom:60px;
+}
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:40px;
+}
+
+.service-card{
+  background:#0f172a;
+  border:1px solid rgba(255,255,255,.08);
+  padding:32px;
+  border-radius:16px;
+  text-align:center;
+}
+
+.service-card h3{
+  color:#22d3ee;
+  margin-bottom:12px;
+}
+
+/* ================= CTA ================= */
+.cta{
+  background:#0f172a;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:70px 30px;
+  text-align:center;
+  max-width:900px;
+  margin:120px auto;
+}
+
+.cta h2{
+  color:#22d3ee;
+  font-size:2.3rem;
+  margin-bottom:18px;
+}
+
+.cta p{
+  color:#cbd5e1;
+  margin-bottom:30px;
+}
+
+.cta button{
+  background:linear-gradient(135deg,#06b6d4,#22d3ee);
+  padding:14px 34px;
+  border-radius:10px;
+  font-weight:700;
+}
+/* ===== HERO SECTION ===== */
+.hero-section{
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* BACKGROUND IMAGE */
+.hero-bg{
+  position: absolute;
+  inset: 0;
+  background-image: url("bg.png"); /* 👈 replace with your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  transform: scale(1.05);
+}
+
+/* DARK CYBER OVERLAY */
+.hero-overlay{
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(2,6,23,0.92),
+      rgba(2,6,23,0.65)
+    );
+  z-index: 1;
+}
+
+/* HERO CONTENT */
+.hero-content{
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  padding: 0 32px;
+  margin: auto;
+}
+
+/* OPTIONAL: subtle motion */
+.hero-bg{
+  animation: heroZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom{
+  from{transform: scale(1.05);}
+  to{transform: scale(1.12);}
+}
+
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .hero-box h1{font-size:2.2rem}
+}
+</style>
 </head>
-<body>
+<canvas id="cyber-bg"></canvas>
+
+<body class="bg-black text-white">
+
+<!-- ================= CYBER BG ================= -->
+
+<!-- ================= HEADER (UNCHANGED) ================= -->
+<!-- KEEP YOUR HEADER CODE HERE EXACTLY AS YOU HAVE -->
+
+<!-- ================= CYBER LANDING PAGE ================= -->
+
+<!-- Animated Background Layers -->
+<section class="hero-section">
+
+  <!-- HERO BG IMAGE -->
+  <div class="hero-bg"></div>
+
+  <!-- DARK OVERLAY -->
+  <div class="hero-overlay"></div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content">
+    <!-- keep your existing hero text & button here -->
+  
+
+<section class="cyber-landing">
+  <div class="cyber-wrap">
+
+    <!-- LEFT CONTENT -->
+    <div class="cyber-content">
+      <span class="cyber-tagline">BUILD YOUR FUTURE</span>
+
+      <h1>
+        Unlock New <br />
+        Opportunities With <br />
+        <span>Cyber Expertise</span>
+      </h1>
+<p class="typing-text">
+  <span id="typed-text"></span>
+  <span class="cursor">|</span>
+</p>
+
+      <p>
+        Professional cybersecurity strategies designed to protect,
+        scale, and future-proof your digital infrastructure.
+      </p>
+      
+
+      <a href="services1.html" class="cyber-cta">Explore Services</a>
+    </div>
+
+    <!-- RIGHT VISUAL -->
+    <div class="cyber-visual">
+      <img src="sol1.webp" alt="Cyber Security Illustration">
+    </div>
+
+  </div>
+</section>
+</div>
+
+</section>
+
+
+<!-- ================= STYLES ================= -->
+<style>
+ /* ===== CYBER BACKGROUND CANVAS ===== */
+
+
+/* keep sections transparent */
+section, main {
+  background: transparent !important;
+}
+
+/* shield icon */
+.cyber-shield{
+  position:absolute;
+  top:15%;
+  right:12%;
+  font-size:64px;
+  color:#22d3ee;
+  filter:drop-shadow(0 0 25px #22d3ee);
+  transition: transform .15s ease;
+}
+
+/* gradient animation */
+@keyframes cyberGradient{
+  0%{filter:hue-rotate(0deg)}
+  50%{filter:hue-rotate(25deg)}
+  100%{filter:hue-rotate(0deg)}
+}
+
+/* make all sections transparent */
+section,
+main{
+  background: transparent !important;
+}
+
+
+@keyframes gradientShift{
+  0%{filter:hue-rotate(0deg);}
+  100%{filter:hue-rotate(20deg);}
+}
+.typing-text{
+  color:#cbd5e1;
+  font-size:18px;
+  margin-bottom:36px;
+}
+
+.cursor{
+  color:#22d3ee;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  0%,50%,100%{opacity:1}
+  25%,75%{opacity:0}
+}
+
+/* Cyber grid */
+.cyber-grid{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(34,211,238,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity:.25;
+  animation: gridMove 30s linear infinite;
+}
+
+@keyframes gridMove{
+  from{background-position:0 0;}
+  to{background-position:600px 600px;}
+}
+
+/* ===== LANDING ===== */
+.cyber-landing{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding-top:140px;
+}
+
+.cyber-wrap{
+  max-width:1400px;
+  margin:auto;
+  padding:0 40px;
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+/* LEFT */
+.cyber-content{
+  animation: slideLeft 1.1s ease forwards;
+}
+
+.cyber-tagline{
+  color:#22d3ee;
+  font-size:13px;
+  letter-spacing:3px;
+  font-weight:700;
+}
+
+.cyber-content h1{
+  font-size:56px;
+  font-weight:800;
+  line-height:1.1;
+  margin:18px 0;
+}
+
+.cyber-content h1 span{
+  color:#22d3ee;
+  text-shadow:0 0 30px rgba(34,211,238,.6);
+}
+
+.cyber-content p{
+  color:#cbd5e1;
+  max-width:480px;
+  line-height:1.7;
+  margin-bottom:36px;
+}
+
+/* BUTTON */
+.cyber-cta{
+  display:inline-block;
+  background:linear-gradient(135deg,#06b6d4,#22d3ee);
+  padding:14px 36px;
+  border-radius:8px;
+  font-weight:700;
+  box-shadow:0 18px 45px rgba(34,211,238,.45);
+  transition:.35s ease;
+}
+
+.cyber-cta:hover{
+  transform:translateY(-4px) scale(1.04);
+  box-shadow:0 25px 70px rgba(34,211,238,.7);
+}
+
+/* RIGHT */
+.cyber-visual{
+  animation: rotateIn 1.3s ease forwards;
+}
+
+.cyber-visual img{
+  width:100%;
+  max-width:520px;
+  animation: float 6s ease-in-out infinite;
+  filter:drop-shadow(0 40px 80px rgba(0,0,0,.7));
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-18px);}
+}
+
+/* ANIMATIONS */
+@keyframes slideLeft{
+  from{opacity:0;transform:translateX(-70px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes rotateIn{
+  from{opacity:0;transform:translateX(80px) rotateY(18deg)}
+  to{opacity:1;transform:none}
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .cyber-wrap{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .cyber-content h1{
+    font-size:38px;
+  }
+}
+</style>
+<script>
+const canvas = document.getElementById("cyber-bg");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+/* ================= MATRIX CODE ================= */
+const fontSize = 16;
+const columns = Math.floor(innerWidth / fontSize);
+const drops = Array(columns).fill(1);
+const chars = "01アイウエオカキクケサシスセタチツナニヌ0123456789";
+
+function drawMatrix(){
+  ctx.fillStyle = "rgba(2,6,23,0.15)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "#22d3ee";
+  ctx.font = fontSize + "px monospace";
+
+  for(let i=0;i<drops.length;i++){
+    const text = chars[Math.floor(Math.random()*chars.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+    if(drops[i]*fontSize > canvas.height || Math.random() > 0.97){
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+
+/* ================= AI WAVEFORM ================= */
+let waveOffset = 0;
+function drawWave(){
+  ctx.beginPath();
+  ctx.strokeStyle = "rgba(34,211,238,0.5)";
+  ctx.lineWidth = 2;
+
+  for(let x=0;x<canvas.width;x+=10){
+    const y = canvas.height/2 +
+      Math.sin(x*0.01 + waveOffset) * 40 +
+      Math.sin(x*0.02 + waveOffset) * 20;
+    ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  waveOffset += 0.02;
+}
+.cursor-dot{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:#22d3ee;
+  border-radius:50%;
+  pointer-events:none;
+  filter:drop-shadow(0 0 10px #22d3ee);
+}
+
+/* ================= SHIELD MOUSE REACT ================= */
+const shield = document.createElement("i");
+shield.className = "fa-solid fa-shield-halved cyber-shield";
+document.body.appendChild(shield);
+
+document.addEventListener("mousemove", e=>{
+  const x = (e.clientX - innerWidth/2) / 40;
+  const y = (e.clientY - innerHeight/2) / 40;
+  shield.style.transform = `translate(${x}px,${y}px) scale(1.1)`;
+});
+
+/* ================= MAIN LOOP ================= */
+function animate(){
+  drawMatrix();
+  drawWave();
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+<script>
+const canvas = document.getElementById("cyber-bg");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+/* cyber nodes */
+const nodes = Array.from({length: 100}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  vx: (Math.random() - 0.5) * 0.6,
+  vy: (Math.random() - 0.5) * 0.6
+}));
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  nodes.forEach((n,i)=>{
+    n.x += n.vx;
+    n.y += n.vy;
+
+    if(n.x < 0 || n.x > canvas.width) n.vx *= -1;
+    if(n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+    /* node */
+    ctx.fillStyle = "#22d3ee";
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,2,0,Math.PI*2);
+    ctx.fill();
+
+    /* lines */
+    for(let j=i+1;j<nodes.length;j++){
+      const o = nodes[j];
+      const d = Math.hypot(n.x-o.x,n.y-o.y);
+      if(d < 130){
+        ctx.strokeStyle = "rgba(34,211,238,0.12)";
+        ctx.beginPath();
+        ctx.moveTo(n.x,n.y);
+        ctx.lineTo(o.x,o.y);
+        ctx.stroke();
+      }
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+<script>
+const texts = [
+  "Protecting digital assets in real-time.",
+  "Advanced threat detection & response.",
+  "Enterprise-grade cyber defense systems.",
+  "Securing your future with confidence."
+];
+
+let index = 0, char = 0, isDeleting = false;
+const speed = 80;
+const typed = document.getElementById("typed-text");
+
+function typeEffect(){
+  const current = texts[index];
+  if(!isDeleting){
+    typed.textContent = current.slice(0, ++char);
+    if(char === current.length){
+      isDeleting = true;
+      setTimeout(()=>{},1200);
+    }
+  }else{
+    typed.textContent = current.slice(0, --char);
+    if(char === 0){
+      isDeleting = false;
+      index = (index+1)%texts.length;
+    }
+  }
+  setTimeout(typeEffect, isDeleting ? speed/2 : speed);
+}
+typeEffect();
+</script>
+
+<!-- ================= PARTICLES ================= -->
+<script>
+const canvas = document.getElementById("cyberParticles");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const dots = Array.from({length:80},()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  vx:(Math.random()-.5)*.4,
+  vy:(Math.random()-.5)*.4
+}));
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  dots.forEach(d=>{
+    d.x+=d.vx; d.y+=d.vy;
+    if(d.x<0||d.x>canvas.width)d.vx*=-1;
+    if(d.y<0||d.y>canvas.height)d.vy*=-1;
+
+    ctx.fillStyle="#22d3ee";
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,1.6,0,Math.PI*2);
+    ctx.fill();
+
+    dots.forEach(o=>{
+      const dist=Math.hypot(d.x-o.x,d.y-o.y);
+      if(dist<120){
+        ctx.strokeStyle="rgba(34,211,238,.12)";
+        ctx.beginPath();
+        ctx.moveTo(d.x,d.y);
+        ctx.lineTo(o.x,o.y);
+        ctx.stroke();
+      }
+    });
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+
+<!-- ================= SERVICES ================= -->
+<section class="services">
+  <h2>Our Services</h2>
+
+  <div class="service-grid">
+    <div class="service-card rotate-box">
+      <h3>Network Security</h3>
+      <p>Protect infrastructure from cyber threats.</p>
+    </div>
+    <div class="service-card rotate-box">
+      <h3>Penetration Testing</h3>
+      <p>Identify vulnerabilities before attackers do.</p>
+    </div>
+    <div class="service-card rotate-box">
+      <h3>Threat Intelligence</h3>
+      <p>Real-time threat detection & monitoring.</p>
+    </div>
+    <div class="service-card rotate-box">
+      <h3>Cloud Security</h3>
+      <p>Secure your cloud environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta rotate-box">
+  <h2>Secure Your Business Today</h2>
+  <p>Don’t wait for a breach. Act now.</p>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</section>
+
+<!-- ================= FOOTER (UNCHANGED) ================= -->
+<!-- KEEP YOUR FOOTER CODE HERE EXACTLY AS YOU HAVE -->
+
+<script>
+const canvas = document.getElementById("cyber-bg");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+/* ===== NEURAL NODES ===== */
+const nodes = Array.from({length:90},()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*3+1,
+  pulse:Math.random()*Math.PI*2
+}));
+
+/* ===== LIVE THREATS ===== */
+const threats = [];
+
+function spawnThreat(){
+  threats.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    life:0
+  });
+}
+setInterval(spawnThreat,1200);
+
+/* ===== DRAW ===== */
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  /* neural network */
+  nodes.forEach((n,i)=>{
+    n.pulse += 0.02;
+    const radius = n.r + Math.sin(n.pulse)*1.5;
+
+    ctx.fillStyle="#22d3ee";
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,radius,0,Math.PI*2);
+    ctx.fill();
+
+    nodes.forEach(o=>{
+      const d=Math.hypot(n.x-o.x,n.y-o.y);
+      if(d<120){
+        ctx.strokeStyle="rgba(34,211,238,.12)";
+        ctx.beginPath();
+        ctx.moveTo(n.x,n.y);
+        ctx.lineTo(o.x,o.y);
+        ctx.stroke();
+      }
+    });
+  });
+
+  /* live threats */
+  threats.forEach((t,i)=>{
+    t.life++;
+    ctx.strokeStyle=`rgba(255,50,50,${1-t.life/60})`;
+    ctx.beginPath();
+    ctx.arc(t.x,t.y,t.life*2,0,Math.PI*2);
+    ctx.stroke();
+    if(t.life>60) threats.splice(i,1);
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+<script>
+const trail = [];
+document.addEventListener("mousemove", e=>{
+  const dot = document.createElement("div");
+  dot.className = "cursor-dot";
+  dot.style.left = e.clientX+"px";
+  dot.style.top = e.clientY+"px";
+  document.body.appendChild(dot);
+  trail.push(dot);
+
+  if(trail.length > 20){
+    const old = trail.shift();
+    old.remove();
+  }
+
+  setTimeout(()=>dot.remove(),400);
+});
+</script>
+
+</body>
+</html>
 
   <!-- Hero Section -->
+   <section class="hero-section">
+
+  <!-- HERO BG IMAGE -->
+  <div class="hero-bg"></div>
+
+  <!-- DARK OVERLAY -->
+  <div class="hero-overlay"></div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content">
+   
+
 <!-- Services Section -->
 <section class="services">
   <h2>Our Services</h2>
   <div class="service-grid">
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Network Security</h3>
       <p>Protect your network from unauthorized access and cyber threats using our advanced security measures.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Penetration Testing</h3>
       <p>Identify vulnerabilities in your systems with expert ethical hacking and penetration testing services.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Threat Analysis</h3>
       <p>Stay ahead of cyber threats with proactive monitoring and real-time threat intelligence.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Data Protection</h3>
       <p>Safeguard sensitive data with encryption, secure storage, and advanced access controls.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Cloud Security</h3>
       <p>Secure your cloud infrastructure and prevent data breaches with our cloud security solutions.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Endpoint Security</h3>
       <p>Protect devices connected to your network with advanced endpoint protection and monitoring.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Cybersecurity Consulting</h3>
       <p>Get expert guidance on cybersecurity strategies, risk management, and compliance.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Incident Response</h3>
       <p>Rapidly respond to cyber attacks and minimize damage with our incident response team.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Application Security</h3>
       <p>Protect your applications from vulnerabilities with secure coding and testing practices.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Identity & Access Management</h3>
       <p>Control user access, authentication, and authorization to protect sensitive information.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Security Awareness Training</h3>
       <p>Educate your employees to recognize cyber threats and avoid common security mistakes.</p>
     </div>
-    <div class="service-card">
+<div class="service-card rotate-box">
       <h3>Firewall & VPN Solutions</h3>
       <p>Implement robust firewall and VPN solutions to secure your network traffic and remote access.</p>
     </div>
   </div>
 </section>
 
+</div>
+
+</section>
 
   <!-- Call To Action -->
   <section class="cta">
@@ -329,7 +1188,6 @@
 </body>
 </html>
 
-<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
 
   <div class="max-w-6xl mx-auto">
 
@@ -377,6 +1235,69 @@
 
   </div>
 </footer>
+<script>
+const canvas = document.getElementById("s9.webp");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const nodes = Array.from({length: 90}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  vx: (Math.random() - .5) * .6,
+  vy: (Math.random() - .5) * .6
+}));
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  nodes.forEach(n=>{
+    n.x += n.vx;
+    n.y += n.vy;
+
+    if(n.x<0||n.x>canvas.width) n.vx*=-1;
+    if(n.y<0||n.y>canvas.height) n.vy*=-1;
+
+    ctx.fillStyle = "#22d3ee";
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,2,0,Math.PI*2);
+    ctx.fill();
+
+    nodes.forEach(o=>{
+      const d = Math.hypot(n.x-o.x,n.y-o.y);
+      if(d < 120){
+        ctx.strokeStyle = "rgba(34,211,238,.15)";
+        ctx.beginPath();
+        ctx.moveTo(n.x,n.y);
+        ctx.lineTo(o.x,o.y);
+        ctx.stroke();
+      }
+    });
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+<script>
+const rotateBoxes = document.querySelectorAll(".rotate-box");
+
+const rotObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+},{threshold:.15});
+
+rotateBoxes.forEach(box=>rotObs.observe(box));
+</script>
 
 <script>
 const sections = document.querySelectorAll("section");
