@@ -1,1069 +1,988 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Stackly home</title>
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly – HP1</title>
 
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-
-  <style>
-    /* ===================================================
-   1️⃣ HAMBURGER ALWAYS CENTER (MOBILE)
-   =================================================== */
-@media (max-width: 1116px) {
-
-  header .max-w-7xl {
-    position: relative;
-  }
-
-  #hamburgerBtn {
-    position: absolute !important;
-    left: 60% !important;
-    transform: translateX(-50%) !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    z-index: 999;
-  }
-}
-
-/* ===================================================
-   2️⃣ PREVENT HEADER & FOOTER SHRINKING
-   =================================================== */
-
-/* Stop flex from shrinking */
-header,
-footer {
-  min-width: 320px; /* minimum mobile width */
-}
-
-/* Prevent logo & buttons from shrinking */
-header img,
-#hamburgerBtn,
-footer img {
-  flex-shrink: 0 !important;
-}
-
-/* Text should wrap, not shrink */
-header *,
-footer * {
-  white-space: normal !important;
-  word-break: break-word;
-}
-
-/* Stack instead of compress on very small screens */
-@media (max-width: 360px) {
-
-  footer .grid {
-    grid-template-columns: 1fr !important;
-    text-align: center !important;
-    gap: 28px !important;
-  }
-
-  footer img {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-    /* ---------- Global custom styles ---------- */
-    :root {
-      --accent: #06b6d4; /* cyan-400 */
-      --muted: #9ca3af;
-      --card: #0f1724; /* dark card */
-    }
-
-    /* Smooth entrance animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
-
-    @keyframes fadeScale {
-      from { opacity: 0; transform: translateY(24px) scale(.98); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .fade-scale { animation: fadeScale 1s ease both; }
-
-    /* Subtle float on cards */
-    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
-    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
-
-    /* Desktop dropdown style */
-    .dropdown-panel { min-width: 11rem; }
-
-    /* Hero overlay & text shadow */
-    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
-    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
-
-    /* Responsive tweaks */
-    @media (min-width:768px) {
-      .nav-center { left: 50%; transform: translateX(-50%); }
-    }
-
-    /* Accessibility focus */
-    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
-
-    /* small utils */
-    .muted { color: var(--muted); }
-
-    .what-we-do {
-    padding: 60px 20px;
-    text-align: center;
-    background: #050505; /* or remove if you want full black page */
-}
-
-.what-we-do h2 {
-    font-size: 40px;
-    font-weight: 700;
-    color: #d8d8e1;
-    margin-bottom: 15px;
-}
-
-.what-we-do p {
-    color: #9eb5c7;
-    font-size: 18px;
-}
-/* Custom breakpoint: show desktop menu only at ≥1117px */
-@media (min-width: 1117px) {
-  .xl2\:flex {
-    display: flex !important;
-  }
-  .xl2\:hidden {
-    display: none !important;
-  }
-}
-.nav-active {
-  color: cyan !important;
-}
-
-/* ===== GLASS HEADER (SAME AS BEFORE) ===== */
-.header {
-  background: rgba(255,255,255,0.12) !important;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 15px 40px rgba(0,0,0,.45);
-}
-
-/* Bigger & attractive logo */
-.header img {
-  height: 48px;
-  width: auto;
-  filter: drop-shadow(0 0 12px rgba(6,182,212,.45));
-  transition: .4s ease;
-}
-
-.header img:hover {
-  transform: scale(1.08);
-  filter: drop-shadow(0 0 22px rgba(6,182,212,.7));
-}
-/* ===== PREVENT FOOTER SHRINKING ===== */
-
-/* Footer container must not compress */
-footer,
-footer * {
-  min-width: 0;
-}
-
-/* Lock footer content width */
-footer .max-w-6xl {
-  max-width: 100% !important;
-  width: 100% !important;
-}
-
-/* Prevent text squeeze */
-footer p,
-footer li,
-footer a {
-  white-space: normal !important;
-  word-break: break-word !important;
-}
-
-/* Force vertical stacking instead of shrinking */
-@media (max-width: 420px) {
-
-  footer .grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-    text-align: center !important;
-  }
-
-  footer img {
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
-/* Prevent scaling down */
-footer {
-  transform: none !important;
-  zoom: 1 !important;
-}
-
-/* Mobile hamburger fix */
-@media (max-width:1116px) {
-  #hamburgerBtn {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-  }
-}
-/* ===== HERO BOX ROTATE FROM RIGHT ===== */
-.hero-box {
-  opacity: 0;
-  transform: translateX(140px) rotateY(18deg);
-  animation: rotateIn 1.2s cubic-bezier(.22,.61,.36,1) forwards;
-  animation-delay: .2s;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(14px);
-}
-
-/* KEYFRAMES */
-@keyframes rotateIn {
-  to {
-    opacity: 1;
-    transform: translateX(0) rotateY(0deg);
-  }
-}
-/* Headline animation */
-.hero-box h1 {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUpSoft .9s ease forwards;
-  animation-delay: .6s;
-}
-
-.hero-box p {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUpSoft .9s ease forwards;
-  animation-delay: .9s;
-}
-
-/* CTA hover polish */
-.hero-box button,
-.hero-box a {
-  transition: .35s ease;
-}
-
-.hero-box a:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 18px 40px rgba(6,182,212,.45);
-}
-
-/* FadeUp soft */
-@keyframes fadeUpSoft {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-section[style*="background-image"] {
-  animation: bgZoom 12s ease-in-out infinite alternate;
-}
-
-@keyframes bgZoom {
-  from { background-size: 100%; }
-  to { background-size: 108%; }
-}
-/* ===== PREMIUM FLOATING HEADER ===== */
-.glass-header{
-  max-width: 1400px;
-  width: calc(100% - 40px);
-  background: linear-gradient(
-    180deg,
-    rgba(0,0,0,0.85),
-    rgba(5,15,20,0.75)
-  );
-  backdrop-filter: blur(18px);
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.7);
-}
-
-/* LOGO */
-.glass-header img{
-  height: 46px;
-  filter: drop-shadow(0 0 18px rgba(6,182,212,.5));
-}
-
-/* NAV LINKS */
-.glass-header nav a,
-.glass-header nav button{
-  color: #e5e7eb;
-  transition: .3s ease;
-}
-
-.glass-header nav a:hover,
-.glass-header nav button:hover{
-  color: #22d3ee;
-}
-
-/* ACTIVE HOME */
-.nav-active{
-  color:#22d3ee !important;
-}
-
-/* LOGIN BUTTON */
-.glass-header a.bg-cyan-500{
-  background: linear-gradient(135deg,#06b6d4,#22d3ee);
-  box-shadow: 0 0 20px rgba(34,211,238,.6);
-}
-
-/* MOBILE */
-@media(max-width:1116px){
-  .glass-header{
-    width: calc(100% - 20px);
-  }
-}
-/* ===== ROTATE FROM RIGHT ===== */
-.rotate-box{
-  opacity: 0;
-  transform: translateX(140px) rotateY(18deg);
-  transition: 1s cubic-bezier(.22,.61,.36,1);
-  will-change: transform, opacity;
-}
-
-.rotate-box.show{
-  opacity: 1;
-  transform: translateX(0) rotateY(0);
-}
-
-
-  </style>
-</head>
-<body class="font-inter antialiased bg-black text-white">
-
- 
-<!-- HEADER -->
-<header class="header glass-header fixed top-4 inset-x-0 mx-auto z-50 h-20 flex items-center">
-  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
-
-    <!-- LOGO -->
-    <a href="index.html" class="flex items-center gap-3">
-  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
-</a>
-
-    <!-- DESKTOP MENU (only visible above 1117px) -->
-    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
-      <div class="relative group">
-       <button onclick="toggleMobileDrop()" class="flex items-center justify-between w-full py-2 nav-active">
-    <span>Home 2</span>
-    <i class="fa-solid fa-chevron-down text-sm"></i>
-</button>
-
-
-        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
-             w-36 top-full pt-3 z-50">
-          <a href="index.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home </a>
-        </div>
-      </div>
-
-      <a href="About.html" class="nav-link hover:text-cyan-400">About</a>
-      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
-      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
-      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
-
-      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
-        LOGIN
-      </a>
-    </nav>
-
-    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
-    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
-      <i class="fa-solid fa-bars text-2xl text-white"></i>
-    </button>
-
-  </div>
-</header>
-
-  
-  <!-- ================= MOBILE MENU ================= -->
-  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
-    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
-
-     <!-- DROPDOWN BUTTON -->
-    <button onclick="toggleMobileDrop()" 
-            class="flex items-center justify-between w-full">
-            <a href="home2.html" class="hover:text-cyan-300">Home 2</a>
-      <i class="fa-solid fa-chevron-down text-sm"></i>
-    </button>
-
-    <!-- DROPDOWN CONTENT -->
-    <div id="mobileHomeDrop" class="hidden pl-4">
-      <a href="index.html" class="block py-2 hover:text-cyan-300">Home </a>
-    </div>
-
-      <a href="About.html" class="nav-link hover:text-cyan-400">About</a>
-      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
-      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
-      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
-
-      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
-    </div>
-  </nav>
-
-
-<script>
-  const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  hamburgerBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
-  function toggleMobileDrop() {
-  const drop = document.getElementById("mobileHomeDrop");
-  drop.classList.toggle("hidden");
-}
-
-</script>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stackly Home</title>
-
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<main class="pt-2"></main>
+
 <style>
-/* ================= CYBER BACKGROUND ================= */
-#cyber-bg{
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:#020617;
+/* ================= RESET ================= */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, Arial, sans-serif;
+  background:#000;
+  color:#fff;
+  padding-top:140px; /* space for floating header */
 }
 
-/* ================= HERO ================= */
-.hero-section{
-  min-height:100vh;
+/* ================= HEADER WRAPPER ================= */
+.header-wrapper{
+  position:fixed;
+  top:20px;
+  left:0;
+  width:100%;
+  z-index:1000;
+  display:flex;
+  justify-content:center;
+}
+
+/* ================= GLASS HEADER ================= */
+.header{
+  width:calc(100% - 60px);
+  max-width:1400px;
+  height:96px;
+  padding:0 34px;
+
   display:flex;
   align-items:center;
-  justify-content:center;
-  position:relative;
+  justify-content:space-between;
+
+  background:linear-gradient(
+    90deg,
+    rgba(255,255,255,.10),
+    rgba(255,255,255,.04)
+  );
+  backdrop-filter:blur(18px);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 30px 60px rgba(0,0,0,.6);
 }
 
-.hero-box{
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.2);
-  padding:60px 50px;
-  border-radius:18px;
-  max-width:900px;
-  text-align:center;
-
-  opacity:0;
-  transform:translateX(140px) rotateY(18deg);
-  animation:heroRotate 1.3s cubic-bezier(.22,.61,.36,1) forwards;
+/* ================= LOGO ================= */
+.logo img{
+  height:52px;
+  filter:drop-shadow(0 0 18px rgba(34,211,238,.35));
 }
 
-@keyframes heroRotate{
-  to{
-    opacity:1;
-    transform:none;
-  }
+/* ================= DESKTOP NAV ================= */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  font-weight:600;
 }
 
-.hero-box h1{
-  font-size:3.2rem;
+.nav a{
+  color:#e5e7eb;
+  text-decoration:none;
+}
+.nav a:hover{color:#22d3ee}
+
+.nav .active{color:#22d3ee}
+
+/* ================= LOGIN BUTTON ================= */
+.login-btn{
+  margin-left:10px;
+  background:#22d3ee;
+  color:#000 !important;
+  padding:10px 22px;
+  border-radius:12px;
   font-weight:800;
-  margin-bottom:16px;
+  box-shadow:0 10px 30px rgba(34,211,238,.45);
 }
 
-.hero-box p{
-  color:#cbd5e1;
-  font-size:1.15rem;
-  max-width:650px;
-  margin:auto;
+/* ================= DROPDOWN ================= */
+.dropdown{position:relative}
+.dropdown-menu{
+  display:none;
+  position:absolute;
+  top:130%;
+  left:0;
+  background:#000;
+  border-radius:14px;
+  min-width:150px;
+  box-shadow:0 20px 40px rgba(0,0,0,.7);
 }
+.dropdown:hover .dropdown-menu{display:block}
 
-/* ================= ROTATE ON SCROLL ================= */
-.rotate-box{
-  opacity:0;
-  transform:translateX(120px) rotateY(16deg);
-  transition:1s cubic-bezier(.22,.61,.36,1);
+.dropdown-menu a{
+  display:block;
+  padding:12px 16px;
 }
+.dropdown-menu a:hover{background:#1f2937}
 
-.rotate-box.show{
-  opacity:1;
-  transform:none;
+/* ================= HAMBURGER ================= */
+.hamburger{
+  display:none;
+  background:rgba(255,255,255,.15);
+  border:none;
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  cursor:pointer;
 }
+.hamburger i{font-size:22px;color:#fff}
 
-/* ================= SERVICES ================= */
-.services{
-  padding:100px 20px;
-  max-width:1200px;
-  margin:auto;
-}
-
-.services h2{
-  text-align:center;
-  font-size:2.5rem;
-  color:#22d3ee;
-  margin-bottom:60px;
-}
-
-.service-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:40px;
-}
-
-.service-card{
-  background:#0f172a;
-  border:1px solid rgba(255,255,255,.08);
-  padding:32px;
-  border-radius:16px;
-  text-align:center;
-}
-
-.service-card h3{
-  color:#22d3ee;
-  margin-bottom:12px;
-}
-
-/* ================= CTA ================= */
-.cta{
-  background:#0f172a;
-  border:1px solid rgba(255,255,255,.08);
+/* ================= MOBILE MENU ================= */
+.mobile-menu{
+  position:fixed;
+  top:140px;
+  left:20px;
+  right:20px;
+  background:#000;
   border-radius:18px;
-  padding:70px 30px;
-  text-align:center;
-  max-width:900px;
-  margin:120px auto;
+  padding:24px;
+  display:none;
+  z-index:999;
+  box-shadow:0 30px 60px rgba(0,0,0,.7);
 }
 
-.cta h2{
-  color:#22d3ee;
-  font-size:2.3rem;
-  margin-bottom:18px;
+.mobile-menu.open{display:block}
+
+.mobile-menu a{
+  display:block;
+  padding:12px 0;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+}
+.mobile-menu a:hover{color:#22d3ee}
+
+/* MOBILE DROPDOWN */
+.mobile-drop-btn{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:18px;
+  font-weight:600;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  cursor:pointer;
 }
 
-.cta p{
-  color:#cbd5e1;
-  margin-bottom:30px;
+.mobile-drop{
+  display:none;
+  padding-left:16px;
 }
+.mobile-drop.open{display:block}
 
-.cta button{
-  background:linear-gradient(135deg,#06b6d4,#22d3ee);
-  padding:14px 34px;
-  border-radius:10px;
-  font-weight:700;
-}
-/* ===== HERO SECTION ===== */
-.hero-section{
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-/* BACKGROUND IMAGE */
-.hero-bg{
-  position: absolute;
-  inset: 0;
-  background-image: url("bg.png"); /* 👈 replace with your image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 0;
-  transform: scale(1.05);
-}
-
-/* DARK CYBER OVERLAY */
-.hero-overlay{
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      120deg,
-      rgba(2,6,23,0.92),
-      rgba(2,6,23,0.65)
-    );
-  z-index: 1;
-}
-
-/* HERO CONTENT */
-.hero-content{
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  padding: 0 32px;
-  margin: auto;
-}
-
-/* OPTIONAL: subtle motion */
-.hero-bg{
-  animation: heroZoom 18s ease-in-out infinite alternate;
-}
-
-@keyframes heroZoom{
-  from{transform: scale(1.05);}
-  to{transform: scale(1.12);}
-}
-
-
-/* ================= MOBILE ================= */
-@media(max-width:768px){
-  .hero-box h1{font-size:2.2rem}
+/* ================= RESPONSIVE ================= */
+@media(max-width:1117px){
+  .nav{display:none}
+  .hamburger{display:flex;align-items:center;justify-content:center}
 }
 </style>
 </head>
-<canvas id="cyber-bg"></canvas>
 
-<body class="bg-black text-white">
+<body>
 
-<!-- ================= CYBER BG ================= -->
+<!-- ================= HEADER ================= -->
+<div class="header-wrapper">
+  <header class="header">
 
-<!-- ================= HEADER (UNCHANGED) ================= -->
-<!-- KEEP YOUR HEADER CODE HERE EXACTLY AS YOU HAVE -->
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img src="stackly.webp" alt="Stackly">
+    </a>
 
-<!-- ================= CYBER LANDING PAGE ================= -->
+    <!-- DESKTOP NAV -->
+    <nav class="nav">
+      <div class="dropdown">
+        <a href="#" class="active">Home 2 <i class="fa-solid fa-chevron-down"></i></a>
+        <div class="dropdown-menu">
+          <a href="index.html">Home 1</a>
+        </div>
+      </div>
 
-<!-- Animated Background Layers -->
-<section class="hero-section">
+      <a href="About.html">About</a>
+      <a href="services1.html">Services</a>
+      <a href="FAQ.html">FAQ</a>
+      <a href="contact.html">Contact 📞</a>
+      <a href="login.html" class="login-btn">LOGIN</a>
+    </nav>
 
-  <!-- HERO BG IMAGE -->
-  <div class="hero-bg"></div>
+    <!-- HAMBURGER -->
+    <button class="hamburger" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
 
-  <!-- DARK OVERLAY -->
-  <div class="hero-overlay"></div>
-
-  <!-- HERO CONTENT -->
-  <div class="hero-content">
-    <!-- keep your existing hero text & button here -->
-  
-
-<section class="cyber-landing">
-  <div class="cyber-wrap">
-
-    <!-- LEFT CONTENT -->
-    <div class="cyber-content">
-      <span class="cyber-tagline">BUILD YOUR FUTURE</span>
-
-      <h1>
-        Unlock New <br />
-        Opportunities With <br />
-        <span>Cyber Expertise</span>
-      </h1>
-<p class="typing-text">
-  <span id="typed-text"></span>
-  <span class="cursor">|</span>
-</p>
-
-      <p>
-        Professional cybersecurity strategies designed to protect,
-        scale, and future-proof your digital infrastructure.
-      </p>
-      
-
-      <a href="services1.html" class="cyber-cta">Explore Services</a>
-    </div>
-
-    <!-- RIGHT VISUAL -->
-    <div class="cyber-visual">
-      <img src="sol1.webp" alt="Cyber Security Illustration">
-    </div>
-
-  </div>
-</section>
+  </header>
 </div>
 
-</section>
+<!-- ================= MOBILE MENU ================= -->
+<div class="mobile-menu" id="mobileMenu">
 
+  <button class="mobile-drop-btn" id="mobileDropBtn">
+    Home 2 <i class="fa-solid fa-chevron-down"></i>
+  </button>
 
-<!-- ================= STYLES ================= -->
+  <div class="mobile-drop" id="mobileDrop">
+    <a href="index.html">Home 1</a>
+  </div>
+
+  <a href="About.html">About</a>
+  <a href="services1.html">Services</a>
+  <a href="FAQ.html">FAQ</a>
+  <a href="contact.html">Contact 📞</a>
+  <a href="login.html" style="color:#22d3ee">LOGIN</a>
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const mobileDropBtn = document.getElementById("mobileDropBtn");
+const mobileDrop = document.getElementById("mobileDrop");
+
+hamburgerBtn.onclick = () => {
+  mobileMenu.classList.toggle("open");
+};
+
+mobileDropBtn.onclick = () => {
+  mobileDrop.classList.toggle("open");
+};
+</script>
+
 <style>
- /* ===== CYBER BACKGROUND CANVAS ===== */
-
-
-/* keep sections transparent */
-section, main {
-  background: transparent !important;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  background:#000;
+  color:#fff;
 }
 
-/* shield icon */
-.cyber-shield{
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  background:url("bg.png") center/cover no-repeat;
+  position:relative;
+}
+.hero::after{
+  content:"";
   position:absolute;
-  top:15%;
-  right:12%;
-  font-size:64px;
+  inset:0;
+  background:rgba(0,0,0,.65);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:1300px;
+  margin:auto;
+  padding:80px 40px;
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+/* ===== STAGGER BASE ===== */
+.stagger{
+  opacity:0;
+  transform:translateY(-24px);
+  animation:staggerUp .8s ease forwards;
+}
+.delay-1{animation-delay:.2s}
+.delay-2{animation-delay:.4s}
+.delay-3{animation-delay:.6s}
+.delay-4{animation-delay:.8s}
+.delay-5{animation-delay:1s}
+.delay-6{animation-delay:1.2s}
+
+@keyframes staggerUp{
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ================= TEXT ================= */
+.hero-tag{
   color:#22d3ee;
-  filter:drop-shadow(0 0 25px #22d3ee);
-  transition: transform .15s ease;
+  letter-spacing:3px;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:16px;
 }
 
-/* gradient animation */
-@keyframes cyberGradient{
-  0%{filter:hue-rotate(0deg)}
-  50%{filter:hue-rotate(25deg)}
-  100%{filter:hue-rotate(0deg)}
+h1{
+  font-size:56px;
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:18px;
 }
+h1 span{color:#22d3ee}
 
-/* make all sections transparent */
-section,
-main{
-  background: transparent !important;
-}
-
-
-@keyframes gradientShift{
-  0%{filter:hue-rotate(0deg);}
-  100%{filter:hue-rotate(20deg);}
-}
-.typing-text{
-  color:#cbd5e1;
+/* ===== TYPING + GLOW ===== */
+.hero-sub{
   font-size:18px;
-  margin-bottom:36px;
+  color:#cbd5f5;
+  margin-bottom:14px;
+}
+
+.typing.glow{
+  text-shadow:
+    0 0 12px rgba(34,211,238,.6),
+    0 0 28px rgba(34,211,238,.45);
+  animation:glowPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+  0%,100%{text-shadow:0 0 10px rgba(34,211,238,.4)}
+  50%{text-shadow:0 0 26px rgba(34,211,238,.9)}
 }
 
 .cursor{
-  color:#22d3ee;
-  animation: blink 1s infinite;
+  display:inline-block;
+  margin-left:4px;
+  animation:blink 1s infinite;
 }
-
 @keyframes blink{
   0%,50%,100%{opacity:1}
   25%,75%{opacity:0}
 }
 
-/* Cyber grid */
-.cyber-grid{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(rgba(34,211,238,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,211,238,.06) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity:.25;
-  animation: gridMove 30s linear infinite;
-}
-
-@keyframes gridMove{
-  from{background-position:0 0;}
-  to{background-position:600px 600px;}
-}
-
-/* ===== LANDING ===== */
-.cyber-landing{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  padding-top:140px;
-}
-
-.cyber-wrap{
-  max-width:1400px;
-  margin:auto;
-  padding:0 40px;
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-/* LEFT */
-.cyber-content{
-  animation: slideLeft 1.1s ease forwards;
-}
-
-.cyber-tagline{
-  color:#22d3ee;
-  font-size:13px;
-  letter-spacing:3px;
-  font-weight:700;
-}
-
-.cyber-content h1{
-  font-size:56px;
-  font-weight:800;
-  line-height:1.1;
-  margin:18px 0;
-}
-
-.cyber-content h1 span{
-  color:#22d3ee;
-  text-shadow:0 0 30px rgba(34,211,238,.6);
-}
-
-.cyber-content p{
-  color:#cbd5e1;
-  max-width:480px;
+.hero-desc{
+  max-width:520px;
+  font-size:15px;
+  color:#9ca3af;
   line-height:1.7;
   margin-bottom:36px;
 }
 
 /* BUTTON */
-.cyber-cta{
-  display:inline-block;
-  background:linear-gradient(135deg,#06b6d4,#22d3ee);
-  padding:14px 36px;
-  border-radius:8px;
+.hero-btn{
+  padding:14px 34px;
+  background:#22d3ee;
+  color:#000;
   font-weight:700;
-  box-shadow:0 18px 45px rgba(34,211,238,.45);
-  transition:.35s ease;
+  border-radius:10px;
+  text-decoration:none;
+  box-shadow:0 20px 40px rgba(34,211,238,.45);
+  transition:.3s;
 }
+.hero-btn:hover{transform:translateY(-3px)}
 
-.cyber-cta:hover{
-  transform:translateY(-4px) scale(1.04);
-  box-shadow:0 25px 70px rgba(34,211,238,.7);
-}
-
-/* RIGHT */
-.cyber-visual{
-  animation: rotateIn 1.3s ease forwards;
-}
-
-.cyber-visual img{
+/* IMAGE */
+.hero-image img{
   width:100%;
   max-width:520px;
-  animation: float 6s ease-in-out infinite;
-  filter:drop-shadow(0 40px 80px rgba(0,0,0,.7));
+  border-radius:18px;
+  box-shadow:0 40px 80px rgba(0,0,0,.85);
 }
 
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-18px);}
-}
-
-/* ANIMATIONS */
-@keyframes slideLeft{
-  from{opacity:0;transform:translateX(-70px)}
-  to{opacity:1;transform:none}
-}
-
-@keyframes rotateIn{
-  from{opacity:0;transform:translateX(80px) rotateY(18deg)}
-  to{opacity:1;transform:none}
-}
-
-/* MOBILE */
+/* RESPONSIVE */
 @media(max-width:900px){
-  .cyber-wrap{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-  .cyber-content h1{
-    font-size:38px;
-  }
+  .hero-content{grid-template-columns:1fr;text-align:center}
+  h1{font-size:40px}
+  .hero-desc{margin:auto}
+  .hero-image img{margin:auto}
 }
 </style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-content">
+
+    <!-- LEFT -->
+    <div>
+      <div class="hero-tag stagger delay-1">BUILD YOUR FUTURE</div>
+
+      <h1 class="stagger delay-2">
+        Unlock New <br>
+        Opportunities With <br>
+        <span>Cyber Expertise</span>
+      </h1>
+
+      <div class="hero-sub stagger delay-3">
+        <span id="typingText" class="typing glow"></span>
+        <span class="cursor">|</span>
+      </div>
+
+      <p class="hero-desc stagger delay-4">
+        Professional cybersecurity strategies designed to protect,
+        scale, and future-proof your digital infrastructure.
+      </p>
+
+      <a href="services.html" class="hero-btn stagger delay-5">
+        Explore Services
+      </a>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-image stagger delay-6">
+      <img src="sol1.webp" alt="Cyber Team">
+    </div>
+
+  </div>
+</section>
+
 <script>
-const canvas = document.getElementById("cyber-bg");
-const ctx = canvas.getContext("2d");
+const text = "Advanced threat detection & respons";
+let i = 0;
 
-function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-}
-resize();
-addEventListener("resize", resize);
-
-/* ================= MATRIX CODE ================= */
-const fontSize = 16;
-const columns = Math.floor(innerWidth / fontSize);
-const drops = Array(columns).fill(1);
-const chars = "01アイウエオカキクケサシスセタチツナニヌ0123456789";
-
-function drawMatrix(){
-  ctx.fillStyle = "rgba(2,6,23,0.15)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  ctx.fillStyle = "#22d3ee";
-  ctx.font = fontSize + "px monospace";
-
-  for(let i=0;i<drops.length;i++){
-    const text = chars[Math.floor(Math.random()*chars.length)];
-    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-    if(drops[i]*fontSize > canvas.height || Math.random() > 0.97){
-      drops[i] = 0;
-    }
-    drops[i]++;
+function typeText(){
+  if(i < text.length){
+    document.getElementById("typingText").textContent += text.charAt(i);
+    i++;
+    setTimeout(typeText, 55);
   }
 }
 
-/* ================= AI WAVEFORM ================= */
-let waveOffset = 0;
-function drawWave(){
-  ctx.beginPath();
-  ctx.strokeStyle = "rgba(34,211,238,0.5)";
-  ctx.lineWidth = 2;
-
-  for(let x=0;x<canvas.width;x+=10){
-    const y = canvas.height/2 +
-      Math.sin(x*0.01 + waveOffset) * 40 +
-      Math.sin(x*0.02 + waveOffset) * 20;
-    ctx.lineTo(x,y);
-  }
-  ctx.stroke();
-  waveOffset += 0.02;
-}
-.cursor-dot{
-  position:fixed;
-  width:6px;
-  height:6px;
-  background:#22d3ee;
-  border-radius:50%;
-  pointer-events:none;
-  filter:drop-shadow(0 0 10px #22d3ee);
-}
-
-/* ================= SHIELD MOUSE REACT ================= */
-const shield = document.createElement("i");
-shield.className = "fa-solid fa-shield-halved cyber-shield";
-document.body.appendChild(shield);
-
-document.addEventListener("mousemove", e=>{
-  const x = (e.clientX - innerWidth/2) / 40;
-  const y = (e.clientY - innerHeight/2) / 40;
-  shield.style.transform = `translate(${x}px,${y}px) scale(1.1)`;
-});
-
-/* ================= MAIN LOOP ================= */
-function animate(){
-  drawMatrix();
-  drawWave();
-  requestAnimationFrame(animate);
-}
-animate();
+/* Start typing after stagger finishes */
+setTimeout(typeText, 1000);
 </script>
 
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ================= SECTION ================= */
+.services-section{
+  position:relative;
+  padding:120px 6%;
+  background:#020617;
+  overflow:hidden;
+}
+
+/* ================= NETWORK DOTS CANVAS ================= */
+#networkCanvas{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+/* ================= TITLE ================= */
+.services-title{
+  text-align:center;
+  font-size:42px;
+  font-weight:800;
+  color:#22d3ee;
+  margin-bottom:80px;
+  position:relative;
+  z-index:2;
+  animation:fadeDown 1s ease forwards;
+}
+
+/* ================= GRID ================= */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:36px;
+  position:relative;
+  z-index:2;
+}
+
+/* ================= CARD ================= */
+.service-card{
+  position:relative;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.05),
+    rgba(255,255,255,.02)
+  );
+  border-radius:18px;
+  padding:38px 28px;
+  text-align:center;
+  backdrop-filter:blur(12px);
+  opacity:0;
+  transform:translateY(40px);
+  animation:fadeUp .9s ease forwards;
+}
+
+/* STAGGER */
+.service-card:nth-child(1){animation-delay:.2s}
+.service-card:nth-child(2){animation-delay:.35s}
+.service-card:nth-child(3){animation-delay:.5s}
+.service-card:nth-child(4){animation-delay:.65s}
+
+/* NEON BORDER */
+.service-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:18px;
+  padding:1.5px;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    #22d3ee,
+    transparent
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:.25;
+  transition:.4s ease;
+}
+
+.service-card:hover::before{
+  opacity:1;
+  animation:neonMove 1.5s linear infinite;
+}
+
+.service-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 40px rgba(34,211,238,.4);
+}
+
+/* ICON */
+.service-icon{
+  width:62px;
+  height:62px;
+  margin:0 auto 22px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  background:rgba(34,211,238,.15);
+  box-shadow:0 0 30px rgba(34,211,238,.4);
+}
+
+/* TEXT */
+.service-card h3{
+  font-size:18px;
+  font-weight:700;
+  color:#22d3ee;
+  margin-bottom:14px;
+}
+
+.service-card p{
+  font-size:14px;
+  color:#cbd5e1;
+  line-height:1.6;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeUp{
+  to{opacity:1;transform:none}
+}
+
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-40px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes neonMove{
+  0%{background-position:0%}
+  100%{background-position:200%}
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1200px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .services-grid{grid-template-columns:1fr}
+  .services-title{font-size:32px}
+}
+</style>
+</head>
+
+<body>
+
+<section class="services-section">
+
+  <!-- NETWORK BACKGROUND -->
+  <canvas id="networkCanvas"></canvas>
+
+  <h2 class="services-title">Our Services</h2>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🛡️</div>
+      <h3>Network Security</h3>
+      <p>Protect infrastructure from cyber threats.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🧪</div>
+      <h3>Penetration Testing</h3>
+      <p>Identify vulnerabilities before attackers do.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📡</div>
+      <h3>Threat Intelligence</h3>
+      <p>Real-time threat detection & monitoring.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">☁️</div>
+      <h3>Cloud Security</h3>
+      <p>Secure your cloud environment.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= NETWORK DOTS SCRIPT ================= -->
 <script>
-const canvas = document.getElementById("cyber-bg");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("networkCanvas");
+const ctx=canvas.getContext("2d");
+let w,h,dots=[];
 
 function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
+  w=canvas.width=window.innerWidth;
+  h=canvas.height=canvas.parentElement.offsetHeight;
 }
-resize();
-window.addEventListener("resize", resize);
+resize();window.addEventListener("resize",resize);
 
-/* cyber nodes */
-const nodes = Array.from({length: 100}, () => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height,
-  vx: (Math.random() - 0.5) * 0.6,
-  vy: (Math.random() - 0.5) * 0.6
-}));
+for(let i=0;i<80;i++){
+  dots.push({
+    x:Math.random()*w,
+    y:Math.random()*h,
+    vx:(Math.random()-.5)*.4,
+    vy:(Math.random()-.5)*.4
+  });
+}
 
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  dots.forEach(d=>{
+    d.x+=d.vx; d.y+=d.vy;
+    if(d.x<0||d.x>w)d.vx*=-1;
+    if(d.y<0||d.y>h)d.vy*=-1;
 
-  nodes.forEach((n,i)=>{
-    n.x += n.vx;
-    n.y += n.vy;
-
-    if(n.x < 0 || n.x > canvas.width) n.vx *= -1;
-    if(n.y < 0 || n.y > canvas.height) n.vy *= -1;
-
-    /* node */
-    ctx.fillStyle = "#22d3ee";
+    ctx.fillStyle="rgba(34,211,238,.8)";
     ctx.beginPath();
-    ctx.arc(n.x,n.y,2,0,Math.PI*2);
+    ctx.arc(d.x,d.y,2,0,Math.PI*2);
     ctx.fill();
 
-    /* lines */
-    for(let j=i+1;j<nodes.length;j++){
-      const o = nodes[j];
-      const d = Math.hypot(n.x-o.x,n.y-o.y);
-      if(d < 130){
-        ctx.strokeStyle = "rgba(34,211,238,0.12)";
+    dots.forEach(o=>{
+      const dist=Math.hypot(d.x-o.x,d.y-o.y);
+      if(dist<120){
+        ctx.strokeStyle="rgba(34,211,238,.15)";
         ctx.beginPath();
-        ctx.moveTo(n.x,n.y);
+        ctx.moveTo(d.x,d.y);
         ctx.lineTo(o.x,o.y);
         ctx.stroke();
       }
-    }
+    });
   });
-
-  requestAnimationFrame(animate);
+  requestAnimationFrame(draw);
 }
-animate();
+draw();
 </script>
 
-<script>
-const texts = [
-  "Protecting digital assets in real-time.",
-  "Advanced threat detection & response.",
-  "Enterprise-grade cyber defense systems.",
-  "Securing your future with confidence."
-];
 
-let index = 0, char = 0, isDeleting = false;
-const speed = 80;
-const typed = document.getElementById("typed-text");
+<style>
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
 
-function typeEffect(){
-  const current = texts[index];
-  if(!isDeleting){
-    typed.textContent = current.slice(0, ++char);
-    if(char === current.length){
-      isDeleting = true;
-      setTimeout(()=>{},1200);
-    }
-  }else{
-    typed.textContent = current.slice(0, --char);
-    if(char === 0){
-      isDeleting = false;
-      index = (index+1)%texts.length;
-    }
+/* ================= SECTION ================= */
+.services-section{
+  position:relative;
+  padding:120px 6%;
+  min-height:100vh;
+
+  /* SECTION */
+.services-section{
+  padding:120px 6%;
+  background:#000;
+}
+
+/* TWO COLUMN LAYOUT */
+.services-layout{
+  display:grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap:60px;
+  align-items:center;
+}
+
+/* LEFT COLUMN – BG ONLY */
+.services-bg-column{
+  position:relative;
+  min-height:600px;
+
+  /* 👇 YOU ADD IMAGE HERE */
+  background:
+    linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.9)),
+    url("s1.webp") center/cover no-repeat;
+
+  border-radius:28px;
+  overflow:hidden;
+}
+.service-card:nth-child(n) { animation-delay: ... }
+.service-card{
+  animation-delay: calc(var(--i) * 0.15s);
+}
+
+/* Network canvas only inside bg column */
+.services-bg-column canvas{
+  position:absolute;
+  inset:0;
+}
+
+/* RIGHT COLUMN */
+.services-content{
+  position:relative;
+  z-index:2;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .services-layout{
+    grid-template-columns:1fr;
   }
-  setTimeout(typeEffect, isDeleting ? speed/2 : speed);
+  .services-bg-column{
+    min-height:360px;
+  }
 }
-typeEffect();
-</script>
 
-<!-- ================= PARTICLES ================= -->
+  overflow:hidden;
+}
+
+/* ================= NETWORK CANVAS ================= */
+#network{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+/* ================= TITLE ================= */
+.services-title{
+  text-align:center;
+  font-size:42px;
+  font-weight:800;
+  color:#22d3ee;
+  margin-bottom:90px;
+  position:relative;
+  z-index:2;
+  opacity:0;
+  transform:translateY(30px);
+  animation:titleFade 1s ease forwards;
+}
+
+@keyframes titleFade{
+  to{opacity:1;transform:none;}
+}
+
+/* ================= GRID ================= */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:36px;
+  max-width:900px;
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+/* ================= CARD ================= */
+.service-card{
+  position:relative;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.05),
+    rgba(255,255,255,.02)
+  );
+  border-radius:18px;
+  padding:28px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+
+  opacity:0;
+  transform:translateY(40px);
+  animation:cardFade .8s ease forwards;
+}
+
+/* STAGGER */
+.service-card:nth-child(1){animation-delay:.2s;}
+.service-card:nth-child(2){animation-delay:.4s;}
+.service-card:nth-child(3){animation-delay:.6s;}
+.service-card:nth-child(4){animation-delay:.8s;}
+.service-card:nth-child(5){animation-delay:1s;}
+.service-card:nth-child(6){animation-delay:1.2s;}
+.service-card:nth-child(7){animation-delay:1.4s;}
+.service-card:nth-child(8){animation-delay:1.6s;}
+
+@keyframes cardFade{
+  to{opacity:1;transform:none;}
+}
+
+/* ================= NEON BORDER ================= */
+.service-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:18px;
+  padding:1px;
+  background:linear-gradient(135deg,#22d3ee,transparent, #22d3ee);
+  opacity:0;
+  transition:.4s;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+}
+
+.service-card:hover::before{
+  opacity:1;
+}
+
+.service-card:hover{
+  box-shadow:0 0 35px rgba(34,211,238,.45);
+  transform:translateY(-8px);
+}
+
+/* ================= TEXT ================= */
+.service-card h3{
+  color:#22d3ee;
+  font-size:16px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+.service-card p{
+  font-size:14px;
+  color:#cbd5e1;
+  line-height:1.6;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:700px){
+  .services-grid{
+    grid-template-columns:1fr;
+  }
+  .services-title{
+    font-size:32px;
+  }
+}
+</style>
+</head>
+
+<body>
+<section class="services-section">
+
+  <h2 class="services-title">Our Services</h2>
+
+  <div class="services-layout">
+
+    <!-- LEFT BG COLUMN -->
+    <div class="services-bg-column">
+      <canvas id="network"></canvas>
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="services-content">
+      <div class="services-grid">
+
+        <!-- 1 -->
+<div class="service-card">
+  <h3>Network Security</h3>
+  <p>Protect infrastructure from unauthorized access and cyber threats.</p>
+</div>
+
+<!-- 2 -->
+<div class="service-card">
+  <h3>Penetration Testing</h3>
+  <p>Identify vulnerabilities before attackers exploit them.</p>
+</div>
+
+<!-- 3 -->
+<div class="service-card">
+  <h3>Threat Intelligence</h3>
+  <p>Real-time threat detection and monitoring.</p>
+</div>
+
+<!-- 4 -->
+<div class="service-card">
+  <h3>Cloud Security</h3>
+  <p>Secure cloud workloads across AWS, Azure, and GCP.</p>
+</div>
+
+<!-- 5 -->
+<div class="service-card">
+  <h3>Endpoint Security</h3>
+  <p>Protect devices from malware, ransomware, and zero-day attacks.</p>
+</div>
+
+<!-- 6 -->
+<div class="service-card">
+  <h3>Data Protection</h3>
+  <p>Safeguard sensitive data with encryption and access controls.</p>
+</div>
+
+<!-- 7 -->
+<div class="service-card">
+  <h3>Zero Trust Security</h3>
+  <p>Verify every user and device before granting access.</p>
+</div>
+
+<!-- 8 -->
+<div class="service-card">
+  <h3>Identity & Access</h3>
+  <p>Secure authentication, authorization, and access governance.</p>
+</div>
+
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= NETWORK DOTS SCRIPT ================= -->
 <script>
-const canvas = document.getElementById("cyberParticles");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("network");
+const ctx=canvas.getContext("2d");
 
 function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
 }
 resize();
-addEventListener("resize", resize);
+addEventListener("resize",resize);
 
-const dots = Array.from({length:80},()=>({
+const dots=[...Array(60)].map(()=>({
   x:Math.random()*canvas.width,
   y:Math.random()*canvas.height,
-  vx:(Math.random()-.5)*.4,
-  vy:(Math.random()-.5)*.4
+  vx:(Math.random()-.5)*0.4,
+  vy:(Math.random()-.5)*0.4
 }));
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
   dots.forEach(d=>{
-    d.x+=d.vx; d.y+=d.vy;
-    if(d.x<0||d.x>canvas.width)d.vx*=-1;
-    if(d.y<0||d.y>canvas.height)d.vy*=-1;
+    d.x+=d.vx;
+    d.y+=d.vy;
+
+    if(d.x<0||d.x>canvas.width) d.vx*=-1;
+    if(d.y<0||d.y>canvas.height) d.vy*=-1;
 
     ctx.fillStyle="#22d3ee";
     ctx.beginPath();
-    ctx.arc(d.x,d.y,1.6,0,Math.PI*2);
+    ctx.arc(d.x,d.y,2,0,Math.PI*2);
     ctx.fill();
 
     dots.forEach(o=>{
       const dist=Math.hypot(d.x-o.x,d.y-o.y);
       if(dist<120){
-        ctx.strokeStyle="rgba(34,211,238,.12)";
+        ctx.strokeStyle="rgba(34,211,238,.15)";
         ctx.beginPath();
         ctx.moveTo(d.x,d.y);
         ctx.lineTo(o.x,o.y);
@@ -1078,344 +997,435 @@ animate();
 </script>
 
 
-<!-- ================= SERVICES ================= -->
-<section class="services">
-  <h2>Our Services</h2>
-
-  <div class="service-grid">
-    <div class="service-card rotate-box">
-      <h3>Network Security</h3>
-      <p>Protect infrastructure from cyber threats.</p>
-    </div>
-    <div class="service-card rotate-box">
-      <h3>Penetration Testing</h3>
-      <p>Identify vulnerabilities before attackers do.</p>
-    </div>
-    <div class="service-card rotate-box">
-      <h3>Threat Intelligence</h3>
-      <p>Real-time threat detection & monitoring.</p>
-    </div>
-    <div class="service-card rotate-box">
-      <h3>Cloud Security</h3>
-      <p>Secure your cloud environment.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CTA ================= -->
-<section class="cta rotate-box">
-  <h2>Secure Your Business Today</h2>
-  <p>Don’t wait for a breach. Act now.</p>
-  <button onclick="location.href='contact.html'">Contact Us</button>
-</section>
-
-<!-- ================= FOOTER (UNCHANGED) ================= -->
-<!-- KEEP YOUR FOOTER CODE HERE EXACTLY AS YOU HAVE -->
-
-<script>
-const canvas = document.getElementById("cyber-bg");
-const ctx = canvas.getContext("2d");
-
-function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
-resize();
-addEventListener("resize", resize);
-
-/* ===== NEURAL NODES ===== */
-const nodes = Array.from({length:90},()=>({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  r:Math.random()*3+1,
-  pulse:Math.random()*Math.PI*2
-}));
-
-/* ===== LIVE THREATS ===== */
-const threats = [];
-
-function spawnThreat(){
-  threats.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    life:0
-  });
+body{
+  background:#000;
+  font-family:Inter, Arial, sans-serif;
+  color:#fff;
 }
-setInterval(spawnThreat,1200);
 
-/* ===== DRAW ===== */
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  /* neural network */
-  nodes.forEach((n,i)=>{
-    n.pulse += 0.02;
-    const radius = n.r + Math.sin(n.pulse)*1.5;
-
-    ctx.fillStyle="#22d3ee";
-    ctx.beginPath();
-    ctx.arc(n.x,n.y,radius,0,Math.PI*2);
-    ctx.fill();
-
-    nodes.forEach(o=>{
-      const d=Math.hypot(n.x-o.x,n.y-o.y);
-      if(d<120){
-        ctx.strokeStyle="rgba(34,211,238,.12)";
-        ctx.beginPath();
-        ctx.moveTo(n.x,n.y);
-        ctx.lineTo(o.x,o.y);
-        ctx.stroke();
-      }
-    });
-  });
-
-  /* live threats */
-  threats.forEach((t,i)=>{
-    t.life++;
-    ctx.strokeStyle=`rgba(255,50,50,${1-t.life/60})`;
-    ctx.beginPath();
-    ctx.arc(t.x,t.y,t.life*2,0,Math.PI*2);
-    ctx.stroke();
-    if(t.life>60) threats.splice(i,1);
-  });
-
-  requestAnimationFrame(animate);
+/* ===== PARTNERS SECTION ===== */
+.partners-section{
+  padding:80px 0 70px;
+  overflow:hidden;
+  position:relative;
 }
-animate();
-</script>
 
-<script>
-const trail = [];
-document.addEventListener("mousemove", e=>{
-  const dot = document.createElement("div");
-  dot.className = "cursor-dot";
-  dot.style.left = e.clientX+"px";
-  dot.style.top = e.clientY+"px";
-  document.body.appendChild(dot);
-  trail.push(dot);
+.partners-title{
+  text-align:center;
+  font-size:12px;
+  letter-spacing:3px;
+  color:#9ca3af;
+  margin-bottom:40px;
+}
 
-  if(trail.length > 20){
-    const old = trail.shift();
-    old.remove();
+/* ===== MARQUEE ===== */
+.partners-marquee{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+}
+
+.partners-track{
+  display:flex;
+  gap:30px;
+  width:max-content;
+  animation:scroll 30s linear infinite;
+}
+
+/* ===== PARTNER CARD ===== */
+.partner-card{
+  min-width:140px;
+  padding:14px 26px;
+  text-align:center;
+
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:14px;
+
+  color:#e5e7eb;
+  font-weight:600;
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 20px rgba(0,0,0,.4);
+
+  transition:.3s;
+}
+
+.partner-card:hover{
+  box-shadow:0 0 30px rgba(34,211,238,.45);
+  border-color:#22d3ee;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes scroll{
+  from{
+    transform:translateX(0);
   }
+  to{
+    transform:translateX(-50%);
+  }
+}
 
-  setTimeout(()=>dot.remove(),400);
-});
-</script>
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  .partner-card{
+    min-width:120px;
+    font-size:14px;
+  }
+}
+</style>
+</head>
 
-</body>
-</html>
+<body>
 
-  <!-- Hero Section -->
-   <section class="hero-section">
+<section class="partners-section">
 
-  <!-- HERO BG IMAGE -->
-  <div class="hero-bg"></div>
+  <p class="partners-title">TRUSTED BY 30+ GLOBAL PARTNERS</p>
 
-  <!-- DARK OVERLAY -->
-  <div class="hero-overlay"></div>
+  <div class="partners-marquee">
+    <div class="partners-track">
 
-  <!-- HERO CONTENT -->
-  <div class="hero-content">
-   
+      <!-- SET 1 -->
+      <div class="partner-card">Google</div>
+      <div class="partner-card">IBM</div>
+      <div class="partner-card">Cisco</div>
+      <div class="partner-card">Oracle</div>
+      <div class="partner-card">Fortinet</div>
+      <div class="partner-card">Palo Alto</div>
+      <div class="partner-card">Azure</div>
+      <div class="partner-card">AWS</div>
+      <div class="partner-card">Cloudflare</div>
+      <div class="partner-card">Splunk</div>
 
-<!-- Services Section -->
-<section class="services">
-  <h2>Our Services</h2>
-  <div class="service-grid">
-<div class="service-card rotate-box">
-      <h3>Network Security</h3>
-      <p>Protect your network from unauthorized access and cyber threats using our advanced security measures.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Penetration Testing</h3>
-      <p>Identify vulnerabilities in your systems with expert ethical hacking and penetration testing services.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Threat Analysis</h3>
-      <p>Stay ahead of cyber threats with proactive monitoring and real-time threat intelligence.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Data Protection</h3>
-      <p>Safeguard sensitive data with encryption, secure storage, and advanced access controls.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Cloud Security</h3>
-      <p>Secure your cloud infrastructure and prevent data breaches with our cloud security solutions.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Endpoint Security</h3>
-      <p>Protect devices connected to your network with advanced endpoint protection and monitoring.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Cybersecurity Consulting</h3>
-      <p>Get expert guidance on cybersecurity strategies, risk management, and compliance.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Incident Response</h3>
-      <p>Rapidly respond to cyber attacks and minimize damage with our incident response team.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Application Security</h3>
-      <p>Protect your applications from vulnerabilities with secure coding and testing practices.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Identity & Access Management</h3>
-      <p>Control user access, authentication, and authorization to protect sensitive information.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Security Awareness Training</h3>
-      <p>Educate your employees to recognize cyber threats and avoid common security mistakes.</p>
-    </div>
-<div class="service-card rotate-box">
-      <h3>Firewall & VPN Solutions</h3>
-      <p>Implement robust firewall and VPN solutions to secure your network traffic and remote access.</p>
+      <!-- SET 2 (DUPLICATE FOR LOOP) -->
+      <div class="partner-card">Google</div>
+      <div class="partner-card">IBM</div>
+      <div class="partner-card">Cisco</div>
+      <div class="partner-card">Oracle</div>
+      <div class="partner-card">Fortinet</div>
+      <div class="partner-card">Palo Alto</div>
+      <div class="partner-card">Azure</div>
+      <div class="partner-card">AWS</div>
+      <div class="partner-card">Cloudflare</div>
+      <div class="partner-card">Splunk</div>
+
     </div>
   </div>
-</section>
-
-</div>
 
 </section>
 
-  <!-- Call To Action -->
-  <section class="cta">
-    <h2>Secure Your Business Today</h2>
-    <p>Don't wait for cyber attacks to strike. Take action now and protect your digital assets with CyberSecure.</p>
-    <button onclick="location.href='contact.html'">Contact Us</button>
-  </section>
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  background:#000;
+  color:#fff;
+  font-family:Inter, Arial, sans-serif;
+}
 
-</body>
-</html>
+/* ===== SERVICES SECTION ===== */
+.services-simple{
+  padding:100px 6% 120px;
+  min-height:100vh;
 
-<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
+  /* 🔥 YOU CAN CHANGE BG LATER */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.9));
+}
 
-  <div class="max-w-6xl mx-auto">
+/* TITLE */
+.services-heading{
+  text-align:center;
+  font-size:40px;
+  font-weight:700;
+  color:#22d3ee;
+  margin-bottom:80px;
+}
 
-    <!-- GRID -->
-    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
+/* GRID */
+.services-cards{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:44px;
+  max-width:1100px;
+  margin:auto;
+}
 
-      <!-- LEFT -->
-      <div>
-        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
-          Get your business engaged
-        </p>
-      </div>
+/* CARD */
+.service-box{
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.02)
+  );
+  border-radius:22px;
+  padding:38px 34px;
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);
+  transition:.4s ease;
+}
 
-      <!-- CENTER -->
-      <div class="md:border-l md:border-gray-700 md:pl-10">
-        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
+/* CARD TITLE */
+.service-box h3{
+  color:#22d3ee;
+  font-size:18px;
+  margin-bottom:14px;
+  font-weight:600;
+}
 
-        <ul class="space-y-3 text-gray-300 text-sm">
-          <li><a href="home2.html" class="hover:text-white">Home </a></li>
+/* CARD TEXT */
+.service-box p{
+  font-size:15px;
+  line-height:1.7;
+  color:#e5e7eb;
+}
+
+/* HOVER EFFECT */
+.service-box:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 35px rgba(34,211,238,.35);
+  border-color:#22d3ee;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .services-cards{
+    grid-template-columns:1fr;
+  }
+  .services-heading{
+    font-size:32px;
+    margin-bottom:60px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="services-simple">
+
+  <h2 class="services-heading">Our Services</h2>
+
+  <div class="services-cards">
+
+    <div class="service-box">
+      <h3>Network Security</h3>
+      <p>
+        Protect your network from unauthorized access and cyber threats using
+        our advanced security measures.
+      </p>
+    </div>
+
+    <div class="service-box">
+      <h3>Penetration Testing</h3>
+      <p>
+        Identify vulnerabilities in your systems with expert ethical hacking
+        and penetration testing services.
+      </p>
+    </div>
+
+    <div class="service-box">
+      <h3>Threat Analysis</h3>
+      <p>
+        Stay ahead of cyber threats with proactive monitoring and real-time
+        threat intelligence.
+      </p>
+    </div>
+
+    <div class="service-box">
+      <h3>Data Protection</h3>
+      <p>
+        Safeguard sensitive data with encryption, secure storage, and advanced
+        access controls.
+      </p>
+    </div>
+
+    <div class="service-box">
+      <h3>Cloud Security</h3>
+      <p>
+        Secure your cloud infrastructure and prevent data breaches with our
+        cloud security solutions.
+      </p>
+    </div>
+
+    <div class="service-box">
+      <h3>Endpoint Security</h3>
+      <p>
+        Protect devices connected to your network with advanced endpoint
+        protection and monitoring.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  background:#000;
+  font-family:Inter, Arial, sans-serif;
+  color:#fff;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  padding:80px 6% 40px;
+  background:
+    radial-gradient(circle at top left, rgba(34,211,238,.15), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(139,92,246,.18), transparent 45%),
+    #0b0014;
+}
+
+/* GRID */
+.footer-grid{
+  display:grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap:80px;
+  align-items:flex-start;
+}
+
+/* LEFT */
+.footer-brand img{
+  width:160px;
+  margin-bottom:18px;
+}
+.footer-brand p{
+  color:#cbd5e1;
+  font-size:15px;
+}
+
+/* TITLES */
+.footer-title{
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:22px;
+  position:relative;
+}
+.footer-title::before{
+  content:"";
+  position:absolute;
+  left:-40px;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:rgba(255,255,255,.15);
+}
+
+/* LISTS */
+.footer-list{
+  list-style:none;
+}
+.footer-list li{
+  margin-bottom:14px;
+}
+.footer-list a{
+  color:#e5e7eb;
+  text-decoration:none;
+  font-size:15px;
+}
+.footer-list a:hover{
+  color:#22d3ee;
+}
+
+/* SOCIAL */
+.social-list li{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.social-list i{
+  width:18px;
+}
+
+/* DIVIDER */
+.footer-divider{
+  margin:60px 0 25px;
+  height:1px;
+  background:rgba(255,255,255,.15);
+}
+
+/* COPYRIGHT */
+.footer-copy{
+  text-align:center;
+  font-size:14px;
+  color:#9ca3af;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:50px;
+  }
+  .footer-title::before{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+    <!-- LEFT -->
+    <div class="footer-brand">
+      <img src="stackly.webp" alt="Stackly Logo">
+      <p>Get your business engaged</p>
+    </div>
+
+    <!-- MAIN -->
+    <div>
+      <h3 class="footer-title">Main</h3>
+      <ul class="footer-list">
+        <li><a href="home2.html" class="hover:text-white">Home </a></li>
           <li><a href="About.html" class="nav-link hover:text-cyan-400">About</a></li>
       <li><a href="services1.html" class="nav-link hover:text-cyan-400">Services</a></li>
      <li> <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a></li>
      <li> <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a></li>
         </ul>
-      </div>
+      </ul>
+    </div>
 
-      <!-- RIGHT -->
-      <div class="md:border-l md:border-gray-700 md:pl-10">
-        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
-
-        <ul class="space-y-3 text-gray-300 text-sm">
-          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
+    <!-- SOCIAL -->
+    <div>
+      <h3 class="footer-title">Social</h3>
+      <ul class="footer-list social-list">
+        <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
           <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
           <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
           <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- COPYRIGHT -->
-    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
-      © Stackly – 2025. All rights reserved.
+      </ul>
     </div>
 
   </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-copy">
+    © Stackly – 2025. All rights reserved.
+  </div>
+
 </footer>
-<script>
-const canvas = document.getElementById("s9.webp");
-const ctx = canvas.getContext("2d");
-
-function resize(){
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-}
-resize();
-addEventListener("resize", resize);
-
-const nodes = Array.from({length: 90}, () => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height,
-  vx: (Math.random() - .5) * .6,
-  vy: (Math.random() - .5) * .6
-}));
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  nodes.forEach(n=>{
-    n.x += n.vx;
-    n.y += n.vy;
-
-    if(n.x<0||n.x>canvas.width) n.vx*=-1;
-    if(n.y<0||n.y>canvas.height) n.vy*=-1;
-
-    ctx.fillStyle = "#22d3ee";
-    ctx.beginPath();
-    ctx.arc(n.x,n.y,2,0,Math.PI*2);
-    ctx.fill();
-
-    nodes.forEach(o=>{
-      const d = Math.hypot(n.x-o.x,n.y-o.y);
-      if(d < 120){
-        ctx.strokeStyle = "rgba(34,211,238,.15)";
-        ctx.beginPath();
-        ctx.moveTo(n.x,n.y);
-        ctx.lineTo(o.x,o.y);
-        ctx.stroke();
-      }
-    });
-  });
-
-  requestAnimationFrame(animate);
-}
-animate();
-</script>
-
-<script>
-const rotateBoxes = document.querySelectorAll(".rotate-box");
-
-const rotObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("show");
-    }
-  });
-},{threshold:.15});
-
-rotateBoxes.forEach(box=>rotObs.observe(box));
-</script>
-
-<script>
-const sections = document.querySelectorAll("section");
-
-function reveal() {
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if (top < window.innerHeight - 100) {
-      sec.style.opacity = "1";
-      sec.style.transform = "translateY(0)";
-    }
-  });
-}
-
-window.addEventListener("scroll", reveal);
-reveal();
-</script>
 
 </body>
 </html>
