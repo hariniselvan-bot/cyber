@@ -13,6 +13,64 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
   <style>
+    /* ===================================================
+   1️⃣ HAMBURGER ALWAYS CENTER (MOBILE)
+   =================================================== */
+@media (max-width: 1116px) {
+
+  header .max-w-7xl {
+    position: relative;
+  }
+
+  #hamburgerBtn {
+    position: absolute !important;
+    left: 60% !important;
+    transform: translateX(-50%) !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 999;
+  }
+}
+
+/* ===================================================
+   2️⃣ PREVENT HEADER & FOOTER SHRINKING
+   =================================================== */
+
+/* Stop flex from shrinking */
+header,
+footer {
+  min-width: 320px; /* minimum mobile width */
+}
+
+/* Prevent logo & buttons from shrinking */
+header img,
+#hamburgerBtn,
+footer img {
+  flex-shrink: 0 !important;
+}
+
+/* Text should wrap, not shrink */
+header *,
+footer * {
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+/* Stack instead of compress on very small screens */
+@media (max-width: 360px) {
+
+  footer .grid {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 28px !important;
+  }
+
+  footer img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
     /* ---------- Global custom styles ---------- */
     :root {
       --accent: #06b6d4; /* cyan-400 */
@@ -105,6 +163,48 @@
 .header img:hover {
   transform: scale(1.08);
   filter: drop-shadow(0 0 22px rgba(6,182,212,.7));
+}
+/* ===== PREVENT FOOTER SHRINKING ===== */
+
+/* Footer container must not compress */
+footer,
+footer * {
+  min-width: 0;
+}
+
+/* Lock footer content width */
+footer .max-w-6xl {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Prevent text squeeze */
+footer p,
+footer li,
+footer a {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+/* Force vertical stacking instead of shrinking */
+@media (max-width: 420px) {
+
+  footer .grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    text-align: center !important;
+  }
+
+  footer img {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* Prevent scaling down */
+footer {
+  transform: none !important;
+  zoom: 1 !important;
 }
 
 /* Mobile hamburger fix */
@@ -1188,6 +1288,7 @@ document.addEventListener("mousemove", e=>{
 </body>
 </html>
 
+<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
 
   <div class="max-w-6xl mx-auto">
 
