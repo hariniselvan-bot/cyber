@@ -1,545 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Stackly home</title>
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Initializing Security Systems</title>
 
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-
-  <style>
-    /* ---------- Global custom styles ---------- */
-    :root {
-      --accent: #06b6d4; /* cyan-400 */
-      --muted: #9ca3af;
-      --card: #0f1724; /* dark card */
-    }
-
-    /* Smooth entrance animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
-
-    @keyframes fadeScale {
-      from { opacity: 0; transform: translateY(24px) scale(.98); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .fade-scale { animation: fadeScale 1s ease both; }
-
-    /* Subtle float on cards */
-    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
-    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
-
-    /* Desktop dropdown style */
-    .dropdown-panel { min-width: 11rem; }
-
-    /* Hero overlay & text shadow */
-    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
-    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
-
-    /* Responsive tweaks */
-    @media (min-width:768px) {
-      .nav-center { left: 50%; transform: translateX(-50%); }
-    }
-
-    /* Accessibility focus */
-    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
-
-    /* small utils */
-    .muted { color: var(--muted); }
-
-    .what-we-do {
-    padding: 60px 20px;
-    text-align: center;
-    background: #050505; /* or remove if you want full black page */
+<style>
+:root{
+  --cyan:#06b6d4;
+  --purple:#7c3aed;
+  --dark:#020617;
 }
 
-.what-we-do h2 {
-    font-size: 40px;
-    font-weight: 700;
-    color: #d8d8e1;
-    margin-bottom: 15px;
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:black;
+  color:white;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  overflow:hidden;
 }
 
-.what-we-do p {
-    color: #9eb5c7;
-    font-size: 18px;
-}
-/* Custom breakpoint: show desktop menu only at ≥1117px */
-@media (min-width: 1117px) {
-  .xl2\:flex {
-    display: flex !important;
-  }
-  .xl2\:hidden {
-    display: none !important;
-  }
-}
-.nav-active {
-  color: cyan !important;
+/* MATRIX BACKGROUND */
+#matrix{
+  position:fixed;
+  inset:0;
+  z-index:-2;
 }
 
+/* DARK OVERLAY (keeps text clear) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.85),
+    rgba(0,0,0,.6),
+    rgba(0,0,0,.85)
+  );
+  z-index:-1;
+}
 
+/* CENTER WRAPPER */
+.loader{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  animation:fadeIn .8s ease forwards;
+}
 
-  </style>
+/* GLASS PANEL */
+.panel{
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(10px);
+  border-radius:16px;
+  padding:40px 36px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 0 50px rgba(0,0,0,.8);
+  width:min(90%,420px);
+}
+
+/* LOGO TEXT */
+.logo{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:1px;
+  margin-bottom:10px;
+  position:relative;
+  text-shadow:
+    0 0 10px rgba(6,182,212,.6),
+    0 0 25px rgba(6,182,212,.4);
+}
+
+/* GLITCH EFFECT */
+.logo::before,
+.logo::after{
+  content:attr(data-text);
+  position:absolute;
+  left:0;top:0;
+  width:100%;
+  overflow:hidden;
+}
+.logo::before{
+  color:var(--cyan);
+  animation:glitch 2s infinite;
+}
+.logo::after{
+  color:var(--purple);
+  animation:glitch 1.8s infinite reverse;
+}
+
+/* SUBTEXT */
+.sub{
+  color:#9ca3af;
+  font-size:14px;
+  margin-bottom:30px;
+}
+
+/* PROGRESS BAR */
+.bar{
+  height:6px;
+  background:#020617;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:14px;
+}
+.bar span{
+  display:block;
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transition:width .25s linear;
+}
+
+/* PERCENT */
+.percent{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#cbd5f5;
+}
+
+/* FADE OUT */
+.fade-out{
+  animation:fadeOut 1s ease forwards;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes fadeOut{
+  to{opacity:0;transform:scale(.96)}
+}
+@keyframes glitch{
+  0%{clip-path:inset(0 0 90% 0)}
+  20%{clip-path:inset(10% 0 60% 0)}
+  40%{clip-path:inset(40% 0 20% 0)}
+  60%{clip-path:inset(60% 0 10% 0)}
+  80%{clip-path:inset(20% 0 70% 0)}
+  100%{clip-path:inset(0 0 90% 0)}
+}
+
+/* MOBILE OPTIMIZATION */
+@media(max-width:600px){
+  .logo{font-size:24px}
+}
+</style>
 </head>
-<body class="font-inter antialiased bg-black text-white">
 
- 
-<!-- HEADER -->
-<header class="header fixed top-0 left-0 w-full z-50 bg-black shadow h-20 flex items-center">
-  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
-
-    <!-- LOGO -->
-    <a href="index.html" class="flex items-center gap-3">
-  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
-</a>
-
-    <!-- DESKTOP MENU (only visible above 1117px) -->
-    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
-      <div class="relative group">
-       <button onclick="toggleMobileDrop()" class="flex items-center justify-between w-full py-2 nav-active">
-    <span>Home</span>
-    <i class="fa-solid fa-chevron-down text-sm"></i>
-</button>
-
-
-        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
-             w-36 top-full pt-3 z-50">
-          <a href="home2.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home 2</a>
-        </div>
-      </div>
-
-      <a href="Soluation.html" class="nav-link hover:text-cyan-400">Soluation</a>
-      <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
-      <a href="Dashboard.html" class="hover:text-cyan-300">dashboard📊</a>
-      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
-
-      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
-        LOGIN
-      </a>
-    </nav>
-
-    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
-    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
-      <i class="fa-solid fa-bars text-2xl text-white"></i>
-    </button>
-
-  </div>
-</header>
-
-  
-  <!-- ================= MOBILE MENU ================= -->
-  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
-    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
-
-     <!-- DROPDOWN BUTTON -->
-    <button onclick="toggleMobileDrop()" 
-            class="flex items-center justify-between w-full">
-            <a href="index.html" class="hover:text-cyan-300">Home</a>
-      <i class="fa-solid fa-chevron-down text-sm"></i>
-    </button>
-
-    <!-- DROPDOWN CONTENT -->
-    <div id="mobileHomeDrop" class="hidden pl-4">
-      <a href="home2.html" class="block py-2 hover:text-cyan-300">Home 2</a>
-    </div>
-
-      <a href="Soluation.html" class="nav-link hover:text-cyan-400">Soluation</a>
-      <a href="services.html" class="nav-link hover:text-cyan-400">Services</a>
-      <a href="Dashboard.html" class="hover:text-cyan-300">dashboard📊</a>
-      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
-
-      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
-    </div>
-  </nav>
-<main class="pt-32">
-
-<script>
-  const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  hamburgerBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
-  function toggleMobileDrop() {
-  const drop = document.getElementById("mobileHomeDrop");
-  drop.classList.toggle("hidden");
-}
-
-</script>
-  <!-- ================= HERO ================= -->
-  <section
-  class="relative min-h-[72vh] flex items-center bg-cover bg-center"
-  style="background-image: url('hp1\ \(1\).webp');">
-
-  <!-- Dark overlay -->
-  <div class="absolute inset-0 bg-black/50"></div>
-
-  <div class="relative z-10 max-w-6xl w-full mx-auto px-6 text-center">
-
-    <!-- White Box -->
-    <div class="inline-block border border-white px-10 py-10 rounded-md fade-scale"
-         style="animation-delay:.15s">
-
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white">
-         Stackly Cyber security
-      </h1>
-
-      <p class="max-w-2xl mx-auto text-gray-200 text-lg fade-up" style="animation-delay:.3s">
-    Trusted security experts offering deep-dive threat analysis...      </p>
-
-    </div>
-</section>
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SentinelSec — Cybersecurity Solutions</title>
-  <meta name="description" content="SentinelSec — Modern cybersecurity services: Penetration testing, SOC-as-a-Service, Cloud security, Incident response.">
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#0b0f14;
-      --card:#0f1720;
-      --muted:#94a3b8;
-      --accent:#06b6d4;
-      --accent-2:#7c3aed;
-      --glass: rgba(255,255,255,0.04);
-      --radius:12px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(7,16,23,0.6), transparent),
-                  linear-gradient(180deg, rgba(6,11,17,1) 0%, rgba(8,12,16,1) 100%),
-                  var(--bg);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-    }
-
-    /* ---------- Header ---------- */
-    .header{
-      width:100%;
-      position:fixed;
-      top:0;left:0;right:0;
-      backdrop-filter: blur(6px);
-      background: linear-gradient(180deg, rgba(2,6,9,0.6), rgba(2,6,9,0.25));
-      border-bottom:1px solid rgba(255,255,255,0.03);
-      z-index:120;
-    }
-    .container{max-width:1180px;margin:0 auto;padding:0 20px}
-    .nav-row{
-      display:flex;align-items:center;justify-content:space-between;padding:14px 0;
-    }
-    .logo{
-      display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit
-    }
-    .logo .mark{
-      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:grid;place-items:center;font-weight:800;color:#021;box-shadow:0 6px 18px rgba(12,32,50,0.5);
-    }
-    .logo span{font-weight:700;font-size:18px;letter-spacing:0.2px}
-
-    nav.desktop{display:flex;gap:18px;align-items:center}
-    nav.desktop a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
-    nav.desktop a:hover{color:#fff;background:rgba(255,255,255,0.02)}
-
-    .cta{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);font-weight:700}
-
-    /* Mobile menu */
-    .menu-toggle{display:none;border:0;background:transparent;color:var(--muted);font-size:20px}
-    .mobile-nav{display:none}
-
-    /* ---------- Hero ---------- */
-    .hero{padding:120px 0 48px}
-    .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
-    .eyebrow{color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:12px}
-    h1{font-size:44px;margin:12px 0 12px;line-height:1.05}
-    p.lead{color:var(--muted);max-width:60ch}
-
-    .features{display:flex;flex-direction:column;gap:12px;margin-top:18px}
-    .feature{display:flex;gap:12px;align-items:flex-start;background:var(--glass);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
-    .feature .icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;font-weight:700}
-    .feature h4{margin:0;font-size:15px}
-    .feature p{margin:2px 0 0;color:var(--muted);font-size:13px}
-
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.03)}
-
-    /* Code-like visual */
-    .code-panel{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;font-size:13px;background:linear-gradient(180deg, rgba(2,6,9,0.6), rgba(3,8,12,0.6));padding:18px;border-radius:12px;color:#a7f3d0;min-height:160px}
-    .code-line{opacity:0.9}
-
-    /* ---------- Footer ---------- */
-    footer{margin-top:64px;padding:36px 0;border-top:1px solid rgba(255,255,255,0.03)}
-    .footer-grid{display:grid;grid-template-columns:1fr 220px;gap:24px;align-items:start}
-    .brand{display:flex;gap:12px;align-items:center}
-    .socials{display:flex;gap:10px;margin-top:10px}
-    .socials a{width:38px;height:38px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--muted)}
-    .small{color:var(--muted);font-size:13px}
-
-    /* Responsive */
-    @media (max-width:900px){
-      .hero-grid{grid-template-columns:1fr;}
-      nav.desktop{display:none}
-      .menu-toggle{display:inline-block}
-      .mobile-nav{display:block}
-      .mobile-nav .mobile-links{display:none;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);margin-top:8px;padding:12px;border-radius:10px}
-      .mobile-nav .mobile-links a{display:block;padding:10px 8px;color:var(--muted);text-decoration:none}
-      .card{padding:14px}
-      h1{font-size:32px}
-    }
-
-    /* small tweaks */
-    a:focus{outline:2px solid rgba(6,182,212,0.15);outline-offset:2px}
-    /* Center all sections */
-.methodology, .tools {
-    text-align: center;
-}
-
-/* Center headings and paragraphs */
-.methodology h2,
-.methodology p,
-.tools h2,
-.tools p {
-    text-align: center;
-}
-
-/* Make UL centered but keep bullets aligned */
-.methodology ul,
-.tools ul {
-    display: inline-block;
-    text-align: left;
-    margin: 0 auto;
-}
-/* Center first intro sections */
-.intro-section {
-    text-align: center;
-}
-
-.intro-section ul {
-    display: inline-block;
-    text-align: left;
-    margin: 0 auto;
-}
-
-  </style>
-</head>
 <body>
-  <!-- HERO -->
-  <main class="container hero" id="home">
-    <div class="hero-grid">
-      <section>
-        <div class="eyebrow">Enterprise Security</div>
-        <h1>Stop threats before they reach your business.<br><span style="color:var(--accent)">Penetration testing, SOC, and Incident Response.</span></h1>
-        <p class="lead">We combine red-team intelligence with automated detection to secure cloud workloads, apps and endpoints. Improve your security posture with measurable remediation plans, 24/7 monitoring, and expert incident response.</p>
 
-        <div class="features">
-          <div class="feature">
-            <div class="icon">PT</div>
-            <div>
-              <h4>Penetration Testing</h4>
-              <p>Real-world testing to find and fix critical vulnerabilities.</p>
-            </div>
-          </div>
+<canvas id="matrix"></canvas>
 
-          <div class="feature">
-            <div class="icon">SOC</div>
-            <div>
-              <h4>SOC-as-a-Service</h4>
-              <p>24/7 threat detection and alerting with analyst-driven triage.</p>
-            </div>
-          </div>
-
-          <div class="feature">
-            <div class="icon">IR</div>
-            <div>
-              <h4>Incident Response</h4>
-              <p>Contain, investigate and recover with rapid expert support.</p>
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      <aside>
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <strong>Live Threat Feed</strong>
-            <small class="small">Updated</small>
-          </div>
-          <div class="code-panel" id="threatPanel" aria-live="polite">
-            <div class="code-line">[2025-11-30 08:12:43] ALERT: Suspicious SSH bruteforce from 45.33.12.7</div>
-            <div class="code-line">[2025-11-30 08:13:02] INFO: New vuln discovery — CVE-2025-XXXX in test-app</div>
-            <div class="code-line">[2025-11-30 08:14:05] WARN: Excessive failed logins on admin portal</div>
-            <div class="code-line">[2025-11-30 08:14:58] ALERT: Potential data exfil pattern detected</div>
-          </div>
-
-          <div style="display:flex;gap:10px;margin-top:12px">
-<button onclick="location.href='home2.html'" 
-        style="flex:1;padding:10px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021;font-weight:700">
-  Sample Log
-</button>
-
-<button onclick="location.href='contact.html'" 
-        style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted)">
-  Contact Us
-</button>
-
-          </div>
-        </div>
-
-      </aside>
+<div class="loader" id="loader">
+  <div class="panel">
+    <div class="logo" data-text="STACKLY SECURITY">
+      STACKLY SECURITY
     </div>
-</main>
-</section>
-<main class="pt-32"></main>
-<div class="intro-section">
-    
-    <h2 style="margin-top:30px;font-size:24px;color:var(--accent-2);font-weight:700">Core Expertise</h2>
-    <ul style="color:var(--muted);line-height:1.7;margin:10px 0 30px 20px">
-      <li>Advanced Vulnerability Assessment</li>
-      <li>Cloud & Infrastructure Hardening</li>
-      <li>Zero-Trust Architecture Implementation</li>
-      <li>Application Security (SAST/DAST)</li>
-    </ul>
+
+    <div class="sub">
+      Initializing SOC • Zero-Trust • AI Defense
+    </div>
+
+    <div class="bar">
+      <span id="progress"></span>
+    </div>
+
+    <div class="percent" id="percent">0%</div>
+  </div>
 </div>
 
-  <script>
-
-    // Copy sample threat panel text
-    function copyPanel(){
-      const panel = document.getElementById('threatPanel');
-      if(!panel) return;
-      const text = Array.from(panel.querySelectorAll('.code-line')).map(n=>n.textContent).join('\n');
-      navigator.clipboard?.writeText(text).then(()=>{
-        alert('Sample logs copied to clipboard');
-      }).catch(()=>{
-        prompt('Copy the logs below', text);
-      });
-    }
-
-    function openContact(){
-      location.href = '#contact';
-    }
-
-    // Small UX: shrink header on scroll
-    const header = document.querySelector('.header');
-    let lastScroll = 0;
-    window.addEventListener('scroll', ()=>{
-      const sc = window.scrollY;
-      if(sc>50) header.style.padding = '8px 0'; else header.style.padding = '14px 0';
-      lastScroll = sc;
-    });
-  </script>
-
-
-<!-- 🔥 Our Methodology Section -->
-<section class="methodology" style="padding:60px 20px;max-width:1100px;margin:auto;">
-  <h2 style="font-size:32px;color:var(--accent);font-weight:700;margin-bottom:15px;">Our Methodology</h2>
-  <p style="color:var(--muted);line-height:1.7;margin-bottom:20px;">At <strong>Stackly</strong>, we follow a structured, intelligence-driven approach to secure digital infrastructures and respond to evolving threats.</p>
-  <ul style="color:var(--muted);line-height:1.8;margin-left:20px;">
-    <li>✔️ Initial Audit & Risk Profiling</li>
-    <li>✔️ Threat Modeling & Attack Surface Mapping</li>
-    <li>✔️ Real-World Exploitation & Validation</li>
-    <li>✔️ Remediation Strategy & Continuous Monitoring</li>
-  </ul>
-</section>
-<main class="pt-32"></main>
-<!-- 🔧 Cyber Tools We Use Section -->
-<section class="tools" style="padding:60px 20px;max-width:1100px;margin:auto;">
-  <h2 style="font-size:32px;color:var(--accent-2);font-weight:700;margin-bottom:15px;">Cyber Tools We Use</h2>
-  <p style="color:var(--muted);line-height:1.7;margin-bottom:20px;">Our cybersecurity specialists use top-tier tools trusted by industries worldwide.</p>
-  <ul style="color:var(--muted);line-height:1.8;margin-left:20px;">
-    <li>🛡️ Nmap, Burp Suite, Nessus</li>
-    <li>🛡️ Metasploit Framework</li>
-    <li>🛡️ Splunk & ELK Stack</li>
-    <li>🛡️ Wireshark & Snort IDS</li>
-    <li>🛡️ OWASP ZAP & OpenVAS</li>
-  </ul>
-</section>
-
-</body>
-</html>
-
-<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
-
-  <div class="max-w-6xl mx-auto">
-
-    <!-- GRID -->
-    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
-
-      <!-- LEFT -->
-      <div>
-        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
-          Get your business engaged
-        </p>
-      </div>
-
-      <!-- CENTER -->
-      <div class="md:border-l md:border-gray-700 md:pl-10">
-        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
-
-        <ul class="space-y-3 text-gray-300 text-sm">
-          <li><a href="index.html" class="hover:text-white">Home </a></li>
-          <li><a href="Soluation.html" class="hover:text-white">Soluation</a></li>
-          <li><a href="services.html" class="hover:text-white">Service</a></li>
-          <li><a href="Dashboard.html" class="hover:text-white">dashboard📊</a></li>
-          <li><a href="contact.html" class="hover:text-white">Contact📞</a></li>
-        </ul>
-      </div>
-
-      <!-- RIGHT -->
-      <div class="md:border-l md:border-gray-700 md:pl-10">
-        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
-
-        <ul class="space-y-3 text-gray-300 text-sm">
-          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
-          <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
-          <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
-          <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- COPYRIGHT -->
-    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
-      © Stackly – 2025. All rights reserved.
-    </div>
-
-  </div>
-</footer>
-
 <script>
-const sections = document.querySelectorAll("section");
-
-function reveal() {
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if (top < window.innerHeight - 100) {
-      sec.style.opacity = "1";
-      sec.style.transform = "translateY(0)";
-    }
-  });
+/* MATRIX (LOW-END SAFE) */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
 }
+resize();addEventListener("resize",resize);
 
-window.addEventListener("scroll", reveal);
-reveal();
+const chars="01";
+const size=14;
+const cols=Math.floor(innerWidth/size);
+const drops=Array(cols).fill(1);
+
+setInterval(()=>{
+  ctx.fillStyle="rgba(0,0,0,.08)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#06b6d4";
+  ctx.font=size+"px monospace";
+  drops.forEach((y,i)=>{
+    ctx.fillText(chars[Math.random()*chars.length|0],i*size,y*size);
+    drops[i]=y*size>canvas.height&&Math.random()>.97?0:y+1;
+  });
+},50);
+
+/* LOADING + REDIRECT */
+let p=0;
+const percent=document.getElementById("percent");
+const bar=document.getElementById("progress");
+const loader=document.getElementById("loader");
+
+const timer=setInterval(()=>{
+  p++;
+  percent.textContent=p+"%";
+  bar.style.width=p+"%";
+
+  if(p>=100){
+    clearInterval(timer);
+    loader.classList.add("fade-out");
+
+    setTimeout(()=>{
+      window.location.href="home.html"; // 🔁 CHANGE THIS
+    },1000);
+  }
+},30);
 </script>
 
 </body>
