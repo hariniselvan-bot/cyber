@@ -381,84 +381,184 @@
   </style>
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly – Services</title>
 
-  <!-- Services Section -->
-  <section class="services">
-    <h2>What We Offer</h2>
-    <div class="services-grid">
+<style>
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-      <!-- Original 4 Services -->
-      <div class="service-card">
-        <img src="s1.webp" alt="Penetration Testing">
-        <h3>Penetration Testing</h3>
-        <p>We simulate attacks to find vulnerabilities before hackers do.</p>
-      </div>
+body {
+  background: #0b0f14;
+  color: #fff;
+}
 
-      <div class="service-card">
-        <img src="sol5.webp" alt="Security Audit">
-        <h3>Security Audit</h3>
-        <p>Comprehensive audit of your systems to ensure robust protection.</p>
-      </div>
+/* ===== SERVICES SECTION ===== */
+.services {
+  padding: 80px 16px;
+  text-align: center;
+}
 
-      <div class="service-card">
-        <img src="s8.webp" alt="Threat Monitoring">
-        <h3>Threat Monitoring</h3>
-        <p>Continuous monitoring to detect and prevent cyber threats in real-time.</p>
-      </div>
+.services-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #22f2e8;
+  margin-bottom: 60px;
+}
 
-      <div class="service-card">
-        <img src="sol9.webp" alt="Consulting">
-        <h3>Consulting</h3>
-        <p>Expert advice on securing your IT infrastructure and data.</p>
-      </div>
+/* ===== GRID FIX (CENTERED) ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: auto;
+  justify-items: center;
+}
 
-      <!-- 4 New Services -->
-      <div class="service-card">
-        <img src="s4.webp" alt="Data Encryption">
-        <h3>Data Encryption</h3>
-        <p>Protect sensitive data with advanced encryption techniques.</p>
-      </div>
+/* ===== CARD ===== */
+.service-card {
+  background: #121212;
+  border-radius: 20px;
+  padding: 32px 26px;
+  text-align: center;
 
-      <div class="service-card">
-        <img src="sol7.webp" alt="Firewall Management">
-        <h3>Firewall Management</h3>
-        <p>Setup and manage firewalls to prevent unauthorized access.</p>
-      </div>
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
 
-      <div class="service-card">
-        <img src="sol2.webp" alt="Incident Response">
-        <h3>Incident Response</h3>
-        <p>Quickly respond to and mitigate security breaches effectively.</p>
-      </div>
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
+  transition: all 0.35s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
 
-      <div class="service-card">
-        <img src="s6.webp" alt="Vulnerability Assessment">
-        <h3>Vulnerability Assessment</h3>
-        <p>Identify and fix system weaknesses before they are exploited.</p>
-      </div>
+.service-card img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin: 0 auto 20px;
+  border-radius: 12px;
+  border: 3px solid #00f2ea;
+}
 
+.service-card h3 {
+  font-size: 22px;
+  color: #00f2ea;
+  margin-bottom: 12px;
+}
+
+.service-card p {
+  font-size: 16px;
+  color: #cfcfcf;
+  line-height: 1.6;
+}
+
+/* ===== HOVER EFFECT ===== */
+.service-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.45);
+}
+
+/* ===== FADE IN ===== */
+.service-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .services-title {
+    font-size: 28px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="services">
+  <h2 class="services-title">What We Offer</h2>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <img src="s1.webp" alt="Penetration Testing">
+      <h3>Penetration Testing</h3>
+      <p>We simulate attacks to find vulnerabilities before hackers do.</p>
     </div>
-  </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 CyberSecure. All Rights Reserved.</p>
-  </footer>
+    <div class="service-card">
+      <img src="sol5.webp" alt="Security Audit">
+      <h3>Security Audit</h3>
+      <p>Comprehensive audits to strengthen your security posture.</p>
+    </div>
 
-  <script>
-    // Fade-in animation on scroll
-    const cards = document.querySelectorAll('.service-card');
+    <div class="service-card">
+      <img src="s8.webp" alt="Threat Monitoring">
+      <h3>Threat Monitoring</h3>
+      <p>Real-time monitoring to detect and stop threats instantly.</p>
+    </div>
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('fade-in');
-        }
-      });
-    }, { threshold: 0.3 });
+    <div class="service-card">
+      <img src="sol9.webp" alt="Cyber Consulting">
+      <h3>Cyber Consulting</h3>
+      <p>Expert guidance to secure and scale your infrastructure.</p>
+    </div>
 
-    cards.forEach(card => observer.observe(card));
-  </script>
+    <div class="service-card">
+      <img src="s4.webp" alt="Data Encryption">
+      <h3>Data Encryption</h3>
+      <p>Advanced encryption to protect sensitive business data.</p>
+    </div>
+
+    <div class="service-card">
+      <img src="sol7.webp" alt="Firewall Management">
+      <h3>Firewall Management</h3>
+      <p>Strong firewall configuration and maintenance.</p>
+    </div>
+
+    <div class="service-card">
+      <img src="sol2.webp" alt="Incident Response">
+      <h3>Incident Response</h3>
+      <p>Rapid action to control and recover from attacks.</p>
+    </div>
+
+    <div class="service-card">
+      <img src="s6.webp" alt="Vulnerability Assessment">
+      <h3>Vulnerability Assessment</h3>
+      <p>Identify weaknesses before attackers do.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+/* ===== FADE-IN ON SCROLL ===== */
+const cards = document.querySelectorAll('.service-card');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.2 });
+
+cards.forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
