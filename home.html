@@ -159,6 +159,25 @@
     height: 64px;
   }
 }
+body.scrolling canvas {
+  opacity: 0.4; /* reduces GPU load */
+}
+body.scrolling .orb,
+body.scrolling .neon-hover,
+body.scrolling .reveal {
+  transition: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 
 
   </style>
@@ -233,6 +252,36 @@
       <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
     </div>
   </nav>
+<script>
+
+function runWhenIdle(fn) {
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(fn, { timeout: 2000 });
+  } else {
+    setTimeout(fn, 1500);
+  }
+}
+function smoothScrollTo(targetId){
+  const target = document.getElementById(targetId);
+  const headerOffset = 120; // height of your header
+  const elementPosition = target.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth"
+  });
+}
+let scrolling;
+window.addEventListener("scroll", () => {
+  document.body.classList.add("scrolling");
+  clearTimeout(scrolling);
+  scrolling = setTimeout(() => {
+    document.body.classList.remove("scrolling");
+  }, 120);
+});
+
+</script>
 
 
 <script>
@@ -584,6 +633,152 @@
   transform: scale(1.08);
   filter: drop-shadow(0 0 22px rgba(34,211,238,0.6));
 }
+/* ===== HERO BASE ===== */
+.video-hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* VIDEO */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* OVERLAY */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0.55)
+  );
+  z-index: 2;
+}
+
+/* CONTENT WRAPPER */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 1200px;
+  margin: auto;
+  height: 100%;
+  padding: 120px 24px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* TEXT */
+.hero-tag {
+  color: #22d3ee;
+  letter-spacing: 3px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hero-text h1 {
+  font-size: 52px;
+  font-weight: 800;
+  margin: 18px 0;
+  line-height: 1.1;
+}
+
+.hero-text h1 span {
+  color: #22d3ee;
+  text-shadow: 0 0 25px rgba(34,211,238,.5);
+}
+
+.hero-text p {
+  color: #d1d5db;
+  font-size: 16px;
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* POINTS */
+.hero-points {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 28px;
+}
+
+.hero-points li {
+  margin-bottom: 8px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* BUTTONS */
+.hero-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.hero-btn {
+  padding: 14px 34px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: .3s ease;
+}
+
+.hero-btn.primary {
+  background: linear-gradient(135deg,#06b6d4,#22d3ee);
+  color: black;
+  box-shadow: 0 15px 40px rgba(34,211,238,.45);
+}
+
+.hero-btn.primary:hover {
+  transform: translateY(-3px);
+}
+
+.hero-btn.secondary {
+  border: 1px solid #22d3ee;
+  color: #22d3ee;
+}
+
+.hero-btn.secondary:hover {
+  background: rgba(34,211,238,.15);
+}
+
+/* IMAGE */
+.hero-image img {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.8);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 36px;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-image img {
+    margin: auto;
+  }
+}
 
 
   </style>
@@ -593,42 +788,7 @@
 
   <!-- HERO -->
    <!-- HERO -->
-<section class="hero-wrapper">
-  <div class="hero-container">
 
-    <!-- LEFT CONTENT -->
-    <div class="hero-left">
-      <span class="hero-tag">STANDOUT APP</span>
-
-      <h1 class="hero-title">
-        An Amazing App<br>
-        <span>That Does It All.</span>
-      </h1>
-
-      <p class="hero-text">
-        Voluptatem ipsa quae ab illo inventore veritatis et quasi
-        architecto beatae vitae dicta sunt explicabo.
-      </p>
-
-      <div class="hero-actions">
-        <a href="contact.html" class="hero-btn">GET THE APP</a>
-        <span class="hero-note">Free demo available</span>
-      </div>
-    </div>
-
-    <!-- RIGHT IMAGE -->
-    <div class="hero-right">
-      <img
-        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-        alt="App Preview"
-      />
-      <div class="play-btn">
-        <i class="fa-solid fa-play"></i>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 <body class="bg-black text-white font-sans overflow-x-hidden">
 
@@ -641,6 +801,55 @@
 <div class="orb orb-purple"></div>
 
 <!-- ================= HERO ================= -->
+ <!-- ================= HERO SECTION ================= -->
+<section class="video-hero">
+
+  <!-- BACKGROUND VIDEO -->
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+
+  <!-- DARK OVERLAY -->
+  <div class="hero-overlay"></div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content">
+
+    <!-- LEFT TEXT -->
+    <div class="hero-text">
+      <span class="hero-tag">AI POWERED CYBER SECURITY</span>
+
+      <h1>
+        Defending Your <br>
+        <span>Digital World</span> With AI
+      </h1>
+
+      <p>
+        Stackly delivers next-generation cybersecurity solutions using
+        artificial intelligence, real-time monitoring, and zero-trust
+        architecture to protect your business from modern cyber threats.
+      </p>
+
+      <ul class="hero-points">
+        <li>✔ 24/7 Threat Monitoring</li>
+        <li>✔ AI-Driven Detection</li>
+        <li>✔ Enterprise-Grade Protection</li>
+      </ul>
+
+      <div class="hero-actions">
+        <a href="services.html" class="hero-btn primary">Explore Services</a>
+        <a href="contact.html" class="hero-btn secondary">Talk to Expert</a>
+      </div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="hero-image">
+      <img src="sol9.webp" alt="Cyber Security Illustration">
+    </div>
+
+  </div>
+</section>
+
 <section class="min-h-screen flex items-center pt-28 relative parallax">
   <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
 
@@ -797,11 +1006,6 @@
 </section>
 <section class="max-w-6xl mx-auto px-6 py-24">
   
-</section>
-<section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="section-title">Live SOC Log Stream</h2>
-
-  <div class="terminal reveal" id="logTerminal"></div>
 </section>
 <section class="max-w-6xl mx-auto px-6 py-24 text-center">
   <h2 class="section-title">Breach Risk Score</h2>
@@ -1254,11 +1458,31 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 
 </body>
 
+<script>
+/* ===== SCROLL PERFORMANCE BOOST ===== */
+let isTicking = false;
+
+window.addEventListener("scroll", () => {
+  if (!isTicking) {
+    window.requestAnimationFrame(() => {
+      document.body.classList.add("scrolling");
+
+      clearTimeout(window.__scrollEnd);
+      window.__scrollEnd = setTimeout(() => {
+        document.body.classList.remove("scrolling");
+      }, 120);
+
+      isTicking = false;
+    });
+    isTicking = true;
+  }
+}, { passive: true });
+</script>
 
 </body>
 </html>
 
->
+
 
   <div class="max-w-6xl mx-auto">
 
@@ -1320,26 +1544,6 @@ function reveal() {
   });
 }
 
-window.addEventListener("scroll", reveal);
-reveal();
-</script>
-<script>
-/* LIVE LOG STREAM */
-const logs=[
-  "AUTH_FAIL user=admin ip=45.33.12.7",
-  "C2_TRAFFIC detected to 185.220.x.x",
-  "MALWARE_EXECUTION hash=9f3a2c",
-  "PRIV_ESC attempt blocked",
-  "DATA_EXFIL anomaly detected"
-];
-const terminal=document.getElementById("logTerminal");
-let i=0;
-setInterval(()=>{
-  if(!terminal) return;
-  terminal.innerHTML += logs[i%logs.length]+"<br>";
-  terminal.scrollTop=terminal.scrollHeight;
-  i++;
-},900);
 
 /* RISK GAUGE */
 const risk=78;
