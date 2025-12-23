@@ -931,6 +931,85 @@ section {
   }
 }
 
+/* ===== FOOTER AT END + GAP FROM BODY ===== */
+
+/* Ensure body flows naturally till footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Push footer to bottom naturally */
+footer {
+  margin-top: 120px;        /* 👈 GAP between content & footer */
+}
+
+/* Prevent footer from floating upward */
+main,
+section:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ===== FIX FOOTER OVERLAP ===== */
+
+/* Normal document flow */
+body {
+  display: block !important;
+}
+
+
+/* Ensure sections end before footer */
+section:last-of-type {
+  margin-bottom: 120px;   /* 👈 GAP before footer */
+}
+
+/* Footer sits naturally after content */
+footer {
+  position: relative;
+  margin-top: 0;
+  clear: both;
+}
+
+/* ================= FIX DOUBLE SCROLLBAR ================= */
+
+/* Allow scrolling ONLY on body */
+html, body {
+  height: auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Kill internal scrollbars */
+section,
+main,
+div {
+  overflow-y: visible !important;
+}
+
+/* If any container uses full height */
+section[min-height],
+section[style*="100vh"],
+.hero-section,
+.cyber-landing {
+  min-height: auto !important;
+  height: auto !important;
+}
+
+/* Fixed backgrounds should not scroll independently */
+canvas,
+.hero-bg,
+.orb {
+  position: fixed;
+  overflow: hidden !important;
+}
+
+/* Prevent accidental scroll containers */
+.glass,
+.card,
+.service-card {
+  overflow: visible !important;
+}
 
   </style>
 </head>
@@ -1001,56 +1080,6 @@ section {
   </div>
 </section>
 
-
-<!-- ================= HERO ================= -->
- <!-- ================= HERO SECTION ================= -->
-<section class="video-hero">
-
-  <!-- BACKGROUND VIDEO -->
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="bg.mp4" type="video/mp4">
-  </video>
-
-  <!-- DARK OVERLAY -->
-  <div class="hero-overlay"></div>
-
-  <!-- HERO CONTENT -->
-  <div class="hero-content">
-
-    <!-- LEFT TEXT -->
-    <div class="hero-text">
-      <span class="hero-tag">AI POWERED CYBER SECURITY</span>
-
-      <h1>
-        Defending Your <br>
-        <span>Digital World</span> With AI
-      </h1>
-
-      <p>
-        Stackly delivers next-generation cybersecurity solutions using
-        artificial intelligence, real-time monitoring, and zero-trust
-        architecture to protect your business from modern cyber threats.
-      </p>
-
-      <ul class="hero-points">
-        <li>✔ 24/7 Threat Monitoring</li>
-        <li>✔ AI-Driven Detection</li>
-        <li>✔ Enterprise-Grade Protection</li>
-      </ul>
-
-      <div class="hero-actions">
-        <a href="services.html" class="hero-btn primary">Explore Services</a>
-        <a href="contact.html" class="hero-btn secondary">Talk to Expert</a>
-      </div>
-    </div>
-
-    <!-- RIGHT IMAGE -->
-    <div class="hero-image">
-      <img src="sol9.webp" alt="Cyber Security Illustration">
-    </div>
-
-  </div>
-</section>
 <!-- ================= STACKLY SOLUTIONS (DARK CYBER) ================= -->
 
 
@@ -1703,6 +1732,8 @@ section {
   opacity:.35;
   animation:float 12s ease-in-out infinite;
 }
+
+
 .orb-cyan{background:#06b6d4;top:10%;left:5%}
 .orb-purple{background:#7c3aed;bottom:10%;right:5%;animation-delay:4s}
 @keyframes float{50%{transform:translateY(-40px)}}
