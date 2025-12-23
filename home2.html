@@ -1378,6 +1378,38 @@ body{
     display:none;
   }
 }
+/* ===== MOBILE FOOTER CENTER FIX ===== */
+@media (max-width: 768px) {
+
+  footer {
+    text-align: center;
+  }
+
+  .footer-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 32px;
+  }
+
+  .footer-grid > div {
+    align-items: center !important;
+  }
+
+  .footer-grid ul {
+    padding: 0;
+  }
+
+  .footer-grid li {
+    list-style: none;
+  }
+
+  /* vertical divider hide on mobile */
+  .footer-divider {
+    display: none;
+  }
+}
+
 </style>
 </head>
 
